@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider
 from Patient import Patient
 from PIL import Image
+
 def plotStructure(structure):
     print("In PlotStructure")
     fig = plt.figure()

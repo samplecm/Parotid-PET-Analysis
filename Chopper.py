@@ -2,7 +2,6 @@ import math
 import Contours
 
 def OrganChopper(contours, numCuts, organName):
-    print("In organChopper")
     #chop into 18ths
     numCutsX = numCuts[0]
     numCutsY = numCuts[1]
@@ -40,7 +39,6 @@ def OrganChopper(contours, numCuts, organName):
 
 
 def ZChop(contours, numCutsZ):
-    print("In ZChop")
     zCuts = BestCutZ(contours, numCutsZ) #Get the list of z values where structure is to be chopped
 
     newContoursList = []
@@ -107,7 +105,6 @@ def GetContourArea(contour):
     return 0.5 * abs(area)
 
 def BestCutZ(contours, numCuts):
-    print("In BestCutZ")
     zCuts = [] 
     numContours = len(contours.wholeROI)
     totalVolume = 0
@@ -140,7 +137,6 @@ def BestCutZ(contours, numCuts):
 
 
 def ClosestContourZ(z, contours):
-    print("In ClosestContourZ")
     temp = 1000
     closestContours = [0,0]
 
@@ -236,7 +232,7 @@ def YChop(contours, numCutsY):
     return finalContours        
 
 def BestCutY(contours, numCutsY):
-    errorTolerance = 0.01
+    errorTolerance = 5e-5
     area = 0
     maxY = -1000
     minY = 1000
@@ -304,9 +300,9 @@ def ReOrder(contours, organName, numCuts):
         j = numCuts[0]
         for i in range(len(contours)):
             if j >= (numCuts[0] + 1) * (numCuts[1] + 1) * (numCuts[2] + 1):
-                j-= (numCuts[0] + 1) * (numCuts[1] + 1) * (numCuts[2] + 1) 
+                j = j - ( (numCuts[0] + 1) * (numCuts[1] + 1) * (numCuts[2] + 1) +1)
                 if j == -1:
-                    j += (numCuts[0] + 1) * (numCuts[1] + 1)
+                    j = j + (numCuts[0] + 1) * (numCuts[1] + 1)
             finalContours.append(contours[j])
             j = j + (numCuts[0]+1) * (numCuts[1] + 1)
     return finalContours
@@ -348,6 +344,7 @@ def AddIntersectionsY(contour, yCut):
                 m = (contour[i+1][1] - contour[i][1])/(contour[i+1][0] - contour[i][0])    
                 xNew = (yCut - contour[i][1])/m + contour[i][0]
             finalContour = AddPoint(finalContour, i + numAdded, [xNew, yCut, z])
+            numAdded = numAdded + 1
     return finalContour        
 
 def AddPoint(contour, index, point):
