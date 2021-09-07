@@ -10,8 +10,9 @@ from operator import delitem, itemgetter
 from PIL import Image, ImageDraw
 from Patient import Patient
 import pickle 
+import copy
 import csv
-
+import scipy.stats
 
 
 def GetContours(patientPath, organ): 
@@ -94,6 +95,7 @@ def GetCTArray(patient):
 
     #now sort list according to slice location
     imagesandSlices.sort(key= lambda x: x[1])
+    print("Collected CT data for:") 
     for idx, item in enumerate(imagesandSlices):
         array[0,idx,:,:] = item[0]
         array[3,idx,:,:] = item[1]
@@ -104,9 +106,9 @@ def GetCTArray(patient):
                 y = ipp[0] + y_idx*pixelSpacing[1]
                 array[1,idx,x_idx,y_idx] = x
                 array[2,idx,x_idx,y_idx] = y
-        print("Collected CT data for " + str(idx+1) + "/" + str(len(imagesandSlices)) + " DICOM files")         
+        print("    " + str(idx+1) + "/" + str(len(imagesandSlices)) + " DICOM files")         
     return array
-    print("Got CT Array for " + patientName)               
+    print("Successfully retrieved CT Array for " + patientName)               
 
 
 def GetSUVArray(patient):
@@ -140,6 +142,7 @@ def GetSUVArray(patient):
 
     #now sort list according to slice location
     imagesandSlices.sort(key= lambda x: x[1])
+    print("Collected PET SUV data for:") 
     for idx, item in enumerate(imagesandSlices):
         array[0,idx,:,:] = item[0]
         array[3,idx,:,:] = item[1]
@@ -150,7 +153,7 @@ def GetSUVArray(patient):
                 y = ipp[0] + y_idx*pixelSpacing[1]
                 array[1,idx,x_idx,y_idx] = x
                 array[2,idx,x_idx,y_idx] = y
-        print("Collected PET SUV data for " + str(idx+1) + "/" + str(len(imagesandSlices)) + " DICOM files")         
+        print("    " + str(idx+1) + "/" + str(len(imagesandSlices)) + " DICOM files")         
     return array
     print("Got SUV Array for " + patientName)
 
@@ -278,19 +281,24 @@ def LongestSubstring(s1,s2):
                     lcs_set.add(s1[i-c+1:i+1])
     return longest  
 
-def GetContourMasks(rp_contours, CT_Array):
-    numImagesSlices, xLen, yLen = CT_Array.shape[1:]
+def CloneList(list):
+    listCopy = copy.deepcopy(list)
+    return listCopy    
+
+def GetContourMasks(contours, Array):
+    numImagesSlices, xLen, yLen = Array.shape[1:]
     contourMasks = np.zeros((2,numImagesSlices,xLen,yLen)) #2 channels, one for filled and one for unfilled
 
-    rp_contours = CartesianToPixelCoordinates(rp_contours, CT_Array)
+    contours = CartesianToPixelCoordinates(CloneList(contours), Array)
     for idx in range(numImagesSlices):#loop through all slices creating a mask for the contours
-        for contour in rp_contours:
-            if len(contour) == 0:
+        for contour in contours:
+            if len(contour) < 3:
                 continue
-            if int(round(contour[0][2], 1)*100) == int(round(CT_Array[3,idx,0,0], 1)*100): #if contour is on the current slice
+            if abs(int(round(contour[0][2], 2)*100) - int(round(Array[3,idx,0,0], 2)*100)) < 2: #if contour is on the current slice
                 contourMaskFilled = Image.new('L', (xLen, yLen), 0 )
                 contourMaskUnfilled = Image.new('L', (xLen, yLen), 0 )
                 contourPoints = []
+
                 for point in contour:
                     contourPoints.append((int(point[0]), int(point[1])))
                 contourPolygon = Polygon(contourPoints)
@@ -299,7 +307,8 @@ def GetContourMasks(rp_contours, CT_Array):
                 contourMaskFilled = np.array(contourMaskFilled)
                 contourMaskUnfilled = np.array(contourMaskUnfilled)
                 contourMasks[0, idx, :,:] = contourMaskFilled
-                contourMasks[1,idx,:,:] = contourMaskUnfilled         
+                contourMasks[1,idx,:,:] = contourMaskUnfilled    
+                break                     
     return contourMasks                
 
 
@@ -313,43 +322,76 @@ def CartesianToPixelCoordinates(contours, array):
             point[1] = min(range(len(yVals)), key=lambda i: abs(yVals[i]-point[1]))
     return contours        
 
-def ImageUpsizer(array, factor):
+def ImageUpsizer(array, newDimensions):
     """Supersizes an array by the factor given.   
 
     Args:
         array (2D numpy array): an array to be supersized
-        factor (int): the amount to supersize the array by 
+        newDimensions (list): the size of the array which is to be returned
 
     Returns:
         newArray (2D numpy array): the supersized array
 
     """
-
-    #Take an array and supersize it by the factor given
     xLen, yLen = array.shape
-    newArray = np.zeros((factor * xLen, factor * yLen))
-    #first get the original values in to the grid: 
+    xLen_new, yLen_new = newDimensions
+
+    intermediateArray= np.zeros((xLen, yLen_new)) #first make an intermediate array with the sampling along y
+    newArray = np.zeros((xLen_new, yLen_new))
+
+    scaleSize = float(xLen_new / xLen)
     for i in range(xLen):
-        for j in range(yLen):
-            newArray[i * factor, j * factor] = array[i,j]
-    #sample along first dim
-    for j in range(yLen):
-        for i in range(xLen - 1):
-            insert = 1 
-            while insert <= factor - 1:
-                newArray[i * factor + insert, j * factor] = newArray[i * factor, j * factor] + (insert / factor) * (newArray[(i+1) * factor, j * factor]- newArray[i * factor, j * factor])
-                insert += 1
-    #sample along second dim
-    for i in range(xLen * factor):
-        for j in range(yLen - 1):
-            insert = 1 
-            while insert <= factor - 1:
-                newArray[i, j * factor + insert] = newArray[i, j * factor] + (insert / factor) * (newArray[i, (j+1) * factor]- newArray[i, j * factor])
-                insert += 1
+        for j in range(yLen_new):
+            pixelFactor = float(j/scaleSize)
+            leftPixel = int(pixelFactor)
+            rightPixel = leftPixel + 1
+            pixelFactor = pixelFactor - leftPixel
+            if rightPixel < yLen:
+                newVal = (1-pixelFactor) * array[i, leftPixel] + pixelFactor*array[i, rightPixel]
+            elif rightPixel == yLen:
+                newVal = array[i, leftPixel]    
+            intermediateArray[i, j] = newVal
+
+    for j in range(yLen_new):
+        for i in range(xLen_new):
+            pixelFactor = float(i/scaleSize)
+            leftPixel = int(pixelFactor)
+            rightPixel = leftPixel + 1
+            pixelFactor = pixelFactor - leftPixel
+            if rightPixel < xLen:
+                newVal = (1-pixelFactor) * intermediateArray[leftPixel, j] + pixelFactor*intermediateArray[rightPixel, j]
+            elif rightPixel == xLen:
+                newVal = intermediateArray[leftPixel,j]
+            newArray[i,j] = newVal
+
     return newArray
 
 
-def GetParotidSUVs(patient : Patient):
+    # #Take an array and supersize it by the factor given
+    # xLen, yLen = array.shape
+    # newArray = np.zeros((factor * xLen, factor * yLen))
+    # #first get the original values in to the grid: 
+    # for i in range(xLen):
+    #     for j in range(yLen):
+    #         newArray[i * factor, j * factor] = array[i,j]
+    # #sample along first dim
+    # for j in range(yLen):
+    #     for i in range(xLen - 1):
+    #         insert = 1 
+    #         while insert <= factor - 1:
+    #             newArray[i * factor + insert, j * factor] = newArray[i * factor, j * factor] + (insert / factor) * (newArray[(i+1) * factor, j * factor]- newArray[i * factor, j * factor])
+    #             insert += 1
+    # #sample along second dim
+    # for i in range(xLen * factor):
+    #     for j in range(yLen - 1):
+    #         insert = 1 
+    #         while insert <= factor - 1:
+    #             newArray[i, j * factor + insert] = newArray[i, j * factor] + (insert / factor) * (newArray[i, (j+1) * factor]- newArray[i, j * factor])
+    #             insert += 1
+    # return newArray
+
+
+def GetParotidSUVAnalysis(patient : Patient):
     #this function takes a pet suv array and a structure and computes the mean suv within the structure    
     
     pet_array = patient.PETArray 
@@ -403,8 +445,9 @@ def GetParotidSUVs(patient : Patient):
                 subSegMasks_l = pickle.load(fp)
         except:      
             subSegMasks_l = GetContourMasks(subsegment, pet_array)
-            with open(os.path.join(subsegDir, str(patient.name + "_left_subsegMasks_" + str(int(subseg_idx+1)) + ".txt")), "wb") as fp:
-                pickle.dump(subSegMasks_l, fp)
+            # with open(os.path.join(subsegDir, str(patient.name + "_left_subsegMasks_" + str(int(subseg_idx+1)) + ".txt")), "wb") as fp:
+            #     pickle.dump(subSegMasks_l, fp)
+            ##takes too long to save
         print("Calculating average SUV in subsegment " + str(int(subseg_idx+1))+ " of left parotid.")
         for slice_idx in range(0,pet_array.shape[1]):
             
@@ -430,8 +473,8 @@ def GetParotidSUVs(patient : Patient):
                 subSegMasks_r = pickle.load(fp)
         except:      
             subSegMasks_r = GetContourMasks(subsegment, pet_array)
-            with open(os.path.join(subsegDir, str(patient.name + "_right_subsegMasks_" + str(int(subseg_idx+1)) + ".txt")), "wb") as fp:
-                pickle.dump(subSegMasks_r, fp)
+            # with open(os.path.join(subsegDir, str(patient.name + "_right_subsegMasks_" + str(int(subseg_idx+1)) + ".txt")), "wb") as fp:
+            #     pickle.dump(subSegMasks_r, fp)
         print("Calculating average SUV in subsegment " + str(int(subseg_idx+1))+ " of right parotid.")
         for slice_idx in range(0,pet_array.shape[1]):
             if np.amax(subSegMasks_r[0,slice_idx,:,:]) == 0: #if no contour on slice skip
@@ -449,6 +492,19 @@ def GetParotidSUVs(patient : Patient):
         rPar_SUVs[subseg_idx+1,0] = rPar_SUVs[subseg_idx+1,0] / rPar_SUVs[subseg_idx+1,1]
     rPar_SUVs = rPar_SUVs[:,0]
 
+
+    rightSpearman = SpearmansRankCorrelation(rPar_SUVs[1:].tolist())
+    leftSpearman = SpearmansRankCorrelation(lPar_SUVs[1:].tolist())
+    rightSpearman_t = Get_t_value(rightSpearman, 18)
+    leftSpearman_t = Get_t_value(leftSpearman, 18)
+    rightSpearman_p = scipy.stats.t.sf(np.abs(rightSpearman_t), 16)
+    leftSpearman_p = scipy.stats.t.sf(np.abs(leftSpearman_t), 16)
+    rightPearson = PearsonsRankCorrelation(rPar_SUVs[1:].tolist())
+    leftPearson = PearsonsRankCorrelation(lPar_SUVs[1:].tolist())
+    rightPearson_t = Get_t_value(rightPearson, 18)
+    leftPearson_t = Get_t_value(leftPearson, 18)
+    rightPearson_p = scipy.stats.t.sf(np.abs(rightPearson_t), 16)
+    leftPearson_p = scipy.stats.t.sf(np.abs(leftPearson_t), 16)
     #Now save these SUV stats into a csv
 
     csvPath = os.path.join(patient.path, "suv_stats.csv")
@@ -458,20 +514,87 @@ def GetParotidSUVs(patient : Patient):
         filewriter.writerow(['-', 'Left-Parotid', 'Right-Parotid'])
         filewriter.writerow(["whole-gland", lPar_SUVs[0], rPar_SUVs[0]]) 
         for idx in range(1, len(lPar_SUVs)):
-            filewriter.writerow([str(int(idx+1)), lPar_SUVs[idx], rPar_SUVs[idx]]) 
-            
-
-    
-
-       
-
-
-
+            filewriter.writerow([str(int(idx)), lPar_SUVs[idx], rPar_SUVs[idx]]) 
+        filewriter.writerow(["Spearmans Coefficient", leftSpearman, rightSpearman])
+        filewriter.writerow(["Pearsons Coefficient", leftPearson, rightPearson])
+        filewriter.writerow(["Spearman Significance", leftSpearman_p, rightSpearman_p])
+        filewriter.writerow(["Pearson Significance", leftPearson_p, rightPearson_p])
 
     return [lPar_SUVs, rPar_SUVs]
+def Get_t_value(rho, n):
+    return rho * np.sqrt((n-2)/(1-rho**2)) 
+def SpearmansRankCorrelation(suvs):
+    #This function computes the spearmans rank coefficient for a list of suv values
+
+    if len(suvs) == 18: #if 18 subsegments
+        importanceVals = [0.751310670731707,  0.526618902439024,   0.386310975609756,
+            1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
+            0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
+            0.272984146341463,   0.0484897103658537,  0.035493902439024]
+    importanceRanks = GetListRank(importanceVals)      
+    suvRanks = GetListRank(suvs)
+    n = len(suvRanks)
+    sumRankDifs = 0
+    for i in range(len(suvRanks)):
+        sumRankDifs = sumRankDifs + (importanceRanks[i] - suvRanks[i])**2
+    rho = 1 - ((6*sumRankDifs)/(n*(n**2-1)))    
+    return rho
+def PearsonsRankCorrelation(suvs):
+    #This function computes the spearmans rank coefficient for a list of suv values
+
+    if len(suvs) == 18: #if 18 subsegments
+        importanceVals = [0.751310670731707,  0.526618902439024,   0.386310975609756,
+            1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
+            0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
+            0.272984146341463,   0.0484897103658537,  0.035493902439024]
+    n = len(suvs)
+    sum_xy = 0
+    sum_x = 0
+    sum_y = 0
+    sum_x2 = 0
+    sum_y2 = 0
+
+    for i in range(len(suvs)):
+        sum_xy = sum_xy + suvs[i]*importanceVals[i]
+        sum_x = sum_x + suvs[i]
+        sum_y = sum_y + importanceVals[i]
+        sum_x2 = sum_x2 + suvs[i]**2
+        sum_y2 = sum_y2 + importanceVals[i]**2
+    r_numerator = n*sum_xy - (sum_x * sum_y) 
+    r_denominator = np.sqrt((n*sum_x2-sum_x**2)*(n*sum_y2-sum_y**2))
+    r = r_numerator / r_denominator
+    return r
+
+def GetListRank(inputList):
+    #This function returns a list of the same size which returns integers corresponding to the ordinal value of each item in the input list, from largest to smallest
+    inputListOrig = CloneList(inputList)
+    rankList = []
+    for i in range(len(inputList)):
+        rankList.append(0)
+    rank = 1
+    while len(inputList) > 0:
+        maxVal = 0
+        maxIdx = 0
+        for i in range(len(inputList)):
+            if inputList[i] > maxVal:
+                maxVal = inputList[i]
+                maxIdx = inputListOrig.index(maxVal)
+                origIdx = i
+        rankList[maxIdx] = rank
+        inputList.pop(origIdx)
+        rank = rank + 1
+
+    return rankList    
+
+
+
 
 
 
 if __name__ == '__main__':
-    GetContours("/home/calebsample/Documents/UBC/PET PSMA/PSMA Analysis/SG_PETRT/1")
+    #GetContours("/home/calebsample/Documents/UBC/PET PSMA/PSMA Analysis/SG_PETRT/1")
     #GetSUVArray("/home/calebsample/Documents/UBC/PET PSMA/PSMA Analysis/SG_PETRT/1")
+    SpearmansRankCorrelation([0.751310670731707,  0.526618902439024,   0.386310975609756,
+            1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
+            0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
+            0.272984146341463,   0.0484897103658537,  0.035493902439024])

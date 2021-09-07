@@ -3,13 +3,14 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np 
 import math
-
+from GetImageData import CloneList
 from numpy.lib.type_check import imag
 import GetImageData
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider
 from Patient import Patient
 from PIL import Image
+import copy
 
 def plotStructure(structure):
     print("In PlotStructure")
@@ -73,15 +74,26 @@ def update(val):
 
     fig.canvas.draw()
     
-def PlotPETwithParotids(patient : Patient):
+def PlotPETwithParotids(patient : Patient, plotSubSegs=False):
     global fig, ax, sliderT, sliderO, combinedArray, rPar, lPar, img
     petArray = patient.PETArray
     #normalize the CT array to have minimum 0 and maximum 0.8:
-    ctArray = NormalizeArray(petArray, 0.8)
-    print([np.amin(petArray), np.amax(petArray)])
-    rPar = patient.RightParotidMasks
-    lPar = patient.LeftParotidMasks
-    combinedArray = MaskOnImage(petArray.copy(),[lPar, rPar])
+    normalizedPetArray = NormalizeArray(CloneList(petArray), 0.8)
+    
+    if plotSubSegs:
+        rPar = CloneList(patient.RightParotid.segmentedContours18)
+        lPar = CloneList(patient.LeftParotid.segmentedContours18)
+        lParMasks = GetImageData.GetContourMasks(CloneList(lPar[0]), petArray)
+        rParMasks = GetImageData.GetContourMasks(CloneList(rPar[0]), petArray)
+        combinedArray = MaskOnImage(normalizedPetArray.copy(), [lParMasks, rParMasks])
+        for i in range(1,18):
+            lParMasks = GetImageData.GetContourMasks(CloneList(lPar[i]), petArray)
+            rParMasks = GetImageData.GetContourMasks(CloneList(rPar[i]), petArray)
+            combinedArray = MaskOnImage(combinedArray, [lParMasks, rParMasks])
+    else:        
+        rPar = patient.RightParotidMasks
+        lPar = patient.LeftParotidMasks
+        combinedArray = MaskOnImage(normalizedPetArray.copy(),[lPar, rPar])
     #this function creates a slider plot of all suv slice images 
     
     #First get the suvs as a 3d numpy array. 
@@ -154,7 +166,6 @@ def MaskOnImage(array, masks):
     newArray = array.copy()
     for i in range(array.shape[1]):
         image = newArray[0,i,:,:]
-        image2 = newArray[1,i,:,:]
         for mask in masks:
             maskImage = mask[1,i,:,:]
             image = image + maskImage
