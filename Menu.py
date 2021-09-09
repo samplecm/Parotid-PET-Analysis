@@ -46,7 +46,7 @@ def GetPatient(patientPath, patientNum):
    patient.RightParotidMasks = GetImageData.GetContourMasks(rp_contours.wholeROI.copy(), patient.PETArray)
          
    return patient
-for i in range(17,31):
+for i in range(29,31):
 
    patientPath = "/media/calebsample/Data/PET PSMA/PSMA Analysis/SG_PETRT/" + str(i)
    patient = GetPatient(patientPath, 1)

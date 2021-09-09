@@ -11,6 +11,7 @@ from matplotlib.widgets import Slider
 from Patient import Patient
 from PIL import Image
 import copy
+from Data_Analyzing import GetListRank
 
 def plotStructure(structure):
     print("In PlotStructure")
@@ -174,6 +175,48 @@ def MaskOnImage(array, masks):
 
     return newArray       
 
+def CorrelationPlot():
+    importanceVals = [0.751310670731707,  0.526618902439024,   0.386310975609756,
+            1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
+            0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
+            0.272984146341463,   0.0484897103658537,  0.035493902439024]
+    leftSUVs = [10809, 13002, 12140, 13943, 16767, 16564, 16469, 18995, 17250, 13983, 16645, 15153, 17303, 20449, 18917, 18020, 21214, 19283]
+    rightSUVs = [11820, 13593, 12279, 14884, 17103, 16998, 16550, 18245, 16755, 13209, 15898, 15443, 16076, 19399, 18955, 16905, 20393, 19244]        
+    leftSUVs = list(zip(leftSUVs, importanceVals))
+    rightSUVs = list(zip(rightSUVs, importanceVals))
+
+    #sort the lists by importance: 
+    leftSUVs.sort(key=lambda x: x[1])
+    rightSUVs.sort(key=lambda x: x[1])
+
+    suvs_left = []
+    suvs_right = []
+    importanceVals.sort()
+    for idx in range(len(leftSUVs)):
+        suvs_left.append(leftSUVs[idx][0])
+        suvs_right.append(rightSUVs[idx][0])
+      
+    fig = plt.figure()
+    axLeft = fig.add_subplot(211)
+    axLeft.scatter(importanceVals, suvs_left)
+    axLeft.set_xlabel('Subsegment Importance')
+    axLeft.set_ylabel('Subsegment Average SUV')
+    axLeft.set_title("Left Parotid: \n Spearman's Rank: -0.56 (p < 0.008) \n Pearson's Rank: -0.52 (p < 0.014)")
+    axRight = fig.add_subplot(212)
+    axRight.scatter(importanceVals, suvs_right)
+    axRight.set_xlabel('Subsegment Importance')
+    axRight.set_ylabel('Subsegment Average SUV')
+    axLeft.set_title("Right Parotid: \n Spearman's Rank: -0.512 (p < 0.015) \n Pearson's Rank: -0.477 (p < 0.023)")
+    plt.subplots_adjust(hspace=0.4)  
+    plt.show()    
+
+
+
+
+    
+
+
+
 if __name__ == "__main__":
     # contour = []
     # radius = 1
@@ -192,5 +235,6 @@ if __name__ == "__main__":
     #     offset = offset + 2.5
 
     # plotStructure(contour)    
-    PlotSUVs("/home/calebsample/Documents/UBC/PET PSMA/PSMA Analysis/SG_PETRT/1")
+    #PlotSUVs("/home/calebsample/Documents/UBC/PET PSMA/PSMA Analysis/SG_PETRT/1")
+    CorrelationPlot()
                                     

@@ -13,6 +13,7 @@ import pickle
 import copy
 import csv
 import scipy.stats
+from Data_Analyzing import Get_t_value, SpearmansRankCorrelation, GetListRank, PearsonsRankCorrelation, CloneList
 
 
 def GetContours(patientPath, organ): 
@@ -281,9 +282,6 @@ def LongestSubstring(s1,s2):
                     lcs_set.add(s1[i-c+1:i+1])
     return longest  
 
-def CloneList(list):
-    listCopy = copy.deepcopy(list)
-    return listCopy    
 
 def GetContourMasks(contours, Array):
     numImagesSlices, xLen, yLen = Array.shape[1:]
@@ -521,70 +519,6 @@ def GetParotidSUVAnalysis(patient : Patient):
         filewriter.writerow(["Pearson Significance", leftPearson_p, rightPearson_p])
 
     return [lPar_SUVs, rPar_SUVs]
-def Get_t_value(rho, n):
-    return rho * np.sqrt((n-2)/(1-rho**2)) 
-def SpearmansRankCorrelation(suvs):
-    #This function computes the spearmans rank coefficient for a list of suv values
-
-    if len(suvs) == 18: #if 18 subsegments
-        importanceVals = [0.751310670731707,  0.526618902439024,   0.386310975609756,
-            1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
-            0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
-            0.272984146341463,   0.0484897103658537,  0.035493902439024]
-    importanceRanks = GetListRank(importanceVals)      
-    suvRanks = GetListRank(suvs)
-    n = len(suvRanks)
-    sumRankDifs = 0
-    for i in range(len(suvRanks)):
-        sumRankDifs = sumRankDifs + (importanceRanks[i] - suvRanks[i])**2
-    rho = 1 - ((6*sumRankDifs)/(n*(n**2-1)))    
-    return rho
-def PearsonsRankCorrelation(suvs):
-    #This function computes the spearmans rank coefficient for a list of suv values
-
-    if len(suvs) == 18: #if 18 subsegments
-        importanceVals = [0.751310670731707,  0.526618902439024,   0.386310975609756,
-            1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
-            0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
-            0.272984146341463,   0.0484897103658537,  0.035493902439024]
-    n = len(suvs)
-    sum_xy = 0
-    sum_x = 0
-    sum_y = 0
-    sum_x2 = 0
-    sum_y2 = 0
-
-    for i in range(len(suvs)):
-        sum_xy = sum_xy + suvs[i]*importanceVals[i]
-        sum_x = sum_x + suvs[i]
-        sum_y = sum_y + importanceVals[i]
-        sum_x2 = sum_x2 + suvs[i]**2
-        sum_y2 = sum_y2 + importanceVals[i]**2
-    r_numerator = n*sum_xy - (sum_x * sum_y) 
-    r_denominator = np.sqrt((n*sum_x2-sum_x**2)*(n*sum_y2-sum_y**2))
-    r = r_numerator / r_denominator
-    return r
-
-def GetListRank(inputList):
-    #This function returns a list of the same size which returns integers corresponding to the ordinal value of each item in the input list, from largest to smallest
-    inputListOrig = CloneList(inputList)
-    rankList = []
-    for i in range(len(inputList)):
-        rankList.append(0)
-    rank = 1
-    while len(inputList) > 0:
-        maxVal = 0
-        maxIdx = 0
-        for i in range(len(inputList)):
-            if inputList[i] > maxVal:
-                maxVal = inputList[i]
-                maxIdx = inputListOrig.index(maxVal)
-                origIdx = i
-        rankList[maxIdx] = rank
-        inputList.pop(origIdx)
-        rank = rank + 1
-
-    return rankList    
 
 
 
