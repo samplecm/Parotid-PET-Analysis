@@ -206,8 +206,8 @@ def CorrelationPlot():
     axRight.scatter(importanceVals, suvs_right)
     axRight.set_xlabel('Subsegment Importance')
     axRight.set_ylabel('Subsegment Average SUV')
-    axLeft.set_title("Right Parotid: \n Spearman's Rank: -0.512 (p < 0.015) \n Pearson's Rank: -0.477 (p < 0.023)")
-    plt.subplots_adjust(hspace=0.4)  
+    axRight.set_title("Right Parotid: \n Spearman's Rank: -0.512 (p < 0.015) \n Pearson's Rank: -0.477 (p < 0.023)")
+    plt.subplots_adjust(hspace=0.9)  
     plt.show()    
 
 

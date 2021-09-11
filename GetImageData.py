@@ -127,6 +127,7 @@ def GetSUVArray(patient):
         metadata = pydicom.dcmread(imagePath)
         pixelData = metadata.pixel_array
         sliceLocation = metadata[0x0020, 0x1041].value
+        rescaleSlope = metadata[0x0028, 0x1053].value
         imagesandSlices.append([pixelData, sliceLocation])
 
         if idx == 0:
@@ -145,7 +146,7 @@ def GetSUVArray(patient):
     imagesandSlices.sort(key= lambda x: x[1])
     print("Collected PET SUV data for:") 
     for idx, item in enumerate(imagesandSlices):
-        array[0,idx,:,:] = item[0]
+        array[0,idx,:,:] = item[0] * rescaleSlope
         array[3,idx,:,:] = item[1]
         
         for x_idx in range(xLen):

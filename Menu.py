@@ -17,6 +17,7 @@ def GetPatient(patientPath, patientNum):
    rp_contours = GetImageData.GetContours(patientPath, "Right Parotid")
    try:
       with open(os.path.join(patientPath, "PatientData.txt"), "rb") as fp:
+         a = 5/0
          patient = pickle.load(fp)
          PET_Array = patient.PETArray
          CT_Array = patient.CTArray
@@ -46,7 +47,7 @@ def GetPatient(patientPath, patientNum):
    patient.RightParotidMasks = GetImageData.GetContourMasks(rp_contours.wholeROI.copy(), patient.PETArray)
          
    return patient
-for i in range(29,31):
+for i in range(1,31):
 
    patientPath = "/media/calebsample/Data/PET PSMA/PSMA Analysis/SG_PETRT/" + str(i)
    patient = GetPatient(patientPath, 1)
