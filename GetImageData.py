@@ -13,8 +13,9 @@ import pickle
 import copy
 import csv
 import scipy.stats
-from Data_Analyzing import Get_t_value, SpearmansRankCorrelation, GetListRank, PearsonsRankCorrelation, CloneList
+from Data_Analyzing import Get_t_value, SpearmansRankCorrelation, GetListRank, PearsonsRankCorrelation, CloneList, DicomSaver
 
+parentDirectory = os.getcwd()
 
 def GetContours(patientPath, organ): 
     patientItems = os.listdir(patientPath)
@@ -50,6 +51,11 @@ def GetContours(patientPath, organ):
                 contourList[-1] = tempContour 
     contours = Contours(organ, structure, contourList)   
     Chopper.OrganChopper(contours, [2, 1, 2], organ) #Get 18ths subsegments
+
+
+        
+
+
     
     return contours             
 
@@ -111,6 +117,13 @@ def GetCTArray(patient):
     return array
     print("Successfully retrieved CT Array for " + patientName)               
 
+def HHMMSS_To_S(val):
+    s = 0
+    hours = float(val[0:2]) * 60 * 60
+    mins = float(val[2:4]) * 60
+    seconds = float(val[4:])
+    s = hours + mins + seconds
+    return s
 
 def GetSUVArray(patient):
     #This returns a 4d array with the first dimension having 4 channels - one for pet image, and other 3 for x,y,z coordinates of pixel
@@ -127,34 +140,44 @@ def GetSUVArray(patient):
         metadata = pydicom.dcmread(imagePath)
         pixelData = metadata.pixel_array
         sliceLocation = metadata[0x0020, 0x1041].value
-        rescaleSlope = metadata[0x0028, 0x1053].value
-        imagesandSlices.append([pixelData, sliceLocation])
-
+        rescaleSlope = float(metadata[0x0028, 0x1053].value)
+        patientWeight = float(metadata[0x0010, 0x1030].value)
+        acquisitionTime = metadata[0x0008,0x0031].value
+        acquisitionTime = HHMMSS_To_S(acquisitionTime)
+        halfLife = float(metadata[0x0054, 0x0016][0][0x0018, 0x1075].value)
+        radStartTime = metadata[0x0054, 0x0016][0][0x0018, 0x1072].value
+        radStartTime = HHMMSS_To_S(radStartTime)
+        totalDose = float(metadata[0x0054,0x0016][0][0x0018, 0x1074].value)
+        
+        imagesandSlices.append([pixelData, sliceLocation, rescaleSlope, acquisitionTime])
         if idx == 0:
             xLen, yLen = pixelData.shape
             patientName = metadata[0x0010,0x0020].value
             ipp = metadata[0x0020,0x0032].value #image position patient
             iop = metadata[0x0020, 0x0037].value
             pixelSpacing = metadata[0x0028,0x0030].value
-            array = np.zeros((4, len(petImages), xLen, yLen))
+            array = np.zeros((5, len(petImages), xLen, yLen)) #first index in SUVBW, then second is BqmL, then position arrays (xyz)
 
-            #Now get the x,y position of pixels
 
-        
+
 
     #now sort list according to slice location
     imagesandSlices.sort(key= lambda x: x[1])
     print("Collected PET SUV data for:") 
     for idx, item in enumerate(imagesandSlices):
-        array[0,idx,:,:] = item[0] * rescaleSlope
-        array[3,idx,:,:] = item[1]
+        totalDoseCorrected = float(totalDose * 2 **((radStartTime-item[3])/halfLife))
+        rescaleSlope = item[2]
+        
+        array[0,idx,:,:] = item[0] * rescaleSlope * patientWeight * 1000 / totalDoseCorrected
+        array[1,idx,:,:] = item[0] * rescaleSlope
+        array[4,idx,:,:] = item[1]
         
         for x_idx in range(xLen):
             for y_idx in range(yLen):
                 x = ipp[0] + x_idx*pixelSpacing[0]
                 y = ipp[0] + y_idx*pixelSpacing[1]
-                array[1,idx,x_idx,y_idx] = x
-                array[2,idx,x_idx,y_idx] = y
+                array[2,idx,x_idx,y_idx] = x
+                array[3,idx,x_idx,y_idx] = y
         print("    " + str(idx+1) + "/" + str(len(imagesandSlices)) + " DICOM files")         
     return array
     print("Got SUV Array for " + patientName)
@@ -293,7 +316,7 @@ def GetContourMasks(contours, Array):
         for contour in contours:
             if len(contour) < 3:
                 continue
-            if abs(int(round(contour[0][2], 2)*100) - int(round(Array[3,idx,0,0], 2)*100)) < 2: #if contour is on the current slice
+            if abs(int(round(contour[0][2], 2)*100) - int(round(Array[4,idx,0,0], 2)*100)) < 2: #if contour is on the current slice
                 contourMaskFilled = Image.new('L', (xLen, yLen), 0 )
                 contourMaskUnfilled = Image.new('L', (xLen, yLen), 0 )
                 contourPoints = []
@@ -313,8 +336,8 @@ def GetContourMasks(contours, Array):
 
 def CartesianToPixelCoordinates(contours, array):
     #convert x and y values for a contour into the pixel indices where they are on the pet array
-    xVals = array[1,0,:,0]
-    yVals = array[2,0,0,:]
+    xVals = array[2,0,:,0]
+    yVals = array[3,0,0,:]
     for contour in contours: 
         for point in contour:
             point[0] = min(range(len(xVals)), key=lambda i: abs(xVals[i]-point[0]))
@@ -390,136 +413,7 @@ def ImageUpsizer(array, newDimensions):
     # return newArray
 
 
-def GetParotidSUVAnalysis(patient : Patient):
-    #this function takes a pet suv array and a structure and computes the mean suv within the structure    
-    
-    pet_array = patient.PETArray 
-    lPar = patient.LeftParotid
-    rPar = patient.RightParotid
-    lParMasks = patient.LeftParotidMasks
-    rParMasks = patient.RightParotidMasks
 
-    lPar_SUVs = np.zeros((19,2))
-    rPar_SUVs = np.zeros((19,2)) #second dimension to hold number of points used for average, which will be removed after being used at the end
-    print("Calculating Parotid SUVs.")
-
-
-    for slice_idx in range(0,pet_array.shape[1]):
-        print("On Slice #" + str(slice_idx+1) + " for whole parotid glands.")
-        if np.amax(lParMasks[0,slice_idx,:,:]) == 0 and np.amax(rParMasks[0,slice_idx,:,:]) == 0: #if no contour on slice skip
-            continue
-        for x_idx in range(512):
-            for y_idx in range(512):
-                if lParMasks[0,slice_idx, x_idx,y_idx] == 1:
-                    lPar_SUVs[0,0] = lPar_SUVs[0,0] +  pet_array[0,slice_idx,x_idx,y_idx]
-                    lPar_SUVs[0,1] = lPar_SUVs[0,1] + 1
-
-                if rParMasks[0,slice_idx, x_idx,y_idx] == 1:
-                    rPar_SUVs[0,0] = rPar_SUVs[0,0] + pet_array[0,slice_idx,x_idx,y_idx]
-                    rPar_SUVs[0,1] = rPar_SUVs[0,1] + 1    
-
-        
-    lPar_SUVs[0,0] = lPar_SUVs[0,0] / lPar_SUVs[0,1]
-    rPar_SUVs[0,0] = rPar_SUVs[0,0] / rPar_SUVs[0,1]
-
-
-
-    #Now calculate for the subsegments. 
-    lPar18 = patient.LeftParotid.segmentedContours18
-    rPar18 = patient.RightParotid.segmentedContours18
-
-    #check if subsegment directory exists and if not create one
-    subsegDir = os.path.join(patient.path, "SubSegMasks")
-    if not os.path.isdir(subsegDir):
-        os.mkdir(subsegDir)
-
-    print("Finished calculating SUVs for whole glands.")
-    print("Beginning subsegment SUV calculations.")
-
-    #first left par subsegs
-    for subseg_idx, subsegment in enumerate(lPar18):
-        try: #try to load the masks for the subsegment
-
-            with open(os.path.join(subsegDir, str(patient.name + "_left_subsegMasks_" + str(int(subseg_idx+1)) + ".txt")), "rb") as fp:
-                subSegMasks_l = pickle.load(fp)
-        except:      
-            subSegMasks_l = GetContourMasks(subsegment, pet_array)
-            # with open(os.path.join(subsegDir, str(patient.name + "_left_subsegMasks_" + str(int(subseg_idx+1)) + ".txt")), "wb") as fp:
-            #     pickle.dump(subSegMasks_l, fp)
-            ##takes too long to save
-        print("Calculating average SUV in subsegment " + str(int(subseg_idx+1))+ " of left parotid.")
-        for slice_idx in range(0,pet_array.shape[1]):
-            
-            if np.amax(subSegMasks_l[0,slice_idx,:,:]) == 0: #if no contour on slice skip
-                continue
-
-            layerBoolMask = subSegMasks_l[0,slice_idx,:,:] > 0
-            subsegSUVs = pet_array[0,slice_idx,:,:][layerBoolMask]
-            suv_sum = np.sum(subsegSUVs)
-            numPoints = len(subsegSUVs)
-            lPar_SUVs[subseg_idx+1, 0] = lPar_SUVs[subseg_idx+1, 0] + suv_sum
-            lPar_SUVs[subseg_idx+1,1] = lPar_SUVs[subseg_idx+1,1] + numPoints
-
-            
-        lPar_SUVs[subseg_idx+1,0] = lPar_SUVs[subseg_idx+1,0] / lPar_SUVs[subseg_idx+1,1]
-    lPar_SUVs = lPar_SUVs[:,0]
-
-    #Now right par subsegs
-    for subseg_idx, subsegment in enumerate(rPar18):
-        try: #try to load the masks for the subsegment
-
-            with open(os.path.join(subsegDir, str(patient.name + "_right_subsegMasks_" + str(int(subseg_idx+1)) + ".txt")), "rb") as fp:
-                subSegMasks_r = pickle.load(fp)
-        except:      
-            subSegMasks_r = GetContourMasks(subsegment, pet_array)
-            # with open(os.path.join(subsegDir, str(patient.name + "_right_subsegMasks_" + str(int(subseg_idx+1)) + ".txt")), "wb") as fp:
-            #     pickle.dump(subSegMasks_r, fp)
-        print("Calculating average SUV in subsegment " + str(int(subseg_idx+1))+ " of right parotid.")
-        for slice_idx in range(0,pet_array.shape[1]):
-            if np.amax(subSegMasks_r[0,slice_idx,:,:]) == 0: #if no contour on slice skip
-                continue
-
-            layerBoolMask = subSegMasks_r[0,slice_idx,:,:] > 0
-            subsegSUVs = pet_array[0,slice_idx,:,:][layerBoolMask]
-            suv_sum = np.sum(subsegSUVs)
-            numPoints = len(subsegSUVs)
-            rPar_SUVs[subseg_idx+1, 0] = rPar_SUVs[subseg_idx+1, 0] + suv_sum
-            rPar_SUVs[subseg_idx+1,1] = rPar_SUVs[subseg_idx+1,1] + numPoints
-
-        
-
-        rPar_SUVs[subseg_idx+1,0] = rPar_SUVs[subseg_idx+1,0] / rPar_SUVs[subseg_idx+1,1]
-    rPar_SUVs = rPar_SUVs[:,0]
-
-
-    rightSpearman = SpearmansRankCorrelation(rPar_SUVs[1:].tolist())
-    leftSpearman = SpearmansRankCorrelation(lPar_SUVs[1:].tolist())
-    rightSpearman_t = Get_t_value(rightSpearman, 18)
-    leftSpearman_t = Get_t_value(leftSpearman, 18)
-    rightSpearman_p = scipy.stats.t.sf(np.abs(rightSpearman_t), 16)
-    leftSpearman_p = scipy.stats.t.sf(np.abs(leftSpearman_t), 16)
-    rightPearson = PearsonsRankCorrelation(rPar_SUVs[1:].tolist())
-    leftPearson = PearsonsRankCorrelation(lPar_SUVs[1:].tolist())
-    rightPearson_t = Get_t_value(rightPearson, 18)
-    leftPearson_t = Get_t_value(leftPearson, 18)
-    rightPearson_p = scipy.stats.t.sf(np.abs(rightPearson_t), 16)
-    leftPearson_p = scipy.stats.t.sf(np.abs(leftPearson_t), 16)
-    #Now save these SUV stats into a csv
-
-    csvPath = os.path.join(patient.path, "suv_stats.csv")
-
-    with open(csvPath, 'w') as csvFile:
-        filewriter = csv.writer(csvFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        filewriter.writerow(['-', 'Left-Parotid', 'Right-Parotid'])
-        filewriter.writerow(["whole-gland", lPar_SUVs[0], rPar_SUVs[0]]) 
-        for idx in range(1, len(lPar_SUVs)):
-            filewriter.writerow([str(int(idx)), lPar_SUVs[idx], rPar_SUVs[idx]]) 
-        filewriter.writerow(["Spearmans Coefficient", leftSpearman, rightSpearman])
-        filewriter.writerow(["Pearsons Coefficient", leftPearson, rightPearson])
-        filewriter.writerow(["Spearman Significance", leftSpearman_p, rightSpearman_p])
-        filewriter.writerow(["Pearson Significance", leftPearson_p, rightPearson_p])
-
-    return [lPar_SUVs, rPar_SUVs]
 
 
 

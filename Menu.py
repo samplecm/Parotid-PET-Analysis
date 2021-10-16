@@ -1,5 +1,6 @@
 import GetImageData
-from GetImageData import GetParotidSUVAnalysis, GetPatientName
+from GetImageData import GetPatientName
+from Data_Analyzing import GetParotidSUVAnalysis
 import Segmentation
 import Visuals
 from Patient import Patient
@@ -7,6 +8,10 @@ from pydicom import dcmread
 import pickle
 import os
 import numpy as np
+import Data_Analyzing
+from Data_Analyzing import DicomSaver
+
+parentDirectory = os.getcwd()
 
 def GetPatient(patientPath, patientNum):
    print("Loading patient data")
@@ -21,6 +26,8 @@ def GetPatient(patientPath, patientNum):
          patient = pickle.load(fp)
          PET_Array = patient.PETArray
          CT_Array = patient.CTArray
+         patient.LeftParotid = lp_contours
+      patient.RightParotid = rp_contours
    except:      
       patient = Patient(patientName)
       CT_Array = GetImageData.GetCTArray(patientPath)
@@ -28,33 +35,40 @@ def GetPatient(patientPath, patientNum):
       patient.path = patientPath 
       patient.patientNum = patientNum
       patient.CTArray = CT_Array
-      patient.PETArray = PET_Array
-      PET_Array_SS = np.zeros((4, PET_Array.shape[1], 512, 512))
+      PET_Array_SS = np.zeros((5, PET_Array.shape[1], 512, 512))
       print("Upsizing the PET arrays to match CT resolution")
       for idx in range(PET_Array.shape[1]):
          PET_Array_SS[0,idx,:,:] = GetImageData.ImageUpsizer(PET_Array[0,idx,:,:],[512,512])
          PET_Array_SS[1,idx,:,:] = GetImageData.ImageUpsizer(PET_Array[1,idx,:,:],[512,512])
          PET_Array_SS[2,idx,:,:] = GetImageData.ImageUpsizer(PET_Array[2,idx,:,:],[512,512])
-         PET_Array_SS[3,idx,:,:] = GetImageData.ImageUpsizer(PET_Array[3,idx,:,:],[512, 512])
+         PET_Array_SS[3,idx,:,:] = GetImageData.ImageUpsizer(PET_Array[3,idx,:,:],[512,512])
+         PET_Array_SS[4,idx,:,:] = GetImageData.ImageUpsizer(PET_Array[4,idx,:,:],[512,512])
          print("    " + str(idx+1) + "/" + str(PET_Array.shape[1]) + " upsized.")     
       patient.PETArray = PET_Array_SS
-      with open(os.path.join(patientPath, "PatientData.txt"), "wb") as fp:
-         pickle.dump(patient, fp)
+      
    patient.LeftParotid = lp_contours
    patient.RightParotid = rp_contours
+   with open(os.path.join(patientPath, "PatientData.txt"), "wb") as fp:
+         pickle.dump(patient, fp)
+   DicomSaver(patientPath, ["parotids"], 18)
 
    patient.LeftParotidMasks = GetImageData.GetContourMasks(lp_contours.wholeROI.copy(), patient.PETArray)
    patient.RightParotidMasks = GetImageData.GetContourMasks(rp_contours.wholeROI.copy(), patient.PETArray)
          
    return patient
-for i in range(1,31):
 
-   patientPath = "/media/calebsample/Data/PET PSMA/PSMA Analysis/SG_PETRT/" + str(i)
+
+for i in range(1,31):
+   print("Loading Patient: " + str(i))
+   patientPath = os.path.join(parentDirectory, "SG_PETRT" , str(i))
    patient = GetPatient(patientPath, 1)
+   #Visuals.PlotSUVs(patient)
    #Visuals.plotStructure(patient.RightParotid.segmentedContours18)
    #Visuals.PlotPETwithParotids(patient)
    GetParotidSUVAnalysis(patient)
+   
    #Visuals.PlotCTwithParotids(patient)
    #Visuals.PlotPETwithParotids(patient, plotSubSegs=False)
    #Visuals.plotStructure(patient.LeftParotid.segmentedContours18)
+Data_Analyzing.SUV_Metrics()   
 

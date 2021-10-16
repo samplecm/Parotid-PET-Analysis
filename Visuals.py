@@ -41,12 +41,12 @@ def plotStructure(structure):
     print("")
 
 
-def PlotSUVs(patient):
+def PlotSUVs(patient : Patient):
     #this function creates a slider plot of all suv slice images 
     global fig, ax, sliderT, sliderO, array, img
 
-    #First get the suvs as a 3d numpy array. 
-    array = GetImageData.GetSUVArray(patient)
+    array = patient.PETArray
+    
     #this function takes a 4d array with the 3rd index being the slice and the 4th index being the b value 
     fig, ax = plt.subplots()
     img = ax.imshow(array[0,0,:,:], origin = 'upper')
@@ -54,13 +54,14 @@ def PlotSUVs(patient):
     axT = fig.add_axes([0.2, 0.95, 0.65, 0.03])
 
     sliderT = Slider(axT, 'Slice', 0, array.shape[1]-1, valinit=0, valfmt='%i')
+    sliderV = Slider(axT, 'Slice', 0, array.shape[1]-1, valinit=0, valfmt='%i')
 
 
-    sliderT.on_changed(update)
+    sliderT.on_changed(updateSUVPlot)
 
     plt.show()
 
-def update(val):
+def updateSUVPlot(val):
     i = int(sliderT.val)
     im = array[0,i,:,:]
 
@@ -74,6 +75,7 @@ def update(val):
     #specialImageRange = range(num_bVals - 3, num_bVals - 1)
 
     fig.canvas.draw()
+
     
 def PlotPETwithParotids(patient : Patient, plotSubSegs=False):
     global fig, ax, sliderT, sliderO, combinedArray, rPar, lPar, img
