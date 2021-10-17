@@ -6,13 +6,13 @@ import shutil
 #This file will find dicom rt files corresponding to all patients in the patientsdirectory and copy the file to the patient folders. 
 #dicom structure files are placed in the patients directory in a folder called contours 
 
-patientsDirectory = "/home/calebsample/Documents/UBC/PET PSMA/PSMA Analysis/SG_PETRT"
-contoursFolder = os.path.join(patientsDirectory, "contours")
+patientsDirectory = os.path.join(os.getcwd(), "SG_PETRT")
+contoursFolder = os.path.join(patientsDirectory, "Contours")
 
 patients = os.listdir(patientsDirectory)
 
 for patient in patients:
-    if patient == "contours":
+    if patient == "Contours":
         continue
     patientPath = os.path.join(patientsDirectory, patient)
     #now go into the PET folder to get the name
@@ -23,7 +23,6 @@ for patient in patients:
             petImagePath = os.path.join(patientPath, ImageTypefolder, PETImages[0])#Take the first pet image to get the name
             data = pydicom.dcmread(petImagePath)
             patientName = data[0x0010,0x0020].value
-    
     
     #Now search in the contours folder for a dicom file with the same patient name.
     names = []
