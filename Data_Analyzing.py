@@ -33,6 +33,17 @@ def DicomSaver(patientPath, organs : list, subsegmentation):
 
             contoursList.append([leftParSubs, leftParName])
             contoursList.append([rightParSubs, rightParName])
+        if "submandibular" in string.lower():
+            leftSub : Contours = patient.LeftSubmandibular
+            leftSubSubs = leftSub.segmentedContours18
+            leftSubName = leftSub.dicomName
+
+            rightSub : Contours = patient.RightSubmandibular
+            rightSubSubs = rightSub.segmentedContours18
+            rightSubName = rightSub.dicomName
+
+            contoursList.append([leftSubSubs, leftSubName])
+            contoursList.append([rightSubSubs, rightSubName])    
 
     structFile = None 
 
@@ -101,6 +112,125 @@ def DicomSaver(patientPath, organs : list, subsegmentation):
     #save the ROI to a new struct file
     rtStruct.save(str(os.path.join(patientPath, newStructFile)))
     print("Saved structure file.")
+
+def GetSubmandibularSUVAnalysis(patient : Patient):   
+    #this function takes a pet suv array and a structure and computes the mean suv within the structure    
+    
+    pet_array = patient.PETArray 
+    lSub = patient.LeftSubmandibular
+    rSub = patient.RightSubmandibular
+    lSubMasks = patient.LeftSubmandibularMasks
+    rSubMasks = patient.RightSubmandibularMasks
+
+    lSub_SUVs = np.zeros((19,2))
+    rSub_SUVs = np.zeros((19,2)) #second dimension to hold number of points used for average, which will be removed after being used at the end
+    print("Calculating Submandibular SUVs.")
+
+
+    for slice_idx in range(0,pet_array.shape[1]):
+        print("On Slice #" + str(slice_idx+1) + " for whole submandibular glands.")
+        if np.amax(lSubMasks[0,slice_idx,:,:]) == 0 and np.amax(rSubMasks[0,slice_idx,:,:]) == 0: #if no contour on slice skip
+            continue
+        for x_idx in range(512):
+            for y_idx in range(512):
+                if lSubMasks[0,slice_idx, x_idx,y_idx] == 1:
+                    lSub_SUVs[0,0] = lSub_SUVs[0,0] +  pet_array[0,slice_idx,x_idx,y_idx]
+                    lSub_SUVs[0,1] = lSub_SUVs[0,1] + 1
+
+                if rSubMasks[0,slice_idx, x_idx,y_idx] == 1:
+                    rSub_SUVs[0,0] = rSub_SUVs[0,0] + pet_array[0,slice_idx,x_idx,y_idx]
+                    rSub_SUVs[0,1] = rSub_SUVs[0,1] + 1    
+
+        
+    lSub_SUVs[0,0] = lSub_SUVs[0,0] / lSub_SUVs[0,1]
+    rSub_SUVs[0,0] = rSub_SUVs[0,0] / rSub_SUVs[0,1]
+
+
+
+    #Now calculate for the subsegments. 
+    lSub18 = lSub.segmentedContours18
+    rSub18 = rSub.segmentedContours18
+
+    #check if subsegment directory exists and if not create one
+    subsegDir = os.path.join(patient.path, "SubSegMasks")
+    if not os.path.isdir(subsegDir):
+        os.mkdir(subsegDir)
+
+    print("Finished calculating SUVs for whole glands.")
+    print("Beginning subsegment SUV calculations.")
+
+    #first left par subsegs
+    for subseg_idx, subsegment in enumerate(lSub18):
+    
+        subSegMasks_l = GetImageData.GetContourMasks(subsegment, pet_array)
+        print("Calculating average SUV in subsegment " + str(int(subseg_idx+1))+ " of left submandibular.")
+        for slice_idx in range(0,pet_array.shape[1]):
+            
+            if np.amax(subSegMasks_l[0,slice_idx,:,:]) == 0: #if no contour on slice skip
+                continue
+
+            layerBoolMask = subSegMasks_l[0,slice_idx,:,:] > 0
+            subsegSUVs = pet_array[0,slice_idx,:,:][layerBoolMask]
+            suv_sum = np.sum(subsegSUVs)
+            numPoints = len(subsegSUVs)
+            lSub_SUVs[subseg_idx+1, 0] = lSub_SUVs[subseg_idx+1, 0] + suv_sum
+            lSub_SUVs[subseg_idx+1,1] = lSub_SUVs[subseg_idx+1,1] + numPoints
+
+            
+        lSub_SUVs[subseg_idx+1,0] = lSub_SUVs[subseg_idx+1,0] / lSub_SUVs[subseg_idx+1,1]
+    lSub_SUVs = lSub_SUVs[:,0]
+
+    #Now right par subsegs
+    for subseg_idx, subsegment in enumerate(rSub18):
+
+        subSegMasks_r = GetImageData.GetContourMasks(subsegment, pet_array)
+        print("Calculating average SUV in subsegment " + str(int(subseg_idx+1))+ " of right submandibular.")
+
+        for slice_idx in range(0,pet_array.shape[1]):
+            if np.amax(subSegMasks_r[0,slice_idx,:,:]) == 0: #if no contour on slice skip
+                continue
+
+            layerBoolMask = subSegMasks_r[0,slice_idx,:,:] > 0
+            subsegSUVs = pet_array[0,slice_idx,:,:][layerBoolMask]
+            suv_sum = np.sum(subsegSUVs)
+            numPoints = len(subsegSUVs)
+            rSub_SUVs[subseg_idx+1, 0] = rSub_SUVs[subseg_idx+1, 0] + suv_sum
+            rSub_SUVs[subseg_idx+1,1] = rSub_SUVs[subseg_idx+1,1] + numPoints
+
+        
+
+        rSub_SUVs[subseg_idx+1,0] = rSub_SUVs[subseg_idx+1,0] / rSub_SUVs[subseg_idx+1,1]
+    rSub_SUVs = rSub_SUVs[:,0]
+
+
+    rightSpearman = SpearmansRankCorrelation(rSub_SUVs[1:].tolist())
+    leftSpearman = SpearmansRankCorrelation(lSub_SUVs[1:].tolist())
+    rightSpearman_t = Get_t_value(rightSpearman, 18)
+    leftSpearman_t = Get_t_value(leftSpearman, 18)
+    rightSpearman_p = scipy.stats.t.sf(np.abs(rightSpearman_t), 16)
+    leftSpearman_p = scipy.stats.t.sf(np.abs(leftSpearman_t), 16)
+    rightPearson = PearsonsRankCorrelation(rSub_SUVs[1:].tolist())
+    leftPearson = PearsonsRankCorrelation(lSub_SUVs[1:].tolist())
+    rightPearson_t = Get_t_value(rightPearson, 18)
+    leftPearson_t = Get_t_value(leftPearson, 18)
+    rightPearson_p = scipy.stats.t.sf(np.abs(rightPearson_t), 16)
+    leftPearson_p = scipy.stats.t.sf(np.abs(leftPearson_t), 16)
+    #Now save these SUV stats into a csv
+
+    csvPath = os.path.join(patient.path, "submandibular_stats.csv")
+
+    with open(csvPath, 'w') as csvFile:
+        filewriter = csv.writer(csvFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        filewriter.writerow(['-', 'Left-Parotid', 'Right-Parotid'])
+        filewriter.writerow(["whole-gland", lSub_SUVs[0], rSub_SUVs[0]]) 
+        for idx in range(1, len(lSub_SUVs)):
+            filewriter.writerow([str(int(idx)), lSub_SUVs[idx], rSub_SUVs[idx]]) 
+        filewriter.writerow(["Spearmans Coefficient", leftSpearman, rightSpearman])
+        filewriter.writerow(["Pearsons Coefficient", leftPearson, rightPearson])
+        filewriter.writerow(["Spearman Significance", leftSpearman_p, rightSpearman_p])
+        filewriter.writerow(["Pearson Significance", leftPearson_p, rightPearson_p])
+
+    return [lSub_SUVs, rSub_SUVs]     
 
 def GetParotidSUVAnalysis(patient : Patient):
     #this function takes a pet suv array and a structure and computes the mean suv within the structure    
@@ -218,7 +348,7 @@ def GetParotidSUVAnalysis(patient : Patient):
     leftPearson_p = scipy.stats.t.sf(np.abs(leftPearson_t), 16)
     #Now save these SUV stats into a csv
 
-    csvPath = os.path.join(patient.path, "suv_stats.csv")
+    csvPath = os.path.join(patient.path, "parotid_stats.csv")
 
     with open(csvPath, 'w') as csvFile:
         filewriter = csv.writer(csvFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
@@ -250,7 +380,7 @@ def SUV_Metrics():
     #loop through first and get average, min and max suvs
     for i in range(1,31):
         patientPath = os.path.join(parentDirectory, "SG_PETRT" , str(i))
-        csvPath = os.path.join(patientPath, 'suv_stats.csv')
+        csvPath = os.path.join(patientPath, 'parotid_stats.csv')
         with open(csvPath) as csvFile:   
             csvData = list(enumerate(csv.reader(csvFile, delimiter=',', quotechar='|')))       
             for row in range(1, 20):          
@@ -271,7 +401,7 @@ def SUV_Metrics():
     #now loop back through and get stds.    
     for i in range(1,31):
         patientPath = os.path.join(parentDirectory, "SG_PETRT" , str(i))
-        csvPath = os.path.join(patientPath, 'suv_stats.csv')
+        csvPath = os.path.join(patientPath, 'parotid_stats.csv')
         with open(csvPath) as csvFile:   
             csvData = list(enumerate(csv.reader(csvFile, delimiter=',', quotechar='|')))       
             for row in range(1, 20):          
@@ -293,7 +423,7 @@ def SUV_Metrics():
     numSig_Pears_Right = [0,0,0,0]
     for i in range(1,31):
         patientPath = os.path.join(parentDirectory, "SG_PETRT" , str(i))
-        csvPath = os.path.join(patientPath, 'suv_stats.csv')
+        csvPath = os.path.join(patientPath, 'parotid_stats.csv')
         
         with open(csvPath) as csvFile:   
             csvData = list(enumerate(csv.reader(csvFile, delimiter=',', quotechar='|')))       
@@ -355,7 +485,7 @@ def SUV_Metrics():
     print("Calculated SUV Stats")  
     
     #Now need to save these stats into the suv_stats csv file.
-    path = os.path.join(parentDirectory, "Statistics/PopulationStats.csv")
+    path = os.path.join(parentDirectory, "Statistics/PopulationParotidStats.csv")
     with open(path, 'w') as csvFile:
         filewriter = csv.writer(csvFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         filewriter.writerow(['Subsegment', 'Left-Parotid','Left-Parotid-SD', 'Right-Parotid', 'Right-Parotid-SD'])
@@ -370,14 +500,20 @@ def SUV_Metrics():
             
 def Get_t_value(rho, n):
     return rho * np.sqrt((n-2)/(1-rho**2)) 
-def SpearmansRankCorrelation(suvs):
+def SpearmansRankCorrelation(suvs, gland="parotid"):
     #This function computes the spearmans rank coefficient for a list of suv values
 
     if len(suvs) == 18: #if 18 subsegments
-        importanceVals = [0.751310670731707,  0.526618902439024,   0.386310975609756,
-            1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
-            0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
-            0.272984146341463,   0.0484897103658537,  0.035493902439024]
+        if gland == "parotid":
+            importanceVals = [0.751310670731707,  0.526618902439024,   0.386310975609756,
+                1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
+                0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
+                0.272984146341463,   0.0484897103658537,  0.035493902439024]
+        elif gland == "submandibular":      
+            importanceVals = [0.751310670731707,  0.526618902439024,   0.386310975609756,
+                1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
+                0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
+                0.272984146341463,   0.0484897103658537,  0.035493902439024]  
     importanceRanks = GetListRank(importanceVals)      
     suvRanks = GetListRank(suvs)
     n = len(suvRanks)
@@ -386,14 +522,20 @@ def SpearmansRankCorrelation(suvs):
         sumRankDifs = sumRankDifs + (importanceRanks[i] - suvRanks[i])**2
     rho = 1 - ((6*sumRankDifs)/(n*(n**2-1)))    
     return rho
-def PearsonsRankCorrelation(suvs):
+def PearsonsRankCorrelation(suvs, gland="parotid"):
     #This function computes the spearmans rank coefficient for a list of suv values
 
     if len(suvs) == 18: #if 18 subsegments
-        importanceVals = [0.751310670731707,  0.526618902439024,   0.386310975609756,
-            1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
-            0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
-            0.272984146341463,   0.0484897103658537,  0.035493902439024]
+        if gland == "parotid":
+            importanceVals = [0.751310670731707,  0.526618902439024,   0.386310975609756,
+                1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
+                0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
+                0.272984146341463,   0.0484897103658537,  0.035493902439024]
+        elif gland == "submandibular":      
+            importanceVals = [0.751310670731707,  0.526618902439024,   0.386310975609756,
+                1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
+                0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
+                0.272984146341463,   0.0484897103658537,  0.035493902439024]  
     n = len(suvs)
     sum_xy = 0
     sum_x = 0

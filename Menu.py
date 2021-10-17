@@ -1,6 +1,6 @@
 import GetImageData
 from GetImageData import GetPatientName
-from Data_Analyzing import GetParotidSUVAnalysis
+from Data_Analyzing import GetParotidSUVAnalysis, GetSubmandibularSUVAnalysis
 import Segmentation
 import Visuals
 from Patient import Patient
@@ -16,18 +16,29 @@ parentDirectory = os.getcwd()
 def GetPatient(patientPath, patientNum):
    print("Loading patient data")
    patientName = GetPatientName(patientPath)
+
    print("  Getting left parotid contours")
    lp_contours = GetImageData.GetContours(patientPath, "Left Parotid")
+
    print("  Getting right parotid contours")
    rp_contours = GetImageData.GetContours(patientPath, "Right Parotid")
+
+   print("  Getting left submandibular contours")
+   ls_contours = GetImageData.GetContours(patientPath, "Left Submandibular")
+
+   print("  Getting right submandibular contours")
+   rs_contours = GetImageData.GetContours(patientPath, "Right Submandibular")
+
    try:
       with open(os.path.join(patientPath, "PatientData.txt"), "rb") as fp:
          a = 5/0
          patient = pickle.load(fp)
-         PET_Array = patient.PETArray
-         CT_Array = patient.CTArray
-         patient.LeftParotid = lp_contours
+      PET_Array = patient.PETArray
+      CT_Array = patient.CTArray
+      patient.LeftParotid = lp_contours
       patient.RightParotid = rp_contours
+      patient.leftSubmandibulars = ls_contours
+      patient.rightSubmandibulars = rs_contours
    except:      
       patient = Patient(patientName)
       CT_Array = GetImageData.GetCTArray(patientPath)
@@ -62,10 +73,12 @@ for i in range(1,31):
    print("Loading Patient: " + str(i))
    patientPath = os.path.join(parentDirectory, "SG_PETRT" , str(i))
    patient = GetPatient(patientPath, 1)
+
    #Visuals.PlotSUVs(patient)
    #Visuals.plotStructure(patient.RightParotid.segmentedContours18)
    #Visuals.PlotPETwithParotids(patient)
    GetParotidSUVAnalysis(patient)
+   GetSubmandibularSUVAnalysis(patient)
    
    #Visuals.PlotCTwithParotids(patient)
    #Visuals.PlotPETwithParotids(patient, plotSubSegs=False)

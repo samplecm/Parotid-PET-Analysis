@@ -12,3 +12,8 @@ class Patient():
         self.RightParotid = nan
         self.LeftParotidMasks = nan
         self.RightParotidMasks = nan
+
+        self.LeftSubmandibular = nan
+        self.RightSubmandibular = nan
+        self.LeftSubmandibularMasks = nan
+        self.RightSubmandibularMasks = nan
