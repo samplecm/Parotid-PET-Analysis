@@ -1,11 +1,14 @@
 import math
-import Contours
+from typing import final
+from Contours import Contours
+from Data_Analyzing import CloneList
 
-def OrganChopper(contours, numCuts, organName):
+def OrganChopper(contours : Contours, numCuts, organName):
     #chop into 18ths
     numCutsX = numCuts[0]
     numCutsY = numCuts[1]
     numCutsZ = numCuts[2]
+    numSegments = (numCutsX+1) * (numCutsY+1) * (numCutsZ + 1)
 
     ZChop(contours, numCutsZ) #Make axial cuts and store in contours.segmentedContours3
 
@@ -27,10 +30,15 @@ def OrganChopper(contours, numCuts, organName):
     else:
         finalContours = contoursY
 
-    finalContours = ReOrder(finalContours, organName, numCuts)    
+    if len(finalContours) == 18:
+        finalContours = ReOrderParotids(finalContours, organName, numCuts)    
+    elif len(finalContours) == 8:
+        finalContours = ReOrderSMs(finalContours, organName)        
 
     if len(finalContours) == 18:
         contours.segmentedContours18 = finalContours
+    if len(finalContours) == 8:
+        contours.segmentedContours8 = finalContours   
 
           
 
@@ -283,8 +291,32 @@ def BestCutY(contours, numCutsY):
         yCuts.append(yCut) 
 
         return yCuts
+def ReOrderSMs(contours, name : str):
+    reOrderedList = []
+    if "left" in name.lower():
+        reOrderedList.append(CloneList(contours[0]))
+        reOrderedList.append(CloneList(contours[4]))
+        reOrderedList.append(CloneList(contours[2]))
+        reOrderedList.append(CloneList(contours[6]))
+        reOrderedList.append(CloneList(contours[1]))
+        reOrderedList.append(CloneList(contours[5]))
+        reOrderedList.append(CloneList(contours[3]))
+        reOrderedList.append(CloneList(contours[7]))
+    if "right" in name.lower():
+        reOrderedList.append(CloneList(contours[1]))
+        reOrderedList.append(CloneList(contours[5]))
+        reOrderedList.append(CloneList(contours[3]))
+        reOrderedList.append(CloneList(contours[7]))
+        reOrderedList.append(CloneList(contours[0]))
+        reOrderedList.append(CloneList(contours[4]))
+        reOrderedList.append(CloneList(contours[2]))
+        reOrderedList.append(CloneList(contours[6]))  
+    return reOrderedList      
+        
 
-def ReOrder(contours, organName, numCuts):
+
+
+def ReOrderParotids(contours, organName, numCuts):
     #Reorder from inferior --> superior, medial --> lateral, anterior --> posterior
     j = 0
     finalContours = []

@@ -1,0 +1,11 @@
+dicomautomaton_dispatcher \
+
+/path/to/files/*dcm \
+-o ExtractRadiomicFeatures \
+-p FeaturesFileName=LeftParRadiomics.csv \
+-p NormalizedROILabelRegex='left parotid'
+
+-o ExtractRadiomicFeatures \
+-p FeaturesFileName=RightParRadiomics.csv \
+-p NormalizedROILabelRegex='right parotid'
+

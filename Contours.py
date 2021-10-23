@@ -1,5 +1,6 @@
 class Contours(object):
     segmentedContours3 = []
+    segmentedContours8 = []
     segmentedContours18 = []
     segmentedContours96 = []
     

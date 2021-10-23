@@ -12,7 +12,7 @@ from Patient import Patient
 from PIL import Image
 import copy
 from Data_Analyzing import GetListRank
-
+import NormalizeImportance
 def plotStructure(structure):
     print("In PlotStructure")
     fig = plt.figure()
@@ -20,22 +20,45 @@ def plotStructure(structure):
     ax.set_xlabel('x')
     ax.set_ylabel('y')
     ax.set_zlabel('z')
+    
+    minX = 1000
+    minY = 1000
+    minZ = 1000
+    maxX = -1000
+    maxY = -1000
+    maxZ = -1000
+
     colour_idx = 0
     colours = ['r', 'b', 'g', 'y', 'm', 'c', 'k']
     for substructure in structure:
         
         colour = colours[colour_idx]
         colour_idx = (colour_idx + 1) % 7
-        for contour in substructure:
-            
+        for contour in substructure:          
             x = []
             y = []
             z = []
             for point in contour:
+                if point[0] > maxX:
+                    maxX = point[0]
+                elif point[0] < minX:
+                    minX = point[0]
+                if point[1] > maxY:
+                    maxY = point[1]
+                if point[1] < minY:
+                    minY = point[1]
+                if point[2] > maxZ:
+                    maxZ = point[2]
+                if point[2] < minZ:
+                    minZ = point[2]                    
                 x.append(point[0])
                 y.append(point[1])
                 z.append(point[2])
             ax.plot(x,y,z, colour)    
+    ax.set_xlim((minX, maxX))    
+    ax.set_ylim((minY, maxY))    
+    ax.set_zlim((minZ, maxZ))    
+
         
     plt.show()
     print("")
@@ -177,13 +200,18 @@ def MaskOnImage(array, masks):
 
     return newArray       
 
-def CorrelationPlot():
-    importanceVals = [0.751310670731707,  0.526618902439024,   0.386310975609756,
+def CorrelationPlot(organ):
+    if organ == "parotid":
+        importanceVals = [0.751310670731707,  0.526618902439024,   0.386310975609756,
             1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
             0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
             0.272984146341463,   0.0484897103658537,  0.035493902439024]
-    leftSUVs = [10809, 13002, 12140, 13943, 16767, 16564, 16469, 18995, 17250, 13983, 16645, 15153, 17303, 20449, 18917, 18020, 21214, 19283]
-    rightSUVs = [11820, 13593, 12279, 14884, 17103, 16998, 16550, 18245, 16755, 13209, 15898, 15443, 16076, 19399, 18955, 16905, 20393, 19244]        
+        leftSUVs = [10809, 13002, 12140, 13943, 16767, 16564, 16469, 18995, 17250, 13983, 16645, 15153, 17303, 20449, 18917, 18020, 21214, 19283]
+        rightSUVs = [11820, 13593, 12279, 14884, 17103, 16998, 16550, 18245, 16755, 13209, 15898, 15443, 16076, 19399, 18955, 16905, 20393, 19244] 
+    elif organ == "submandibular":
+        importanceVals = NormalizeImportance.SubImportance()
+        leftSUVs = [10.76,10.63,12.38,11.28,11.28,12.25,10.68,13.07,11.36]
+        rightSUVs = [11.07,10.91,11.68,11.28,12.84,10.68,12.68,11.1]                
     leftSUVs = list(zip(leftSUVs, importanceVals))
     rightSUVs = list(zip(rightSUVs, importanceVals))
 
@@ -203,12 +231,18 @@ def CorrelationPlot():
     axLeft.scatter(importanceVals, suvs_left)
     axLeft.set_xlabel('Subsegment Importance')
     axLeft.set_ylabel('Subsegment Average SUV')
-    axLeft.set_title("Left Parotid: \n Spearman's Rank: -0.56 (p < 0.008) \n Pearson's Rank: -0.52 (p < 0.014)")
+    if organ == "parotid":
+        axLeft.set_title("Left Parotid: \n Spearman's Rank: -0.56 (p < 0.008) \n Pearson's Rank: -0.52 (p < 0.014)")
+    else:
+        axLeft.set_title("Left Sub: \n Spearman's Rank: -0.31 (p < 0.22) \n Pearson's Rank: -0.29 (p < 0.24)")    
     axRight = fig.add_subplot(212)
     axRight.scatter(importanceVals, suvs_right)
     axRight.set_xlabel('Subsegment Importance')
     axRight.set_ylabel('Subsegment Average SUV')
-    axRight.set_title("Right Parotid: \n Spearman's Rank: -0.512 (p < 0.015) \n Pearson's Rank: -0.477 (p < 0.023)")
+    if organ == "parotid":
+        axRight.set_title("Right Parotid: \n Spearman's Rank: -0.512 (p < 0.015) \n Pearson's Rank: -0.477 (p < 0.023)")
+    else:  
+        axRight.set_title("Right Sub: \n Spearman's Rank: -0.24 (p < 0.28) \n Pearson's Rank: -0.29 (p < 0.24)")   
     plt.subplots_adjust(hspace=0.9)  
     plt.show()    
 
