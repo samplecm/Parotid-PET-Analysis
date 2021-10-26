@@ -88,24 +88,24 @@ def GetPatient(patientPath, patientNum, cleanProcess=False):
          
    return patient
 
-# Data_Analyzing.Population_Metrics_SM()  
-# Data_Analyzing.Population_Metrics_Parotid()  
-Visuals.CorrelationPlot("submandibular")
-# for i in range(10,31):
-#    print("Loading Patient: " + str(i))
-#    patientPath = os.path.join(parentDirectory, "SG_PETRT" , str(i))
-#    patient = GetPatient(patientPath, 1, cleanProcess = False)
 
-#    #Visuals.PlotSUVs(patient)
-#    #Visuals.plotStructure(patient.RightParotid.segmentedContours18)
-#    #Visuals.PlotPETwithParotids(patient)
-#    SubmandibularSUVAnalysis(patient)
-#    ParotidSUVAnalysis(patient)
+
+for i in range(1,31):
+   print("Loading Patient: " + str(i))
+   patientPath = os.path.join(parentDirectory, "SG_PETRT" , str(i))
+   patient = GetPatient(patientPath, 1, cleanProcess = False)
+
+   #Visuals.PlotSUVs(patient)
+   #Visuals.plotStructure(patient.RightParotid.segmentedContours18)
+   #Visuals.PlotPETwithParotids(patient)
+   # SubmandibularSUVAnalysis(patient)
+   # ParotidSUVAnalysis(patient)
    
    
-#    #Visuals.PlotCTwithParotids(patient)
-#    #Visuals.PlotPETwithParotids(patient, plotSubSegs=False)
-#    #Visuals.plotStructure(patient.LeftParotid.segmentedContours18)
-# Data_Analyzing.Population_Metrics_SM()   
-# Data_Analyzing.Population_Metrics_Parotid()  
+   #Visuals.PlotCTwithParotids(patient)
+   #Visuals.PlotPETwithParotids(patient, plotSubSegs=False)
+   #Visuals.plotStructure(patient.LeftParotid.segmentedContours18)
 
+Data_Analyzing.Population_Metrics_SM()   
+Data_Analyzing.Population_Metrics_Parotid()  
+# Visuals.CorrelationPlot("submandibular")

@@ -1,7 +1,7 @@
 import os 
 import pydicom 
 
-path = "/media/caleb/WDBlue/PET_PSMA/PSMA_Analysis/SG_PETRT/1/RTSTRUCT_SG-03"
+path = "/media/caleb/WDBlue/PET_PSMA/PSMA_Analysis/SG_PETRT/1/Subsegs.dcm"
 
 data = pydicom.dcmread(path)
 

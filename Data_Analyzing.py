@@ -25,22 +25,22 @@ def DicomSaver(patientPath, organs : list, subsegmentation):
         if "parotid" in string.lower():
             leftPar : Contours = patient.LeftParotid
             leftParSubs = leftPar.segmentedContours18
-            leftParName = leftPar.dicomName
+            leftParName = "LPar"
 
             rightPar : Contours = patient.RightParotid
             rightParSubs = rightPar.segmentedContours18
-            rightParName = rightPar.dicomName
+            rightParName = "RPar"
 
             contoursList.append([leftParSubs, leftParName])
             contoursList.append([rightParSubs, rightParName])
         if "submandibular" in string.lower():
             leftSub : Contours = patient.LeftSubmandibular
             leftSubSubs = leftSub.segmentedContours18
-            leftSubName = leftSub.dicomName
+            leftSubName = "LSub"
 
             rightSub : Contours = patient.RightSubmandibular
             rightSubSubs = rightSub.segmentedContours18
-            rightSubName = rightSub.dicomName
+            rightSubName = "RSub"
 
             contoursList.append([leftSubSubs, leftSubName])
             contoursList.append([rightSubSubs, rightSubName])    
