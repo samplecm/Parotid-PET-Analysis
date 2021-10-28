@@ -1,5 +1,6 @@
 from math import nan
-import os 
+import os
+from numpy.lib.function_base import average 
 import pydicom
 import numpy as np
 from fastDamerauLevenshtein import damerauLevenshtein
@@ -10,12 +11,122 @@ from operator import delitem, itemgetter
 from PIL import Image, ImageDraw
 from Patient import Patient
 import pickle 
+import statistics
 import copy
 import csv
 import scipy.stats
 from Data_Analyzing import Get_t_value, SpearmansRankCorrelation, GetListRank, PearsonsRankCorrelation, CloneList, DicomSaver
 
 parentDirectory = os.getcwd()
+def RemoveIslands(contours):
+    contours = sorted(contours, key=lambda x: x[0][2])
+    indices_to_remove = []
+    
+    zVals = []
+    for i in range(len(contours)):
+        #first loop through and get distance between points statistics
+        distances = []
+        zVals.append(contours[i][0][2])
+    
+    duplicateSlices = GetDuplicateSlices(contours)
+
+    for slice, indices in duplicateSlices.items():
+        #first check to see if any are tiny contours:
+        lengths = []
+        for index in indices:
+            lengths.append(len(contours[index]))
+        longestLength = max(lengths)
+        longestIndex = lengths.index(longestLength)
+        #now see if this is more than 3x larger than all other contours, and if it is, return it
+        lengths.pop(longestIndex)  
+        muchLarger = True  
+        for value in lengths:
+            if longestLength / value < 3:
+                muchLarger = False
+
+        if muchLarger == True:
+            indices.pop(longestIndex)
+            for item in indices:
+                indices_to_remove.append(item)
+                continue
+                 
+        #first get average x and y of slices immediately above and below (or only one if at top or bottom)
+        if min(indices) == 0:
+            above_idx = max(indices)+1
+            xVals = []
+            yVals = []
+            for point in contours[above_idx]:
+                xVals.append(point[0])
+                yVals.append(point[1])
+            averageX = average(xVals)
+            averageY = average(yVals)
+
+        elif max(indices) == len(contours)-1:
+            below_idx = min(indices)-1
+            xVals = []
+            yVals = []
+            for point in contours[below_idx]:
+                xVals.append(point[0])
+                yVals.append(point[1])
+            averageX = average(xVals)
+            averageY = average(yVals)
+        else:
+            above_idx = max(indices)+1
+            below_idx = min(indices)-1
+            xVals = []
+            yVals = []
+            for point in contours[below_idx]:
+                xVals.append(point[0])
+                yVals.append(point[1])
+            for point in contours[above_idx]:
+                xVals.append(point[0])
+                yVals.append(point[1])    
+            averageX = average(xVals)
+            averageY = average(yVals)
+
+        #Now get the slice statistics: 
+        displacements = [] #holds the displacement of each slice from averages below/on top , and we return the one closest to averages
+        for index in indices:
+            xVals = []
+            yVals = []
+            for point in contours[index]:
+                xVals.append(point[0])
+                yVals.append(point[1])
+            averageX_slice = average(xVals)
+            averageY_slice = average(yVals)
+
+            displacement = ( (averageX-averageX_slice)**2 + (averageY-averageY_slice)**2)    
+            displacements.append(displacement)
+        minDisplacement = min(displacements)
+
+
+        removeIndices = indices.copy()
+        removeIndices.pop(displacements.index(minDisplacement)) #remove the one we want to keep from the remove list. All removeIndices will be taken out of contours. 
+        for item in removeIndices:
+            indices_to_remove.append(item)
+    
+    indices_to_remove.sort(reverse=True)
+    for item in indices_to_remove:
+        contours.pop(item)    
+    return contours
+
+
+  
+
+def GetDuplicateSlices(contours):
+    #this function takes a contour list and returns indices of contours which have same z value in a dictionary
+    duplicateSliceDict = dict()
+    for i, slice in enumerate(contours):
+        if slice[0][2] in duplicateSliceDict:
+            duplicateSliceDict[slice[0][2]].append(i)
+        else:
+            duplicateSliceDict[slice[0][2]] = [i]
+    #filter out z values with only one slice
+    duplicateSliceDict = {key:value for key, value in duplicateSliceDict.items() if len(value) > 1}            
+    return duplicateSliceDict
+
+
+
 
 def GetContours(patientPath, organ, subsegmentation = [2,1,2]): 
     patientItems = os.listdir(patientPath)
@@ -51,7 +162,9 @@ def GetContours(patientPath, organ, subsegmentation = [2,1,2]):
                         pointListy = np.array([x,y,z])   
                     numContourPoints+=1         
                 contourList[-1] = tempContour 
+    contoursList = RemoveIslands(CloneList(contourList))            
     contours = Contours(organ, structure, contourList)   
+    
     Chopper.OrganChopper(contours, subsegmentation, organ) #Get 18ths subsegments
     
     return contours             

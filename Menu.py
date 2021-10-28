@@ -13,7 +13,7 @@ from Data_Analyzing import DicomSaver
 
 parentDirectory = os.getcwd()
 
-def GetPatient(patientPath, patientNum, cleanProcess=False):
+def GetPatient(patientPath, patientNum, cleanProcess=False, save=True):
    print("Loading patient data")
    patientName = GetPatientName(patientPath)
 
@@ -50,12 +50,15 @@ def GetPatient(patientPath, patientNum, cleanProcess=False):
       patient.PETArray = PET_Array_SS
    else:
       try:
+         print("Trying to load previously processed patient data")
          with open(os.path.join(patientPath, "PatientData.txt"), "rb") as fp:
             patient = pickle.load(fp)
          PET_Array = patient.PETArray
          CT_Array = patient.CTArray
+         print("Patient data loaded successfully")
          
       except:      
+         print("Unable to load saved patient data. Processing DICOM files.")
          patient = Patient(patientName)
          CT_Array = GetImageData.GetCTArray(patientPath)
          PET_Array = GetImageData.GetSUVArray(patientPath)
@@ -79,7 +82,8 @@ def GetPatient(patientPath, patientNum, cleanProcess=False):
    patient.RightSubmandibular = rs_contours
    with open(os.path.join(patientPath, "PatientData.txt"), "wb") as fp:
          pickle.dump(patient, fp)
-   DicomSaver(patientPath, ["parotids"], 18)
+   if save==True:      
+      DicomSaver(patientPath, ["parotids"], 18)
 
    patient.LeftParotidMasks = GetImageData.GetContourMasks(lp_contours.wholeROI.copy(), patient.PETArray)
    patient.RightParotidMasks = GetImageData.GetContourMasks(rp_contours.wholeROI.copy(), patient.PETArray)
@@ -90,22 +94,23 @@ def GetPatient(patientPath, patientNum, cleanProcess=False):
 
 
 
-for i in range(1,31):
-   print("Loading Patient: " + str(i))
-   patientPath = os.path.join(parentDirectory, "SG_PETRT" , str(i))
-   patient = GetPatient(patientPath, 1, cleanProcess = False)
+for i in range(2,3):
+   patient_idx = "{:02d}".format(i)
+   print("Loading Patient: " + patient_idx)
+   patientPath = os.path.join(parentDirectory, "SG_PETRT" , patient_idx)
+   patient = GetPatient(patientPath, patient_idx, cleanProcess=False, save=False)
 
    #Visuals.PlotSUVs(patient)
    #Visuals.plotStructure(patient.RightParotid.segmentedContours18)
-   #Visuals.PlotPETwithParotids(patient)
+   Visuals.PlotPETwithParotids(patient)
    # SubmandibularSUVAnalysis(patient)
    # ParotidSUVAnalysis(patient)
    
    
    #Visuals.PlotCTwithParotids(patient)
-   #Visuals.PlotPETwithParotids(patient, plotSubSegs=False)
+   Visuals.PlotPETwithParotids(patient, plotSubSegs=True)
    #Visuals.plotStructure(patient.LeftParotid.segmentedContours18)
 
-Data_Analyzing.Population_Metrics_SM()   
-Data_Analyzing.Population_Metrics_Parotid()  
+# Data_Analyzing.Population_Metrics_SM()   
+# Data_Analyzing.Population_Metrics_Parotid()  
 # Visuals.CorrelationPlot("submandibular")
