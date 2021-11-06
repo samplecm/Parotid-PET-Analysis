@@ -14,7 +14,7 @@ from rtutils import ROIData
 import pydicom
 parentDirectory = os.getcwd()
 
-def DicomSaver(patientPath, organs : list, subsegmentation):
+def DicomSaver(patientPath, organs : list):
 
     contoursList = []
     with open(os.path.join(patientPath, "PatientData.txt"), "rb") as fp:
@@ -35,11 +35,11 @@ def DicomSaver(patientPath, organs : list, subsegmentation):
             contoursList.append([rightParSubs, rightParName])
         if "submandibular" in string.lower():
             leftSub : Contours = patient.LeftSubmandibular
-            leftSubSubs = leftSub.segmentedContours18
+            leftSubSubs = leftSub.segmentedContours8
             leftSubName = "LSub"
 
             rightSub : Contours = patient.RightSubmandibular
-            rightSubSubs = rightSub.segmentedContours18
+            rightSubSubs = rightSub.segmentedContours8
             rightSubName = "RSub"
 
             contoursList.append([leftSubSubs, leftSubName])
@@ -96,9 +96,9 @@ def DicomSaver(patientPath, organs : list, subsegmentation):
                         continue
                     if abs(int(round(slice[0][2], 2)*100) - int(round(z_slice, 2)*100)) < 2:
                         for point in slice:
-                            newPoints.append(point[0])
-                            newPoints.append(point[1])
-                            newPoints.append(point[2])
+                            newPoints.append(round(point[0],2))
+                            newPoints.append(round(point[1],2))
+                            newPoints.append(round(point[2],2))
                 newContours.append(newPoints)    
 
             #assign the contour a color

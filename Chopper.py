@@ -2,6 +2,7 @@ import math
 from typing import final
 from Contours import Contours
 from Data_Analyzing import CloneList
+import Segmentation
 
 def OrganChopper(contours : Contours, numCuts, organName):
     #chop into 18ths
@@ -34,16 +35,183 @@ def OrganChopper(contours : Contours, numCuts, organName):
         finalContours = ReOrderParotids(finalContours, organName, numCuts)    
     elif len(finalContours) == 8:
         finalContours = ReOrderSMs(finalContours, organName)        
-
+    #Now I want to separate any connected islands into separate contours, so they can be properly rendered 
+    #so the structure of the list will now include one additional nested list. each subsegment slice is now a list of all slice islands first (most will be length 1)
+    finalContours = SeparateIslands(CloneList(finalContours))
+    finalContours = Segmentation.SubsegmentPointFiller(finalContours)
     if len(finalContours) == 18:
         contours.segmentedContours18 = finalContours
     if len(finalContours) == 8:
         contours.segmentedContours8 = finalContours   
 
-          
+def SeparateIslands(contours):
+    #First loop through slices and check for cases of lines in x or y direction that traverse both ways in the contour.
+    newContours = []
+    for s, subsegment in enumerate(contours):
+        for i, slice in enumerate(subsegment):  
+            if len(slice) == 0:
+                continue
+            bisect_indices = [] #this stores potential breakup indices. 
+            xLines = []
+            yLines = []
+            point_idx = 0
+            while point_idx < len(slice)-1:
+                #look for lines in x/y direction that traverse both ways. 
+                lineEnd_idx = point_idx #default value for iterating
+
+                if slice[point_idx][0] == slice[point_idx+1][0]:
+                    lineEnd_idx = point_idx+1
+                    #first see if line stretches for more than the next point:
+                    for j in range(point_idx+2, len(slice)):
+                        if slice[point_idx][0] == slice[j][0]:
+                            lineEnd_idx = j
+                        else:
+                            break    
+                        
+                    found = False
+                    for item in xLines: #check if already a line at this location, and if there is append this index to that list
+                        if abs(item[0] - slice[point_idx][0]) < 0.1: #if within 0.1mm of each other
+                            item.append([[point_idx, lineEnd_idx], slice[lineEnd_idx][1], slice[point_idx][1]])
+                            found=True
+                    if found==False:
+                        xLines.append([slice[point_idx][0], [[point_idx, lineEnd_idx], slice[lineEnd_idx][1],slice[point_idx][1]]])  #values are xLocation, displacement of y values
 
 
-    #XChop(contours, numCutsX)
+                if slice[point_idx][1] == slice[point_idx+1][1]:
+                    lineEnd_idx = point_idx+1
+                    #first see if line stretches for more than the next point:
+                    for j in range(point_idx+2, len(slice)):
+                        if slice[point_idx][1] == slice[j][1]:
+                            lineEnd_idx = j
+                        else:
+                            break
+                    found = False
+                    for item in yLines: #check if already a line at this location, and if there is append this index to that list
+                        if abs(item[0] - slice[point_idx][1]) < 0.1:
+                            item.append([[point_idx, lineEnd_idx], slice[lineEnd_idx][0],slice[point_idx][0]])
+                            found=True
+                    if found==False: 
+                        yLines.append([slice[point_idx][1], [[point_idx, lineEnd_idx], slice[lineEnd_idx][0],slice[point_idx][0]]])
+                point_idx += 1 + (lineEnd_idx - point_idx)        
+            #now check for bisecting lines at same x or y:
+            # for point_idx in range(len(slice)-1):
+            #     #look for lines in x/y direction that traverse both ways. 
+            #     if slice[point_idx][0] == slice[point_idx+1][0]:
+            #         found = False
+            #         for item in xLines: #check if already a line at this location, and if there is append this index to that list
+            #             if abs(item[0] - slice[point_idx][0]) < 0.1:
+            #                 item.append([point_idx, slice[point_idx+1][1], slice[point_idx][1]])
+            #                 found=True
+            #         if found==False:
+            #             xLines.append([slice[point_idx][0], [point_idx, slice[point_idx+1][1],slice[point_idx][1]]])  #values are xLocation, displacement of y values
+
+
+            #     if slice[point_idx][1] == slice[point_idx+1][1]:
+            #         found = False
+            #         for item in yLines: #check if already a line at this location, and if there is append this index to that list
+            #             if abs(item[0] - slice[point_idx][1]) < 0.1:
+            #                 item.append([point_idx, slice[point_idx+1][0],slice[point_idx][0]])
+            #                 found=True
+            #         if found==False: 
+            #             yLines.append([slice[point_idx][1], [point_idx, slice[point_idx+1][0],slice[point_idx][0]]])
+            # #now check for bisecting lines at same x or y:
+            lines = []
+            for xVal in xLines:
+                if len(xVal) <= 2:
+                    continue
+                for idx in range(1, len(xVal)):
+                    lineSegment = xVal[idx]
+                    y11 = lineSegment[1]
+                    y12 = lineSegment[2]
+                    min_y1 = min([y11, y12])
+                    max_y1 = max([y11, y12])
+                    #Now check if this oversects with any other lines along this x point
+
+                    for line in lines: 
+                        y21 = line[2]
+                        y22 = line[1]
+                        min_y2 = min([y21, y22])
+                        max_y2 = max([y21, y22])
+
+                        minY = min([min_y1, min_y2])
+                        if minY == min_y1 and max_y1 > min_y2:
+                            #they do intersect! Add to the potential breakup list
+                            bisect_indices.append([line[0], lineSegment[0]])
+                            break
+                        elif minY == min_y2 and max_y2 > min_y1:
+                            #they do intersect! Add to the potential breakup list
+                            bisect_indices.append([line[0], lineSegment[0]])
+                            break
+                    lines.append(lineSegment)    
+                 
+            for yVal in yLines:
+                if len(yVal) < 2:
+                    continue
+                lines = []   
+                for idx in range(1, len(yVal)):
+                    lineSegment = yVal[idx]
+                    x11 = lineSegment[1]
+                    x12 = lineSegment[2]
+                    min_x1 = min([x11, x12])
+                    max_x1 = max([x11, x12])
+                    #Now check if this oversects with any other lines along this x point
+
+                    for line in lines: 
+                        x21 = line[2]
+                        x22 = line[1]
+                        min_x2 = min([x21, x22])
+                        max_x2 = max([x21, x22])
+
+                        minX = min([min_x1, min_x2])
+                        if minX == min_x1 and max_x1 > min_x2:
+                            #they do intersect! Add to the potential breakup list
+                            bisect_indices.append([line[0], lineSegment[0]])
+                            break
+                        elif minX == min_x2 and max_x2 > min_x1:
+                            #they do intersect! Add to the potential breakup list
+                            bisect_indices.append([line[0], lineSegment[0]])
+                            break
+                    lines.append(lineSegment)       
+
+            #Now go through bisect_indices and make first appropriate division
+            restructured = False
+            for indices in bisect_indices:
+                indices.sort(key=lambda x: x[0])
+                # #First make sure they are more than 10 points apart:
+                # spacedApart = indices[1] - indices[0]
+                # if spacedApart < 10:
+                #     continue
+                #Now take the points between these values and divide them into their own new list 
+                newList1 = []
+                newList2 = []
+                for point_idx in range(len(slice)):
+                    if point_idx <= indices[0][0]:
+                        newList1.append(slice[point_idx])
+                    elif point_idx <= indices[1][0] and point_idx >= indices[0][1]:
+                        newList2.append(slice[point_idx])
+                    elif point_idx >= indices[1][1]:
+                        newList1.append(slice[point_idx])     
+                restructured = True
+                break          
+            #for testing:
+
+            #now the new format:
+            if restructured:
+                if len(newList1) > len(newList2):
+                    # slice.append(newList1)
+                    # slice.append(newList2)
+                    newList1 = Segmentation.PointFiller(newList1)
+                    contours[s][i] = ClosedLooper(newList1)
+                else:  
+                    # slice.append(newList1)
+                    # slice.append(newList2)  
+                    newList2 = Segmentation.PointFiller(newList2)
+                    contours[s][i] = ClosedLooper(newList2)
+    return contours
+                    
+                    
+
+
 
 
 def ZChop(contours, numCutsZ):

@@ -14,6 +14,45 @@ from fastDamerauLevenshtein import damerauLevenshtein
 from Contours import Contours
 import Chopper
 import Visuals
+def SubsegmentPointFiller(contours):
+    for i, subsegment in enumerate(contours): 
+        for j, slice in enumerate(subsegment): 
+            contours[i][j] = PointFiller(slice)
+    return contours        
+
+def PointFiller(slice):
+    #Add interpolated points between points far apart in a contour 
+    if len(slice) == 0:
+        return slice
+    noLargeSpaces = True
+    i = 0
+    while i < len(slice)-1:
+        if abs(slice[i][0] - slice[i+1][0]) > 2:
+            x = 0.5 * (slice[i][0] + slice[i+1][0])
+            y = 0.5 * (slice[i][1] + slice[i+1][1])
+            z = slice[i][2]
+            newPoint = [x,y,z]
+            slice.insert(i+1, newPoint)
+            i = max(i-2,0)
+        else:
+            i += 1
+    i=0        
+    while i < len(slice)-1:
+        if abs(slice[i][1] - slice[i+1][1]) > 2:
+            x = 0.5 * (slice[i][0] + slice[i+1][0])
+            y = 0.5 * (slice[i][1] + slice[i+1][1])
+            z = slice[i][2]
+            newPoint = [x,y,z]
+            slice.insert(i+1, newPoint)
+            i = max(i-2, 0)
+        else:
+            i += 1  
+          
+    return slice            
+
+
+
+
 
 def ProcessData(organ : str, numCuts):     
     print("In ProcessData")

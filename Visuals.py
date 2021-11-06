@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np 
 import math
-from GetImageData import CloneList
+from Data_Analyzing import CloneList
 from numpy.lib.type_check import imag
 import GetImageData
 import matplotlib.pyplot as plt
@@ -13,6 +13,20 @@ from PIL import Image
 import copy
 from Data_Analyzing import GetListRank
 import NormalizeImportance
+
+
+def ClusterPlot(array):
+    array = np.abs(array)
+    numFeatures = array.shape[0]
+    fig, ax = plt.subplots()
+    img = ax.imshow(array)
+    #ax.grid(which='major', axis='both', linestyle='-', color='k', linewidth=2)
+    plt.colorbar(img)
+    plt.show()
+    
+    print("Created cluster plot.")
+
+
 def plotStructure(structure):
     print("In PlotStructure")
     fig = plt.figure()
@@ -30,8 +44,8 @@ def plotStructure(structure):
 
     colour_idx = 0
     colours = ['r', 'b', 'g', 'y', 'm', 'c', 'k']
-    for substructure in structure:
-        
+    for i in range(2,3):#len(structure)):
+        substructure = structure[i]
         colour = colours[colour_idx]
         colour_idx = (colour_idx + 1) % 7
         for contour in substructure:          
@@ -50,14 +64,15 @@ def plotStructure(structure):
                 if point[2] > maxZ:
                     maxZ = point[2]
                 if point[2] < minZ:
-                    minZ = point[2]                    
+                    minZ = point[2]                     
                 x.append(point[0])
                 y.append(point[1])
                 z.append(point[2])
+                print(point)
             ax.plot(x,y,z, colour)    
-    ax.set_xlim((minX, maxX))    
-    ax.set_ylim((minY, maxY))    
-    ax.set_zlim((minZ, maxZ))    
+    ax.set_xlim((minX-5, maxX+5))    
+    ax.set_ylim((minY-5, maxY+5))    
+    ax.set_zlim((minZ-5, maxZ+5))    
 
         
     plt.show()

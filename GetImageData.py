@@ -48,7 +48,7 @@ def RemoveIslands(contours):
             indices.pop(longestIndex)
             for item in indices:
                 indices_to_remove.append(item)
-                continue
+            continue
                  
         #first get average x and y of slices immediately above and below (or only one if at top or bottom)
         if min(indices) == 0:
@@ -162,7 +162,7 @@ def GetContours(patientPath, organ, subsegmentation = [2,1,2]):
                         pointListy = np.array([x,y,z])   
                     numContourPoints+=1         
                 contourList[-1] = tempContour 
-    contoursList = RemoveIslands(CloneList(contourList))            
+    contourList = RemoveIslands(CloneList(contourList))            
     contours = Contours(organ, structure, contourList)   
     
     Chopper.OrganChopper(contours, subsegmentation, organ) #Get 18ths subsegments

@@ -42,6 +42,8 @@ for patient in */; do
             #Now prep dicomautomaton
             
             dicomautomaton_dispatcher * \
+            -o ContourWholeImages:ROILabel=allimages \
+            -o NormalizePixels:ROILabelRegex=allimages:Method=suvbw \
             -o ExtractRadiomicFeatures \
             -p FeaturesFileName=lp_features.csv \
             -p NormalizedROILabelRegex="left parotid"    
@@ -50,6 +52,8 @@ for patient in */; do
             cd ..
             cd $directory
             dicomautomaton_dispatcher * \
+            -o ContourWholeImages:ROILabel=allimages \
+            -o NormalizePixels:ROILabelRegex=allimages:Method=suvbw \
             -o ExtractRadiomicFeatures \
             -p FeaturesFileName=rp_features.csv \
             -p NormalizedROILabelRegex="right parotid"    
@@ -59,6 +63,8 @@ for patient in */; do
             cd ..
             cd $directory
             dicomautomaton_dispatcher * \
+            -o ContourWholeImages:ROILabel=allimages \
+            -o NormalizePixels:ROILabelRegex=allimages:Method=suvbw \
             -o ExtractRadiomicFeatures \
             -p FeaturesFileName=ls_features.csv \
             -p ROILabelRegex='SM_L'  
@@ -68,6 +74,8 @@ for patient in */; do
             cd ..
             cd $directory
             dicomautomaton_dispatcher * \
+            -o ContourWholeImages:ROILabel=allimages \
+            -o NormalizePixels:ROILabelRegex=allimages:Method=suvbw \
             -o ExtractRadiomicFeatures \
             -p FeaturesFileName=rs_features.csv \
             -p ROILabelRegex='SM_R' 
@@ -93,6 +101,8 @@ for patient in */; do
                 subNameLeft="subseg_LPar$subseg_idx"
 
                 dicomautomaton_dispatcher * \
+                -o ContourWholeImages:ROILabel=allimages \
+                -o NormalizePixels:ROILabelRegex=allimages:Method=suvbw \
                 -o ExtractRadiomicFeatures \
                 -p FeaturesFileName=$csvNameRight \
                 -p ROILabelRegex="$subNameRight" 
@@ -102,6 +112,8 @@ for patient in */; do
 
                 cd $directory
                 dicomautomaton_dispatcher * \
+                -o ContourWholeImages:ROILabel=allimages \
+                -o NormalizePixels:ROILabelRegex=allimages:Method=suvbw \
                 -o ExtractRadiomicFeatures \
                 -p FeaturesFileName=$csvNameLeft \
                 -p ROILabelRegex="$subNameLeft" 

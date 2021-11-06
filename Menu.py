@@ -10,6 +10,7 @@ import os
 import numpy as np
 import Data_Analyzing
 from Data_Analyzing import DicomSaver
+import Radiomics
 
 parentDirectory = os.getcwd()
 
@@ -83,7 +84,7 @@ def GetPatient(patientPath, patientNum, cleanProcess=False, save=True):
    with open(os.path.join(patientPath, "PatientData.txt"), "wb") as fp:
          pickle.dump(patient, fp)
    if save==True:      
-      DicomSaver(patientPath, ["parotids"], 18)
+      DicomSaver(patientPath, ["parotids", "submandibular"])
 
    patient.LeftParotidMasks = GetImageData.GetContourMasks(lp_contours.wholeROI.copy(), patient.PETArray)
    patient.RightParotidMasks = GetImageData.GetContourMasks(rp_contours.wholeROI.copy(), patient.PETArray)
@@ -94,23 +95,23 @@ def GetPatient(patientPath, patientNum, cleanProcess=False, save=True):
 
 
 
-for i in range(2,3):
-   patient_idx = "{:02d}".format(i)
-   print("Loading Patient: " + patient_idx)
-   patientPath = os.path.join(parentDirectory, "SG_PETRT" , patient_idx)
-   patient = GetPatient(patientPath, patient_idx, cleanProcess=False, save=False)
+# for i in range(1,31):
+#    patient_idx = "{:02d}".format(i)
+#    print("Loading Patient: " + patient_idx)
+#    patientPath = os.path.join(parentDirectory, "SG_PETRT" , patient_idx)
+   # patient = GetPatient(patientPath, patient_idx, cleanProcess=False, save=False)
 
    #Visuals.PlotSUVs(patient)
-   #Visuals.plotStructure(patient.RightParotid.segmentedContours18)
-   Visuals.PlotPETwithParotids(patient)
+   #Visuals.plotStructure(patient.LeftParotid.segmentedContours18)
+   #Visuals.PlotPETwithParotids(patient)
    # SubmandibularSUVAnalysis(patient)
-   # ParotidSUVAnalysis(patient)
+   #ParotidSUVAnalysis(patient)
    
    
    #Visuals.PlotCTwithParotids(patient)
-   Visuals.PlotPETwithParotids(patient, plotSubSegs=True)
+   #Visuals.PlotPETwithParotids(patient, plotSubSegs=True)
    #Visuals.plotStructure(patient.LeftParotid.segmentedContours18)
-
+Radiomics.FeatureSelection("parotid")
 # Data_Analyzing.Population_Metrics_SM()   
 # Data_Analyzing.Population_Metrics_Parotid()  
 # Visuals.CorrelationPlot("submandibular")
