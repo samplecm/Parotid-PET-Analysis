@@ -2,6 +2,8 @@ import os
 import numpy as np
 import csv
 import copy
+
+from numpy.core.fromnumeric import sort
 from Patient import Patient
 import Contours
 import matplotlib.pyplot as plt
@@ -27,13 +29,13 @@ def FeatureSelection(organ):
             idx += 1
     allFeatures_norm = NormalizeFeatures(CloneList(features))
 
-    correlation_array = CorrelationArray(allFeatures_norm)
+    correlation_array, labels = CorrelationArray(allFeatures_norm)
     #FeatureSelect_KMeans(allFeatures_norm)
 
 
     # combinedFeaturesRight_normalized = NormalizeFeatures(combinedFeaturesRight)
     # combinedFeaturesLeft_normalized = NormalizeFeatures(combinedFeaturesLeft)
-    Visuals.ClusterPlot(correlation_array)
+    Visuals.ClusterPlot(correlation_array, labels)
     print("Selected features")        
 
 def CorrelationArray(features, method="spearman", load=True):
@@ -69,11 +71,88 @@ def CorrelationArray(features, method="spearman", load=True):
     with open(savePath, 'wb') as f:
         np.save(f, array)
 
-    return array              
+    array, labels = SortClusters(array)
+    return array, labels              
 
 
+def SortClusters(array, threshold=0.7):
+    #this function sorts the correlation array to group clusters according to a certain threshold 
+    #look for the feature with the most correlations, and then add all those features first, then repeat until there are no more correlations. Then search with a smaller threshold
+    #until threshold is 0.2, then just add the rest.
+    num_features = array.shape[0]
+    sorted_features = np.zeros((num_features, num_features))
+
+    features_moved = 0 #keep track of how many have been sorted and placed into the sorted array
+    new_index_order = [] #for resorting in the end
+    while features_moved < num_features:
+        #first look for the row with the most correlations above the threshold
+        cors = []
+        most_cor = 0
+        for i in range(num_features):
+            if i in new_index_order:
+                continue
+            features = array[i,:]
+            cors_indices = []
+            for j in range(num_features):
+                if j in new_index_order:
+                    continue
+                if features[j] > threshold:
+                    cors_indices.append(j)
+
+            if len(cors_indices) > most_cor:
+                cors = cors_indices
+                most_cor = len(cors_indices)
+        #now add all these features to the first available rows in the new features array. But need to resort values first to go along with the move.
+        if len(cors) < 4 and threshold > 0.6: 
+            threshold -= 0.1
+            continue
+        elif len(cors) < 3:
+            threshold -= 0.1
+            continue
+        new_index_order.extend(cors) 
+
+        current_row_idx = features_moved #next available row in new array
+
+        for i, idx in enumerate(cors):
+            sorted_features[current_row_idx+ i, :]  = array[idx]    
+
+        features_moved += most_cor
+
+    sorted_features = Sort_Clustering_Indices(np.copy(array), new_index_order)   
+
+    #Now get the order of feature labels after sorting. 
+    filePath = "/media/caleb/WDBlue/PET_PSMA/PSMA_Analysis/SG_PETRT/03/Radiomics/rParSub_14.csv"
+    with open(filePath) as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        for row in csv_reader:
+            labels = row[3:]
+            break
+    labels = Sort_Labels(labels.copy(), new_index_order)    
+    
+    return sorted_features, labels 
 
 
+def Sort_Clustering_Indices(array, new_index_order : list):
+    #When we cluster features and reorder them, the indices swap in the 2d feature correlation array. This function performs that swapping
+
+    sorted_array = np.zeros(array.shape)
+
+    #go through the array and every i in cors swaps with current_row_idx + i
+    for i in range(array.shape[0]):
+        for j in range(array.shape[0]):
+            i_idx = new_index_order[i]
+            j_idx = new_index_order[j]
+            sorted_array[i,j] = array[i_idx, j_idx]
+
+    return sorted_array
+
+    #
+
+def Sort_Labels(labels, new_index_order):
+    newLabels = []
+    for i in new_index_order:
+        newLabels.append(labels[i])
+    return newLabels    
 
 def NormalizeFeatures(array):
     #convert each feature to its Z value

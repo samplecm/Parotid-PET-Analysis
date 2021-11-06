@@ -15,11 +15,15 @@ from Data_Analyzing import GetListRank
 import NormalizeImportance
 
 
-def ClusterPlot(array):
+def ClusterPlot(array, labels):
     array = np.abs(array)
     numFeatures = array.shape[0]
     fig, ax = plt.subplots()
     img = ax.imshow(array)
+    ax.set_xticks(range(0,array.shape[0]))
+    ax.set_xticklabels(labels, rotation='vertical', fontsize=6)
+    ax.set_yticks(range(0,array.shape[0]))
+    ax.set_yticklabels(labels, fontsize=6)
     #ax.grid(which='major', axis='both', linestyle='-', color='k', linewidth=2)
     plt.colorbar(img)
     plt.show()
