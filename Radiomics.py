@@ -15,7 +15,7 @@ import Visuals
 parentDirectory = os.getcwd()
 
 def FeatureSelection(organ):
-    #loop through all the patients and collect all of the radiomics and combine the data, then cluster
+    #loop through all the patients and collect all of the radiomics and combine the data, then cluster plot
 
     features = np.zeros((1080,35))
     idx = 0
@@ -36,8 +36,52 @@ def FeatureSelection(organ):
     # combinedFeaturesRight_normalized = NormalizeFeatures(combinedFeaturesRight)
     # combinedFeaturesLeft_normalized = NormalizeFeatures(combinedFeaturesLeft)
     Visuals.ClusterPlot(correlation_array, labels)
-    print("Selected features")        
+    print("Plotted Clusters.")        
 
+def Get_Subseg_Features(organ="parotid"):
+    subseg_features = np.zeros((18,4,60)) #18 subsegs, 4 features, 30patientsx2organs
+    feature_indices = [1,9, 16, 28] #the features I've selected using the cluster plot
+    idx = 0
+    for i in range(1,31):
+        patient_idx = "{:02d}".format(i)
+        patientPath = os.path.join(parentDirectory, "SG_PETRT" , patient_idx)
+        rightFeatureList, leftFeatureList = ReadFromCSV(patientPath, organ)
+
+        for j in range(len(rightFeatureList)-1):
+            subseg_features[j, 0, i-1] = rightFeatureList[j+1][1][2] #5th percentile
+            subseg_features[j, 1, i-1] = rightFeatureList[j+1][1][10]  #98th percentile
+            subseg_features[j, 2, i-1] = rightFeatureList[j+1][1][14]  #variance
+            subseg_features[j, 3, i-1] = rightFeatureList[j+1][1][19]  #kurtosis
+
+            subseg_features[j, 0, i-1+30] = leftFeatureList[j+1][1][2]
+            subseg_features[j, 1, i-1+30] = leftFeatureList[j+1][1][10]  
+            subseg_features[j, 2, i-1+30] = leftFeatureList[j+1][1][14]  
+            subseg_features[j, 3, i-1+30] = leftFeatureList[j+1][1][19]
+
+    #Now condense into a statistics array
+    radiomics_stats = np.zeros((2,18,4)) #2 rows first for left and right parotid
+    for i in range(radiomics_stats.shape[1]):
+        #radiomics_stats[i,0, 0] = np.percentile(subseg_features[i,0,:], 5)       
+        radiomics_stats[0,i,0] = np.average(subseg_features[i,0,0:30])#np.percentile(subseg_features[i,0,0:30], 50)    
+        radiomics_stats[1,i,0] = np.average(subseg_features[i,0,30:]) 
+        #radiomics_stats[i,0, 2] = np.percentile(subseg_features[i,0,:], 95)    
+
+        #radiomics_stats[i,1, 0] = np.percentile(subseg_features[i,1,:], 5)       
+        radiomics_stats[0,i,1] = np.average(subseg_features[i,1,0:30]) 
+        radiomics_stats[1,i,1] = np.average(subseg_features[i,1,30:])
+        #radiomics_stats[i,1, 2] = np.percentile(subseg_features[i,1,:], 95)    
+
+        #radiomics_stats[i,2, 0] = np.percentile(subseg_features[i,2,:], 5)       
+        radiomics_stats[0,i,2] = np.average(subseg_features[i,2,0:30])    
+        radiomics_stats[1,i,2] = np.average(subseg_features[i,2,30:]) 
+        #radiomics_stats[i,2, 2] = np.percentile(subseg_features[i,2,:], 95)    
+
+        #radiomics_stats[i,3, 0] = np.percentile(subseg_features[i,3,:], 5)       
+        radiomics_stats[0,i,3] = np.average(subseg_features[i,3,0:30])   
+        radiomics_stats[1,i,3] = np.average(subseg_features[i,3,30:])  
+        #radiomics_stats[i,3, 2] = np.percentile(subseg_features[i,3,:], 95)    
+    return radiomics_stats    
+    print("Collected population radiomics statistics for model.")
 def CorrelationArray(features, method="spearman", load=True):
     #obtain the unsorted correlation array
     savePath = os.path.join(parentDirectory, "Statistics/correlation_array.npy")

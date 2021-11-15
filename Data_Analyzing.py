@@ -1,5 +1,7 @@
 import csv
+from datetime import date
 import os
+from scipy.sparse import data
 import scipy.stats
 import numpy as np 
 import copy
@@ -12,7 +14,96 @@ from rtstruct_builder import RTStructBuilder
 from rtstruct import RTStruct
 from rtutils import ROIData
 import pydicom
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn import linear_model
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
+from sklearn.metrics import r2_score, mean_squared_error
+from sklearn.model_selection import KFold
+from sklearn.linear_model import LinearRegression
+from numpy import mean
+from numpy import absolute
+from numpy import sqrt
+import pandas as pd
+import statistics
 parentDirectory = os.getcwd()
+
+class Model:
+
+    def __init__(self, radiomics_data, degree=2):
+        self.radiomics_data = radiomics_data
+        self.degree = degree
+        self.fit(degree)
+        
+    def fit(self, subsegs="all"):
+        radiomics_stats = self.radiomics_data
+            #This function creates a predictive model for subsegment importance using radiomics features.
+        importanceVals = [0.751310670731707,  0.526618902439024,   0.386310975609756,
+                    1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
+                    0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
+                    0.272984146341463,   0.0484897103658537,  0.035493902439024]
+        points = []
+        for i in range(radiomics_stats.shape[1]):
+            points.append([radiomics_stats[0, i, 0], radiomics_stats[0, i, 1], radiomics_stats[0, i, 2], radiomics_stats[0, i, 3]])    
+        for i in range(radiomics_stats.shape[1]):
+            points.append([radiomics_stats[1, i, 0], radiomics_stats[1, i, 1], radiomics_stats[1, i, 2], radiomics_stats[1, i, 3]])   
+        poly = PolynomialFeatures(self.degree)     
+        #transform the data for fitting  
+        points_transformed = poly.fit_transform(points)
+
+        model = linear_model.LinearRegression()
+        y=importanceVals*2
+        model.fit(points_transformed, y)
+        self.predictor = model
+
+    def predict(self, radiomics_features):
+        poly = PolynomialFeatures(self.degree)
+        points = np.array(radiomics_features)
+        if len(points.shape) == 1:
+            points = points.reshape(1,-1)
+        return self.predictor.predict(poly.fit_transform(points))
+
+
+    #testSubseg = model.predict(poly.fit_transform(np.array(points[15]).reshape(1,-1)))
+
+
+def KFold_Validation(radiomics_data, k=9, degree=2):
+    #takes population radiomics data and performs a k-fold cross validation   
+    importanceVals = [0.751310670731707,  0.526618902439024,   0.386310975609756,
+                    1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
+                    0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
+                    0.272984146341463,   0.0484897103658537,  0.035493902439024]
+    y = importanceVals * 2             
+    radiomics_data = np.reshape(radiomics_data, (36, 4))
+
+    data_frame = pd.DataFrame({'y': y,
+                                'x1': radiomics_data[:,0].tolist(),
+                                'x2': radiomics_data[:,1].tolist(),
+                                'x3': radiomics_data[:,2].tolist(),
+                                'x4': radiomics_data[:,3].tolist()})
+    # x = data_frame[['x1', 'x2', 'x3', 'x4']]
+    x = data_frame[['x1', 'x2']]
+    y = data_frame['y']
+    poly = PolynomialFeatures(degree)     
+    #transform the data for fitting  
+    points_transformed = poly.fit_transform(x)
+
+    cv = KFold(n_splits=9, random_state=1, shuffle=True)
+    model = LinearRegression()
+    model.fit(points_transformed, y)
+    scores = cross_val_score(model, points_transformed, y, scoring="neg_mean_absolute_error", cv=cv, n_jobs=1)
+
+    # x_train, x_test, y_train, y_test = train_test_split(np.reshape(np.array([data_frame['x1'], data_frame['x2'], data_frame['x3'], data_frame['x4']]), (36, 4)),y,train_size=(8/9))
+    print("KFold MAE: " + str(np.mean(np.abs(scores))))
+    return np.mean(np.abs(scores))
+
+    # #Loop through degrees 1 to 3 to compare performance
+    # for d in range(1, 3):
+
+
+
+
+
 
 def DicomSaver(patientPath, organs : list):
 
@@ -232,7 +323,7 @@ def SubmandibularSUVAnalysis(patient : Patient):
 
     return [lSub_SUVs, rSub_SUVs]     
 
-def ParotidSUVAnalysis(patient : Patient):
+def ParotidSUVAnalysis(patient : Patient, stat="mean"):
     #this function takes a pet suv array and a structure and computes the mean suv within the structure    
     
     pet_array = patient.PETArray 
@@ -243,8 +334,11 @@ def ParotidSUVAnalysis(patient : Patient):
 
     lPar_SUVs = np.zeros((19,2))
     rPar_SUVs = np.zeros((19,2)) #second dimension to hold number of points used for average, which will be removed after being used at the end
-    print("Calculating Parotid SUVs.")
 
+    #also have a list for holding all voxel values to calculate percentiles with
+    lPar_SUV_vals = []
+    rPar_SUV_vals = []
+    print("Calculating Parotid SUVs.")
 
     for slice_idx in range(0,pet_array.shape[1]):
         print("On Slice #" + str(slice_idx+1) + " for whole parotid glands.")
@@ -255,15 +349,22 @@ def ParotidSUVAnalysis(patient : Patient):
                 if lParMasks[0,slice_idx, x_idx,y_idx] == 1:
                     lPar_SUVs[0,0] = lPar_SUVs[0,0] +  pet_array[0,slice_idx,x_idx,y_idx]
                     lPar_SUVs[0,1] = lPar_SUVs[0,1] + 1
+                    lPar_SUV_vals.append(pet_array[0,slice_idx,x_idx,y_idx])
 
                 if rParMasks[0,slice_idx, x_idx,y_idx] == 1:
                     rPar_SUVs[0,0] = rPar_SUVs[0,0] + pet_array[0,slice_idx,x_idx,y_idx]
                     rPar_SUVs[0,1] = rPar_SUVs[0,1] + 1    
+                    rPar_SUV_vals.append(pet_array[0,slice_idx,x_idx,y_idx])
 
-        
-    lPar_SUVs[0,0] = lPar_SUVs[0,0] / lPar_SUVs[0,1]
-    rPar_SUVs[0,0] = rPar_SUVs[0,0] / rPar_SUVs[0,1]
-
+    if stat=="mean":    
+        lPar_SUVs[0,0] = lPar_SUVs[0,0] / lPar_SUVs[0,1]
+        rPar_SUVs[0,0] = rPar_SUVs[0,0] / rPar_SUVs[0,1]
+    elif stat=="95":
+        lPar_SUVs[0,0] = np.percentile(np.array(lPar_SUV_vals), 95)
+        rPar_SUVs[0,0] = np.percentile(np.array(rPar_SUV_vals), 95)
+    elif stat=="5":  
+        lPar_SUVs[0,0] = np.percentile(np.array(lPar_SUV_vals), 5)
+        rPar_SUVs[0,0] = np.percentile(np.array(rPar_SUV_vals), 5)  
 
 
     #Now calculate for the subsegments. 
@@ -289,6 +390,7 @@ def ParotidSUVAnalysis(patient : Patient):
             # with open(os.path.join(subsegDir, str(patient.name + "_left_subsegMasks_" + str(int(subseg_idx+1)) + ".txt")), "wb") as fp:
             #     pickle.dump(subSegMasks_l, fp)
             ##takes too long to save
+            lPar_SUV_vals = []
         print("Calculating average SUV in subsegment " + str(int(subseg_idx+1))+ " of left parotid.")
         for slice_idx in range(0,pet_array.shape[1]):
             
@@ -298,12 +400,19 @@ def ParotidSUVAnalysis(patient : Patient):
             layerBoolMask = subSegMasks_l[0,slice_idx,:,:] > 0
             subsegSUVs = pet_array[0,slice_idx,:,:][layerBoolMask]
             suv_sum = np.sum(subsegSUVs)
+
+            lPar_SUV_vals.extend(subsegSUVs)
+
             numPoints = len(subsegSUVs)
             lPar_SUVs[subseg_idx+1, 0] = lPar_SUVs[subseg_idx+1, 0] + suv_sum
             lPar_SUVs[subseg_idx+1,1] = lPar_SUVs[subseg_idx+1,1] + numPoints
 
-            
-        lPar_SUVs[subseg_idx+1,0] = lPar_SUVs[subseg_idx+1,0] / lPar_SUVs[subseg_idx+1,1]
+        if stat=="mean":    
+            lPar_SUVs[subseg_idx+1,0] = lPar_SUVs[subseg_idx+1,0] / lPar_SUVs[subseg_idx+1,1]
+        elif stat=="95":
+            lPar_SUVs[subseg_idx+1,0] = np.percentile(np.array(lPar_SUV_vals), 95)
+        elif stat=="5":  
+            lPar_SUVs[subseg_idx+1,0] = np.percentile(np.array(lPar_SUV_vals), 5)
     lPar_SUVs = lPar_SUVs[:,0]
 
     #Now right par subsegs
@@ -316,6 +425,7 @@ def ParotidSUVAnalysis(patient : Patient):
             subSegMasks_r = GetImageData.GetContourMasks(subsegment, pet_array)
             # with open(os.path.join(subsegDir, str(patient.name + "_right_subsegMasks_" + str(int(subseg_idx+1)) + ".txt")), "wb") as fp:
             #     pickle.dump(subSegMasks_r, fp)
+            rPar_SUV_vals = []
         print("Calculating average SUV in subsegment " + str(int(subseg_idx+1))+ " of right parotid.")
         for slice_idx in range(0,pet_array.shape[1]):
             if np.amax(subSegMasks_r[0,slice_idx,:,:]) == 0: #if no contour on slice skip
@@ -324,13 +434,18 @@ def ParotidSUVAnalysis(patient : Patient):
             layerBoolMask = subSegMasks_r[0,slice_idx,:,:] > 0
             subsegSUVs = pet_array[0,slice_idx,:,:][layerBoolMask]
             suv_sum = np.sum(subsegSUVs)
+            rPar_SUV_vals.extend(subsegSUVs)
             numPoints = len(subsegSUVs)
             rPar_SUVs[subseg_idx+1, 0] = rPar_SUVs[subseg_idx+1, 0] + suv_sum
             rPar_SUVs[subseg_idx+1,1] = rPar_SUVs[subseg_idx+1,1] + numPoints
 
-        
+        if stat=="mean":    
+            rPar_SUVs[subseg_idx+1,0] = rPar_SUVs[subseg_idx+1,0] / rPar_SUVs[subseg_idx+1,1]
+        elif stat=="95":
+            rPar_SUVs[subseg_idx+1,0] = np.percentile(np.array(rPar_SUV_vals), 95)
+        elif stat=="5":  
+            rPar_SUVs[subseg_idx+1,0] = np.percentile(np.array(rPar_SUV_vals), 5)
 
-        rPar_SUVs[subseg_idx+1,0] = rPar_SUVs[subseg_idx+1,0] / rPar_SUVs[subseg_idx+1,1]
     rPar_SUVs = rPar_SUVs[:,0]
 
 
@@ -347,8 +462,13 @@ def ParotidSUVAnalysis(patient : Patient):
     rightPearson_p = scipy.stats.t.sf(np.abs(rightPearson_t), 16)
     leftPearson_p = scipy.stats.t.sf(np.abs(leftPearson_t), 16)
     #Now save these SUV stats into a csv
-
-    csvPath = os.path.join(patient.path, "parotid_stats.csv")
+    if stat=="mean":    
+        csvPath = os.path.join(patient.path, "parotid_means.csv")
+    elif stat=="95":
+        csvPath = os.path.join(patient.path, "parotid_95_percentile.csv")
+    elif stat=="5":  
+        csvPath = os.path.join(patient.path, "parotid_5_percentile.csv")
+    
 
     with open(csvPath, 'w') as csvFile:
         filewriter = csv.writer(csvFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
@@ -363,45 +483,92 @@ def ParotidSUVAnalysis(patient : Patient):
 
     return [lPar_SUVs, rPar_SUVs]    
 
-def Population_Metrics_Parotid():
+def Population_Metrics_Parotid(stat="mean"):
     #this function computes the average, max and min suv inside each subsegment and whole gland of the left and parotid gland over all patients
 
     suvAvgs = [] #left is left, right is right parotid. thee first index is whole gland, followed by each subsegment
     suvMins = []
     suvMaxs = []
     suvSTDs = []
+    suv95s = []
+    suv5s = []
 
     for i in range(19):
         suvAvgs.append([0,0])
+        suv95s.append([0,0])
+        suv5s.append([0,0])
         suvMins.append([1e6, 1e6])
         suvMaxs.append([1e-6,1e-6])
         suvSTDs.append([0,0])
 
     #loop through first and get average, min and max suvs
     for i in range(1,31):
-        patientPath = os.path.join(parentDirectory, "SG_PETRT" , str(i))
-        csvPath = os.path.join(patientPath, 'parotid_stats.csv')
-        with open(csvPath) as csvFile:   
-            csvData = list(enumerate(csv.reader(csvFile, delimiter=',', quotechar='|')))       
-            for row in range(1, 20):          
-                for idx, rowData in csvData:
+        patient_idx = "{:02d}".format(i)
+#    print("Loading Patient: " + patient_idx)
+        patientPath = os.path.join(parentDirectory, "SG_PETRT" , patient_idx)
+        if stat=="mean":
+            csvPath = os.path.join(patientPath, 'parotid_stats.csv')
+            with open(csvPath) as csvFile:   
+                csvData = list(enumerate(csv.reader(csvFile, delimiter=',', quotechar='|')))       
+                for row in range(1, 20):          
+                    for idx, rowData in csvData:
 
-                    if int(idx) == int(row):
-                        suvAvgs[row-1][0] = suvAvgs[row-1][0] + float(rowData[1])
-                        suvAvgs[row-1][1] = suvAvgs[row-1][1] + float(rowData[2])
-                        if float(rowData[1]) < suvMins[row-1][0]:
-                            suvMins[row-1][0] = float(rowData[1])
-                        if float(rowData[2]) < suvMins[row-1][1]:
-                            suvMins[row-1][1] = float(rowData[2])    
+                        if int(idx) == int(row):
+                            suvAvgs[row-1][0] = suvAvgs[row-1][0] + float(rowData[1])
+                            suvAvgs[row-1][1] = suvAvgs[row-1][1] + float(rowData[2])
+                            if float(rowData[1]) < suvMins[row-1][0]:
+                                suvMins[row-1][0] = float(rowData[1])
+                            if float(rowData[2]) < suvMins[row-1][1]:
+                                suvMins[row-1][1] = float(rowData[2])    
+        elif stat=="95":
+            csvPath = os.path.join(patientPath, 'parotid_95_percentile.csv')
+            with open(csvPath) as csvFile:   
+                csvData = list(enumerate(csv.reader(csvFile, delimiter=',', quotechar='|')))       
+                for row in range(1, 20):          
+                    for idx, rowData in csvData:
+
+                        if int(idx) == int(row):
+                            suv95s[row-1][0] = suv95s[row-1][0] + float(rowData[1])
+                            suv95s[row-1][1] = suv95s[row-1][1] + float(rowData[2])
+                            if float(rowData[1]) < suvMins[row-1][0]:
+                                suvMins[row-1][0] = float(rowData[1])
+                            if float(rowData[2]) < suvMins[row-1][1]:
+                                suvMins[row-1][1] = float(rowData[2])   
+        elif stat=="5":
+            csvPath = os.path.join(patientPath, 'parotid_5_percentile.csv')
+            with open(csvPath) as csvFile:   
+                csvData = list(enumerate(csv.reader(csvFile, delimiter=',', quotechar='|')))       
+                for row in range(1, 20):          
+                    for idx, rowData in csvData:
+
+                        if int(idx) == int(row):
+                            suv95s[row-1][0] = suv95s[row-1][0] + float(rowData[1])
+                            suv95s[row-1][1] = suv95s[row-1][1] + float(rowData[2])
+                            if float(rowData[1]) < suvMins[row-1][0]:
+                                suvMins[row-1][0] = float(rowData[1])
+                            if float(rowData[2]) < suvMins[row-1][1]:
+                                suvMins[row-1][1] = float(rowData[2])                                          
     for row in range(1, 20):
         suvAvgs[row-1][0] = suvAvgs[row-1][0] / 30
         suvAvgs[row-1][1] = suvAvgs[row-1][1] / 30
+        suv95s[row-1][0] = suv95s[row-1][0] / 30
+        suv95s[row-1][1] = suv95s[row-1][1] / 30
+        suv5s[row-1][0] = suv5s[row-1][0] / 30
+        suv5s[row-1][1] = suv5s[row-1][1] / 30
 
 
     #now loop back through and get stds.    
     for i in range(1,31):
-        patientPath = os.path.join(parentDirectory, "SG_PETRT" , str(i))
-        csvPath = os.path.join(patientPath, 'parotid_stats.csv')
+        patient_idx = "{:02d}".format(i)
+#    print("Loading Patient: " + patient_idx)
+        patientPath = os.path.join(parentDirectory, "SG_PETRT" , patient_idx)
+        if stat=="mean":
+            csvPath = os.path.join(patientPath, 'parotid_stats.csv')
+        elif stat=="95":
+            csvPath = os.path.join(patientPath, 'parotid_95_percentile.csv')
+        elif stat=="5":
+            csvPath = os.path.join(patientPath, 'parotid_5_percentile.csv')        
+
         with open(csvPath) as csvFile:   
             csvData = list(enumerate(csv.reader(csvFile, delimiter=',', quotechar='|')))       
             for row in range(1, 20):          
@@ -422,8 +589,15 @@ def Population_Metrics_Parotid():
     numSig_Pears_Left = [0,0,0,0]
     numSig_Pears_Right = [0,0,0,0]
     for i in range(1,31):
-        patientPath = os.path.join(parentDirectory, "SG_PETRT" , str(i))
-        csvPath = os.path.join(patientPath, 'parotid_stats.csv')
+        patient_idx = "{:02d}".format(i)
+#    print("Loading Patient: " + patient_idx)
+        patientPath = os.path.join(parentDirectory, "SG_PETRT" , patient_idx)
+        if stat=="mean":
+            csvPath = os.path.join(patientPath, 'parotid_stats.csv')
+        elif stat=="95":
+            csvPath = os.path.join(patientPath, 'parotid_95_percentile.csv')
+        elif stat=="5":
+            csvPath = os.path.join(patientPath, 'parotid_5_percentile.csv')        
         
         with open(csvPath) as csvFile:   
             csvData = list(enumerate(csv.reader(csvFile, delimiter=',', quotechar='|')))       
@@ -467,17 +641,22 @@ def Population_Metrics_Parotid():
                 numSig_Pears_Right[3] = numSig_Pears_Right[3] + 1        
 
     #now want to computer pearson and spearman coefficients using average suv values. 
-    leftSubseg_avgs, rightSubseg_avgs = map(list, zip(*suvAvgs))
-    leftSubseg_avgs = leftSubseg_avgs[1:]
-    rightSubseg_avgs = rightSubseg_avgs[1:]
-    rightSpearman = SpearmansRankCorrelation(CloneList(rightSubseg_avgs))
-    leftSpearman = SpearmansRankCorrelation(CloneList(leftSubseg_avgs))
+    if stat=="mean":
+        leftSubsegs, rightSubsegs = map(list, zip(*suvAvgs))
+    elif stat=="95":
+        leftSubsegs, rightSubsegs = map(list, zip(*suv95s))
+    elif stat=="5":
+        leftSubsegs, rightSubsegs = map(list, zip(*suv5s))
+    leftSubsegs = leftSubsegs[1:]
+    rightSubsegs = rightSubsegs[1:]
+    rightSpearman = SpearmansRankCorrelation(CloneList(rightSubsegs))
+    leftSpearman = SpearmansRankCorrelation(CloneList(leftSubsegs))
     rightSpearman_t = Get_t_value(rightSpearman, 18)
     leftSpearman_t = Get_t_value(leftSpearman, 18)
     rightSpearman_p = scipy.stats.t.sf(np.abs(rightSpearman_t), 16)
     leftSpearman_p = scipy.stats.t.sf(np.abs(leftSpearman_t), 16)
-    rightPearson = PearsonsRankCorrelation(rightSubseg_avgs)
-    leftPearson = PearsonsRankCorrelation(leftSubseg_avgs)
+    rightPearson = PearsonsRankCorrelation(rightSubsegs)
+    leftPearson = PearsonsRankCorrelation(leftSubsegs)
     rightPearson_t = Get_t_value(rightPearson, 18)
     leftPearson_t = Get_t_value(leftPearson, 18)
     rightPearson_p = scipy.stats.t.sf(np.abs(rightPearson_t), 16)
@@ -485,7 +664,7 @@ def Population_Metrics_Parotid():
     print("Calculated SUV Stats")  
     
     #Now need to save these stats into the suv_stats csv file.
-    path = os.path.join(parentDirectory, "Statistics/PopulationParotidStats.csv")
+    path = os.path.join(parentDirectory, str("Statistics/PopulationParotidStats_" + stat + ".csv"))
     with open(path, 'w') as csvFile:
         filewriter = csv.writer(csvFile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         filewriter.writerow(['Subsegment', 'Left-Parotid','Left-Parotid-SD', 'Right-Parotid', 'Right-Parotid-SD'])

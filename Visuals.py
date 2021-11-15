@@ -11,9 +11,22 @@ from matplotlib.widgets import Slider
 from Patient import Patient
 from PIL import Image
 import copy
-from Data_Analyzing import GetListRank
+from Data_Analyzing import GetListRank, KFold_Validation
 import NormalizeImportance
+def ModelScore_vs_Degree_Plot(radiomics_data):
+    x = np.linspace(1, 5, 5, dtype=int)
+    y = []
+    for i in x:
+        score = KFold_Validation(radiomics_data, k=9, degree=i)
+        y.append(score)
 
+    plt.figure()
+    plt.scatter(x,y)
+    plt.xlabel("Model Degree")
+    plt.ylabel("Mean Absolute Error")
+    plt.xticks([0,1,2,3,4,5])
+    plt.show()
+    print("Created model score vs degree plot")
 
 def ClusterPlot(array, labels):
     array = np.abs(array)
@@ -219,7 +232,7 @@ def MaskOnImage(array, masks):
 
     return newArray       
 
-def CorrelationPlot(organ):
+def CorrelationPlot(organ, stat="mean"):
     if organ == "parotid":
         importanceVals = [0.751310670731707,  0.526618902439024,   0.386310975609756,
             1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,

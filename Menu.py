@@ -1,6 +1,6 @@
 import GetImageData
 from GetImageData import GetPatientName
-from Data_Analyzing import ParotidSUVAnalysis, SubmandibularSUVAnalysis
+from Data_Analyzing import KFold_Validation, ParotidSUVAnalysis, SubmandibularSUVAnalysis
 import Segmentation
 import Visuals
 from Patient import Patient
@@ -95,23 +95,37 @@ def GetPatient(patientPath, patientNum, cleanProcess=False, save=True):
 
 
 
-# for i in range(1,31):
+# for i in range(1,2):
 #    patient_idx = "{:02d}".format(i)
 #    print("Loading Patient: " + patient_idx)
 #    patientPath = os.path.join(parentDirectory, "SG_PETRT" , patient_idx)
-   # patient = GetPatient(patientPath, patient_idx, cleanProcess=False, save=False)
 
-   #Visuals.PlotSUVs(patient)
-   #Visuals.plotStructure(patient.LeftParotid.segmentedContours18)
-   #Visuals.PlotPETwithParotids(patient)
+#    patient = GetPatient(patientPath, patient_idx, cleanProcess=False, save=False)
+#    patient.path = patientPath
+#    with open(os.path.join(patientPath, "PatientData.txt"), "wb") as fp:
+#       pickle.dump(patient, fp)
+#    patient.path = patientPath
+   # Visuals.PlotSUVs(patient)
+   # Visuals.plotStructure(patient.LeftParotid.segmentedContours18)
+   # Visuals.PlotPETwithParotids(patient)
    # SubmandibularSUVAnalysis(patient)
-   #ParotidSUVAnalysis(patient)
+   # ParotidSUVAnalysis(patient, stat="95")
+   # ParotidSUVAnalysis(patient, stat="5")
    
    
    #Visuals.PlotCTwithParotids(patient)
    #Visuals.PlotPETwithParotids(patient, plotSubSegs=True)
    #Visuals.plotStructure(patient.LeftParotid.segmentedContours18)
-Radiomics.FeatureSelection("parotid")
-# Data_Analyzing.Population_Metrics_SM()   
-# Data_Analyzing.Population_Metrics_Parotid()  
-# Visuals.CorrelationPlot("submandibular")
+   
+# Radiomics.FeatureSelection("parotid")
+# population_radiomics_stats = Radiomics.Get_Subseg_Features("parotid")
+# importanceModel = Data_Analyzing.Model(population_radiomics_stats, degree=2)
+#KFold_Validation(population_radiomics_stats, degree=10)
+# Visuals.ModelScore_vs_Degree_Plot(population_radiomics_stats)
+# prediction = importanceModel.predict(population_radiomics_stats[1,3,:])
+print("finished")
+#Data_Analyzing.Population_Metrics_SM()   
+Data_Analyzing.Population_Metrics_Parotid(stat="mean")  
+Data_Analyzing.Population_Metrics_Parotid(stat="95")
+Data_Analyzing.Population_Metrics_Parotid(stat="5")
+Visuals.CorrelationPlot("parotid")
