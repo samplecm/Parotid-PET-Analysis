@@ -17,68 +17,73 @@ parentDirectory = os.getcwd()
 def FeatureSelection(organ):
     #loop through all the patients and collect all of the radiomics and combine the data, then cluster plot
 
-    features = np.zeros((1080,35))
+    features = np.zeros((1080,27))
     idx = 0
     for i in range(1,31):
         patient_idx = "{:02d}".format(i)
         patientPath = os.path.join(parentDirectory, "SG_PETRT" , patient_idx)
-        rightFeatureList, leftFeatureList = ReadFromCSV(patientPath, organ)
+        rightFeatureList, leftFeatureList = ReadFeaturesFromCSV(patientPath, organ)
         for j in range(18):
             features[idx,:] = rightFeatureList[j+1][1]
             features[idx+540,:] = leftFeatureList[j+1][1]
             idx += 1
     allFeatures_norm = NormalizeFeatures(CloneList(features))
-
     correlation_array, labels = CorrelationArray(allFeatures_norm)
+    correlation_array_filtered, labels_filtered = Pairwise_Correlation_Filter(correlation_array, labels)
     #FeatureSelect_KMeans(allFeatures_norm)
 
 
     # combinedFeaturesRight_normalized = NormalizeFeatures(combinedFeaturesRight)
     # combinedFeaturesLeft_normalized = NormalizeFeatures(combinedFeaturesLeft)
-    Visuals.ClusterPlot(correlation_array, labels)
-    print("Plotted Clusters.")        
 
-def Get_Subseg_Features(organ="parotid"):
-    subseg_features = np.zeros((18,4,60)) #18 subsegs, 4 features, 30patientsx2organs
-    feature_indices = [1,9, 16, 28] #the features I've selected using the cluster plot
+    #Visuals.ClusterPlot(correlation_array, labels)
+    #Visuals.ClusterPlot(correlation_array_filtered, labels_filtered)
+    print("Plotted Clusters.")        
+    return labels_filtered
+
+def Get_Subseg_Features(labels, organ="parotid"):
+    subseg_features = np.zeros((60, 18, len(labels))) #18 subsegs, 4 features, 30patientsx2organs
     idx = 0
     for i in range(1,31):
         patient_idx = "{:02d}".format(i)
         patientPath = os.path.join(parentDirectory, "SG_PETRT" , patient_idx)
-        rightFeatureList, leftFeatureList = ReadFromCSV(patientPath, organ)
+        rightFeatureList, leftFeatureList = ReadFeaturesFromCSV(patientPath, organ)
+        j = 0
+        k = 0
+        while k < len(labels):
+            feature_idx = 1000
+            for l in range(len(rightFeatureList[0][0])):
+                if labels[k] == rightFeatureList[0][0][l]:
+                    feature_idx = l
+                    break                    
+            for j in range(len(rightFeatureList)-1):              
+                subseg_features[i-1, j, k] = rightFeatureList[j+1][1][feature_idx] #5th percentile
+                subseg_features[i-1+30, j, k] = leftFeatureList[j+1][1][feature_idx]
+            k += 1    
 
-        for j in range(len(rightFeatureList)-1):
-            subseg_features[j, 0, i-1] = rightFeatureList[j+1][1][2] #5th percentile
-            subseg_features[j, 1, i-1] = rightFeatureList[j+1][1][10]  #98th percentile
-            subseg_features[j, 2, i-1] = rightFeatureList[j+1][1][14]  #variance
-            subseg_features[j, 3, i-1] = rightFeatureList[j+1][1][19]  #kurtosis
-
-            subseg_features[j, 0, i-1+30] = leftFeatureList[j+1][1][2]
-            subseg_features[j, 1, i-1+30] = leftFeatureList[j+1][1][10]  
-            subseg_features[j, 2, i-1+30] = leftFeatureList[j+1][1][14]  
-            subseg_features[j, 3, i-1+30] = leftFeatureList[j+1][1][19]
 
     #Now condense into a statistics array
-    radiomics_stats = np.zeros((2,18,4)) #2 rows first for left and right parotid
+    radiomics_stats = np.zeros((2,18,len(labels))) #2 rows first for left and right parotid
     for i in range(radiomics_stats.shape[1]):
-        #radiomics_stats[i,0, 0] = np.percentile(subseg_features[i,0,:], 5)       
-        radiomics_stats[0,i,0] = np.average(subseg_features[i,0,0:30])#np.percentile(subseg_features[i,0,0:30], 50)    
-        radiomics_stats[1,i,0] = np.average(subseg_features[i,0,30:]) 
-        #radiomics_stats[i,0, 2] = np.percentile(subseg_features[i,0,:], 95)    
+        #radiomics_stats[i,0, 0] = np.percentile(subseg_features[i,0,:], 5)  
+        for k in range(len(labels)):   
+            radiomics_stats[0,i,k] = np.nanmean(subseg_features[0:30, i , k])#np.percentile(subseg_features[i,0,0:30], 50)    
+            radiomics_stats[1,i,k] = np.nanmean(subseg_features[30:, i , k]) 
+        # #radiomics_stats[i,0, 2] = np.percentile(subseg_features[i,0,:], 95)    
 
-        #radiomics_stats[i,1, 0] = np.percentile(subseg_features[i,1,:], 5)       
-        radiomics_stats[0,i,1] = np.average(subseg_features[i,1,0:30]) 
-        radiomics_stats[1,i,1] = np.average(subseg_features[i,1,30:])
-        #radiomics_stats[i,1, 2] = np.percentile(subseg_features[i,1,:], 95)    
+        # #radiomics_stats[i,1, 0] = np.percentile(subseg_features[i,1,:], 5)       
+        # radiomics_stats[0,i,1] = np.average(subseg_features[i,1,0:30]) 
+        # radiomics_stats[1,i,1] = np.average(subseg_features[i,1,30:])
+        # #radiomics_stats[i,1, 2] = np.percentile(subseg_features[i,1,:], 95)    
 
-        #radiomics_stats[i,2, 0] = np.percentile(subseg_features[i,2,:], 5)       
-        radiomics_stats[0,i,2] = np.average(subseg_features[i,2,0:30])    
-        radiomics_stats[1,i,2] = np.average(subseg_features[i,2,30:]) 
-        #radiomics_stats[i,2, 2] = np.percentile(subseg_features[i,2,:], 95)    
+        # #radiomics_stats[i,2, 0] = np.percentile(subseg_features[i,2,:], 5)       
+        # radiomics_stats[0,i,2] = np.average(subseg_features[i,2,0:30])    
+        # radiomics_stats[1,i,2] = np.average(subseg_features[i,2,30:]) 
+        # #radiomics_stats[i,2, 2] = np.percentile(subseg_features[i,2,:], 95)    
 
-        #radiomics_stats[i,3, 0] = np.percentile(subseg_features[i,3,:], 5)       
-        radiomics_stats[0,i,3] = np.average(subseg_features[i,3,0:30])   
-        radiomics_stats[1,i,3] = np.average(subseg_features[i,3,30:])  
+        # #radiomics_stats[i,3, 0] = np.percentile(subseg_features[i,3,:], 5)       
+        # radiomics_stats[0,i,3] = np.average(subseg_features[i,3,0:30])   
+        # radiomics_stats[1,i,3] = np.average(subseg_features[i,3,30:])  
         #radiomics_stats[i,3, 2] = np.percentile(subseg_features[i,3,:], 95)    
     return radiomics_stats    
     print("Collected population radiomics statistics for model.")
@@ -118,6 +123,47 @@ def CorrelationArray(features, method="spearman", load=True):
     array, labels = SortClusters(array)
     return array, labels              
 
+def Pairwise_Correlation_Filter(correlation_array, labels):
+    #this function removes redundant features, which are correlated over a certain threshold with another
+    threshold = 0.9
+    remove_list = [] #incidces of featues to remove
+    num_features = correlation_array.shape[0]
+    max_cor = 1
+    while max_cor >= threshold:
+        max_cor = 0
+        max_idx = 0
+        for i in range(num_features):
+            if i in remove_list:
+                continue
+            for j in range(num_features):
+                if j in remove_list or j == i:
+                    continue
+                cor = abs(correlation_array[i,j])
+                if cor > max_cor:
+                    max_cor = cor
+                    max_idx = i
+        if max_cor >= threshold:
+            remove_list.append(max_idx)
+    #now need to make a new correlation array and filter out labels that aren't used any more!
+    labels_filtered = []
+    for i, label in enumerate(CloneList(labels)):
+        if not i in remove_list:
+            labels_filtered.append(label)
+
+    num_features -= len(remove_list)
+    correlation_array_filtered = np.zeros((num_features, num_features))
+    good_indices = range(correlation_array.shape[0])
+    good_indices = [element for i, element in enumerate(good_indices) if i not in remove_list]
+
+    for new_i, i in enumerate(good_indices):
+        for new_j, j in enumerate(good_indices):
+            correlation_array_filtered[new_i,new_j] = correlation_array[i,j]
+
+    return correlation_array_filtered, labels_filtered        
+
+
+
+
 
 def SortClusters(array, threshold=0.7):
     #this function sorts the correlation array to group clusters according to a certain threshold 
@@ -149,10 +195,8 @@ def SortClusters(array, threshold=0.7):
         #now add all these features to the first available rows in the new features array. But need to resort values first to go along with the move.
         if len(cors) < 4 and threshold > 0.6: 
             threshold -= 0.1
-            continue
         elif len(cors) < 3:
             threshold -= 0.1
-            continue
         new_index_order.extend(cors) 
 
         current_row_idx = features_moved #next available row in new array
@@ -200,13 +244,13 @@ def Sort_Labels(labels, new_index_order):
 
 def NormalizeFeatures(array):
     #convert each feature to its Z value
-    for i in range(35):
+    for i in range(27):
         avg = np.nanmean(array[:,i])
         std = np.nanstd(array[:,i])
         array[:,i] = (array[:,i] - avg)/std
     return array     
 
-def ReadFromCSV(patientPath, organ):
+def ReadFeaturesFromCSV(patientPath, organ):
     #This function grabs the radiomics features from the csv produced by DICOMautomaton's feature extractor. 
     #The data is formatted as 2 lists (one for left, one for right) containing a list for the whole ROI and a 
     # list for each subsegment, in that order. For each rois list, each feature is an element, which itself is a length-2 list, 
@@ -240,12 +284,12 @@ def ReadFromCSV(patientPath, organ):
             with open(filePath) as csv_file:
                 csv_reader = csv.reader(csv_file, delimiter=',')
                 for row in csv_reader:
-                    rightFeatureList[0].append(row[3:])
+                    rightFeatureList[0].append(row[3:-8])
         elif left_whole_org_string in file:   
             with open(filePath) as csv_file: 
                 csv_reader = csv.reader(csv_file, delimiter=',')
                 for row in csv_reader:
-                    leftFeatureList[0].append(row[3:]) 
+                    leftFeatureList[0].append(row[3:-8]) 
 
 #Now get subsegment features
     for s in range(num_subsegs):
@@ -257,12 +301,12 @@ def ReadFromCSV(patientPath, organ):
                 with open(filePath) as csv_file:
                     csv_reader = csv.reader(csv_file, delimiter=',')
                     for row in csv_reader:
-                        rightFeatureList[-1].append(row[3:])
+                        rightFeatureList[-1].append(row[3:-8])
             elif str(left_org_string+ str(s+1)+ ".csv") in file:
                 with open(filePath) as csv_file:
                     csv_reader = csv.reader(csv_file, delimiter=',')
                     for row in csv_reader:
-                        leftFeatureList[-1].append(row[3:])            
+                        leftFeatureList[-1].append(row[3:-8])            
 
 
     print("Finished reading radiomics from CSVs")

@@ -26,7 +26,33 @@ from numpy import absolute
 from numpy import sqrt
 import pandas as pd
 import statistics
+import matplotlib.pyplot as plt
+import itertools
 parentDirectory = os.getcwd()
+
+def Model_Selection(radiomics_data, labels):
+    #Now need to test all combinations of 2,3,4,5, features for creating a model with a degree of 1,2,3,4,5
+    #keep track of kfold loss and sort, and save in spreadsheet.
+    degrees = np.linspace(1, 5, 5, dtype=int)
+    num_features = len(labels)
+    features = np.linspace(0, num_features-1, num_features)
+    radiomics_data = np.round(radiomics_data, 4)
+    y = []
+    params_list = []
+    for num_predictors in range(2, 6):
+        feature_combos = itertools.combinations(features, num_predictors)
+        for degree in degrees:
+            for feature_indices in feature_combos:
+                score = KFold_Validation(radiomics_data, feature_indices, k=9, degree=degree)
+                params = [degree, [labels[int(feature_idx)] for feature_idx in feature_indices], score]
+                params_list.append(params)
+                y.append(score)
+    params_list = sorted(params_list, key=lambda x: x[2])
+    with open(os.path.join(parentDirectory, "model_selection.csv"), 'w') as csv_file:
+        csv_writer = csv.writer(csv_file)
+        csv_writer.writerow(["Degree", "Features", "9-fold Loss"])
+        csv_writer.writerows(params_list)
+
 
 class Model:
 
@@ -67,22 +93,28 @@ class Model:
     #testSubseg = model.predict(poly.fit_transform(np.array(points[15]).reshape(1,-1)))
 
 
-def KFold_Validation(radiomics_data, k=9, degree=2):
+def KFold_Validation(radiomics_data, feature_indices, k=9, degree=2):
     #takes population radiomics data and performs a k-fold cross validation   
     importanceVals = [0.751310670731707,  0.526618902439024,   0.386310975609756,
                     1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
                     0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
                     0.272984146341463,   0.0484897103658537,  0.035493902439024]
     y = importanceVals * 2             
-    radiomics_data = np.reshape(radiomics_data, (36, 4))
-
-    data_frame = pd.DataFrame({'y': y,
-                                'x1': radiomics_data[:,0].tolist(),
-                                'x2': radiomics_data[:,1].tolist(),
-                                'x3': radiomics_data[:,2].tolist(),
-                                'x4': radiomics_data[:,3].tolist()})
+    radiomics_data = np.reshape(radiomics_data, (36, 11))
+    data_dict = {}
+    data_cols = []
+    data_dict['y'] = y
+    for i, feature_i in enumerate(feature_indices):
+        if np.isnan(np.min(radiomics_data[:, int(feature_i)])):
+            print("Error, found nan in array for feature " + str(feature_i))
+            return 1000
+        data_dict[str('x' + str(i))] = radiomics_data[:, int(feature_i)]
+        data_cols.append(str('x' + str(i)))
+    
+    data_frame = pd.DataFrame(data_dict)
     # x = data_frame[['x1', 'x2', 'x3', 'x4']]
-    x = data_frame[['x1', 'x2']]
+
+    x = data_frame[data_cols]
     y = data_frame['y']
     poly = PolynomialFeatures(degree)     
     #transform the data for fitting  
@@ -94,7 +126,7 @@ def KFold_Validation(radiomics_data, k=9, degree=2):
     scores = cross_val_score(model, points_transformed, y, scoring="neg_mean_absolute_error", cv=cv, n_jobs=1)
 
     # x_train, x_test, y_train, y_test = train_test_split(np.reshape(np.array([data_frame['x1'], data_frame['x2'], data_frame['x3'], data_frame['x4']]), (36, 4)),y,train_size=(8/9))
-    print("KFold MAE: " + str(np.mean(np.abs(scores))))
+    #print("KFold MAE: " + str(np.mean(np.abs(scores))))
     return np.mean(np.abs(scores))
 
     # #Loop through degrees 1 to 3 to compare performance

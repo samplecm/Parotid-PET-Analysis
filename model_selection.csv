@@ -1,0 +1,1013 @@
+Degree,Features,9-fold Loss
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.1560543584293655
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.15814648845005858
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.1582062563648681
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.15854153654350414
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.1590603320699067
+1,"['Max', 'Range', 'Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.15907027203557642
+1,"['Max', 'Skewness', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.15907143038081145
+1,"['Range', 'Skewness', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.15907227571942573
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.15999956776519317
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.16038847455248872
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.16040953493907273
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.16048042705472093
+1,"['Percentile10', 'Max', 'Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.1616125442683275
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.16216329911843988
+1,"['Percentile10', 'Skewness', 'PearsonsMedianSkewness']",0.1626526318056482
+1,"['Percentile10', 'Range', 'Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.1628937360591332
+1,"['Percentile10', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.16335143393098642
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'CoefficientOfVariation']",0.16384990497873664
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.16417022079775997
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'CoefficientOfVariation']",0.16429529273107474
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Min', 'CoefficientOfVariation']",0.16430787533564448
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'Min', 'CoefficientOfVariation']",0.16431372180790127
+1,"['Max', 'Range', 'Skewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.16439139611772427
+1,"['Max', 'Skewness', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.16439223960418706
+1,"['Range', 'Skewness', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.16439294888288536
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.1644547121421309
+1,"['Percentile10', 'Max', 'Skewness', 'PearsonsMedianSkewness']",0.1646617963297104
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.16488724459395143
+1,"['Percentile10', 'Range', 'Skewness', 'PearsonsMedianSkewness']",0.16489529315842788
+1,"['Range', 'Skewness', 'PearsonsMedianSkewness', 'Min']",0.1649551966097368
+1,"['Max', 'Skewness', 'PearsonsMedianSkewness', 'Min']",0.16495536507636777
+1,"['Max', 'Range', 'Skewness', 'PearsonsMedianSkewness']",0.16495605725140794
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'PearsonsMedianSkewness', 'Min']",0.16504096248112832
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness', 'Min']",0.16504284381945086
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'PearsonsMedianSkewness']",0.16504756507289572
+1,"['Percentile10', 'Skewness', 'PearsonsMedianSkewness', 'Min']",0.1654496393800179
+1,"['Max', 'Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.16546691676857186
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation']",0.16553044448622686
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Min', 'CoefficientOfVariation']",0.1655472978520243
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'Min', 'CoefficientOfVariation']",0.16555203896547172
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'Min', 'CoefficientOfVariation']",0.1657244340909854
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness']",0.165845906907998
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness']",0.165900467372892
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'Min']",0.16590886670294439
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness', 'Min']",0.16591216114743546
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.16621807487953305
+1,"['Percentile10', 'Max', 'Skewness', 'PearsonsMedianSkewness', 'Min']",0.16631593162864156
+1,"['Percentile10', 'Range', 'Skewness', 'PearsonsMedianSkewness', 'Min']",0.16631593473895265
+1,"['Percentile10', 'Max', 'Range', 'Skewness', 'PearsonsMedianSkewness']",0.16631643668389684
+1,"['Percentile10', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.16638402987895218
+1,"['Percentile10', 'Max', 'Range', 'Skewness', 'CoefficientOfVariation']",0.16640401741970712
+1,"['Percentile10', 'Max', 'Skewness', 'Min', 'CoefficientOfVariation']",0.1664054394691503
+1,"['Percentile10', 'Range', 'Skewness', 'Min', 'CoefficientOfVariation']",0.16640610210080556
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness']",0.16688969126994962
+1,"['Percentile10', 'Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.1669998604651323
+1,"['Percentile10', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.16704856973315751
+1,"['Percentile10', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.16707809270123153
+1,"['Max', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.16708406251892283
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'Min', 'CoefficientOfVariation']",0.16721353313827336
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.16728149871636447
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.1673519532848184
+1,"['Percentile10', 'Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.16742768596851107
+1,"['Percentile10', 'Skewness', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.16746555216487297
+1,"['Percentile10', 'Range', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.16752195284341065
+1,"['Percentile10', 'Max', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.16789350123951197
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'CoefficientOfVariation']",0.16818948300953077
+1,"['Percentile10', 'Max', 'Skewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.1682020055051334
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'CoefficientOfVariation', 'IntensityEnergy']",0.16834551486031757
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.1683520452762103
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.16835473134736476
+1,"['Max', 'Skewness', 'CoefficientOfVariation']",0.16849151048653943
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness', 'Min']",0.1686784265840441
+1,"['Percentile10', 'Skewness', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.16874129741938795
+1,"['Max', 'Skewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.16875613699658076
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'Min']",0.16879600644622525
+1,"['Percentile10', 'Max', 'Skewness', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.1690105709668014
+1,"['Range', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.1690537247091196
+1,"['Max', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.16905417378221832
+1,"['Max', 'Range', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.16905521287673636
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.16909242662519924
+1,"['Skewness', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.1691460449535904
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'CoefficientOfVariation']",0.16915761239202193
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'Min', 'CoefficientOfVariation']",0.16916194318130182
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'Min', 'CoefficientOfVariation']",0.16916422696049174
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range']",0.16927950119157495
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Min']",0.16927972698719773
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'Min']",0.16927985843622534
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'PearsonsMedianSkewness']",0.16939168685792239
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'Min', 'CoefficientOfVariation']",0.16953108860528043
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness']",0.16979212995686344
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.1698036280911165
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.16990125967075048
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.16998860835170632
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness']",0.16999771043316297
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'Min']",0.17000447320662324
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'Min']",0.17000702606378187
+1,"['Max', 'Range', 'Skewness', 'PearsonsMedianSkewness', 'Min']",0.17001502555267559
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.17008428096158146
+1,"['Percentile10', 'Max', 'Skewness', 'CoefficientOfVariation']",0.1701758173284405
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness', 'Min']",0.17053613058122657
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'CoefficientOfVariation']",0.17057931210737218
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness']",0.17059421351677337
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness', 'Min']",0.17062544701866605
+1,"['Max', 'Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.17063016144164733
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'PearsonsMedianSkewness']",0.17073747876102896
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.17091725464908547
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.17092822824509443
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.17093186105977634
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'CoefficientOfVariation']",0.1710386715563933
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.17113923400767134
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness']",0.17119275229174036
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'Skewness', 'CoefficientOfVariation']",0.17123030135499573
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness']",0.17132666156217108
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness']",0.17135125996935194
+1,"['Range', 'Skewness', 'PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.17137184137824218
+1,"['Max', 'Skewness', 'PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.1713730375151099
+1,"['Max', 'Range', 'Skewness', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.17137465399128
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.17143845882014738
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.17145356040395449
+1,"['Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.17145877230312723
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.17146046780576102
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'CoefficientOfVariation']",0.17146864977094342
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.17172671284150903
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'CoefficientOfVariation']",0.17176210957089044
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'CoefficientOfVariation']",0.17176381761215653
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.17181497758314224
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.17182315791557523
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.17182620673848553
+1,"['Percentile10', 'Range', 'Skewness', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.17184457832453728
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness']",0.17185550499030466
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'Min']",0.1718572958266664
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'Min']",0.17185737104993543
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.17187045820480173
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness']",0.171933047461035
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'Min', 'IntensityEnergy']",0.17200835473265694
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Min', 'IntensityEnergy']",0.17200955767119025
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'IntensityEnergy']",0.17201127266973723
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.1720829980784073
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.17220918238910973
+1,"['Skewness', 'PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.17227662776676952
+1,"['Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.17252444324511979
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'Skewness', 'Min', 'CoefficientOfVariation']",0.1726671482406374
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.17276477411734206
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.17294695994626105
+1,"['Max', 'Range', 'Skewness', 'CoefficientOfVariation']",0.17302053339715795
+1,"['Max', 'Skewness', 'Min', 'CoefficientOfVariation']",0.173021835401738
+1,"['Range', 'Skewness', 'Min', 'CoefficientOfVariation']",0.17302280602578118
+1,"['Percentile10', 'Skewness', 'PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.17302355593954996
+1,"['Max', 'Skewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.17317211901594043
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'Skewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.17327697884653265
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.17332934719114115
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'ExcessKurtosis', 'CoefficientOfVariation']",0.17341913067268516
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.1734195639742463
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.17342931947871992
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.17343424588142906
+1,"['Max', 'Skewness', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.17347019060774882
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.17349185452246454
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.17356239745713323
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'CoefficientOfVariation']",0.17359112599513796
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'CoefficientOfVariation']",0.17361739448066466
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'Min', 'CoefficientOfVariation']",0.17363196091028532
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'Min', 'CoefficientOfVariation']",0.17363854586840594
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.17364382740997616
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness']",0.17372166961487867
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'Min']",0.17380506856601763
+1,"['Range', 'Skewness', 'Min', 'IntensityEnergy']",0.17389879413696677
+1,"['Max', 'Skewness', 'Min', 'IntensityEnergy']",0.17390009372913834
+1,"['Max', 'Range', 'Skewness', 'IntensityEnergy']",0.17390145234594553
+1,"['Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.17396963524108328
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.17399094141200638
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.17404679183615376
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'Min']",0.17413030309847966
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'Skewness', 'CoefficientOfVariation']",0.1742355885636881
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.17431152641322345
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness']",0.17440543740580697
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'Min']",0.17441892221579777
+1,"['Percentile10', 'Range', 'Skewness', 'CoefficientOfVariation']",0.17442081064187304
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness', 'Min']",0.17442501840777258
+1,"['Range', 'Skewness', 'CoefficientOfVariation']",0.1745413763756024
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'Min', 'CoefficientOfVariation']",0.17461319547579324
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'IntensityEnergy']",0.17463850561453337
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'Min', 'IntensityEnergy']",0.17464360405531015
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'Min', 'IntensityEnergy']",0.17464508049817998
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'CoefficientOfVariation']",0.17488469521092
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'Skewness', 'Min', 'CoefficientOfVariation']",0.17488631455464507
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'Min', 'CoefficientOfVariation']",0.17488642495492493
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.17496582727461946
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'ExcessKurtosis']",0.17515735831173307
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'Min']",0.17516323100851366
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'ExcessKurtosis', 'Min']",0.17516542751897285
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'Min']",0.1754079859920862
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness']",0.17556771192517162
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'CoefficientOfVariation']",0.17558483206865272
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.1756054014049104
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'CoefficientOfVariation']",0.17566951382162296
+1,"['Percentile10', 'Range', 'Skewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.1757474669746341
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'Min']",0.17584836436120968
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.17588080995457342
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness']",0.17601698792766213
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.17607647045848074
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'ExcessKurtosis']",0.17611029138134865
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'ExcessKurtosis', 'Min']",0.176116245903057
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'ExcessKurtosis', 'Min']",0.1761183610988986
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.17616778515592205
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness']",0.17617390877274872
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min']",0.1761807015139969
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min']",0.17618215519516042
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'CoefficientOfVariation']",0.1763668965606679
+1,"['Percentile10', 'Max', 'Skewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.17637558752115542
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.1764196066173927
+1,"['Max', 'Range', 'Skewness', 'Min', 'CoefficientOfVariation']",0.17643168528172876
+1,"['Range', 'Skewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.1764380418263753
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation', 'Skewness', 'CoefficientOfVariation']",0.17645867859283973
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'Skewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.1765952529860325
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.17671112861179725
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'Min', 'IntensityEnergy']",0.17673783549291672
+1,"['Max', 'Range', 'IntensityEnergy']",0.17676968818310396
+1,"['Max', 'Min', 'IntensityEnergy']",0.17677009468569901
+1,"['Range', 'Min', 'IntensityEnergy']",0.176770286254032
+1,"['Max', 'Range', 'ExcessKurtosis', 'IntensityEnergy']",0.17699073742924462
+1,"['Max', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.1769917611999358
+1,"['Range', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.17699224315942141
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation']",0.17734065455817444
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Min']",0.17734357205056306
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'Min']",0.1773442667556834
+1,"['Range', 'Skewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.1774204852344642
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'Min', 'CoefficientOfVariation']",0.17746030046323577
+1,"['Percentile10', 'Range', 'Skewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.17756602694445175
+1,"['Range', 'Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.17759973024497808
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'CoefficientOfVariation']",0.17775132275260438
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'IntensityEnergy']",0.17777621912002783
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'IntensityEnergy']",0.17786473316198664
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.17791125766374177
+1,"['Skewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.17796425875129293
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'ExcessKurtosis', 'IntensityEnergy']",0.1780168456494354
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.17802308303130043
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.1780249311598407
+1,"['Max', 'Range', 'Skewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.1780303739526785
+1,"['Max', 'Skewness', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.17803144673511465
+1,"['Range', 'Skewness', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.17803269131876187
+1,"['Percentile10', 'Max', 'Skewness', 'IntensityEnergy']",0.17825146160433109
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'ExcessKurtosis', 'IntensityEnergy']",0.17828600063652977
+1,"['Percentile10', 'Range', 'Skewness', 'Min', 'IntensityEnergy']",0.1782884184439975
+1,"['Percentile10', 'Max', 'Range', 'Skewness', 'IntensityEnergy']",0.17828917741522068
+1,"['Percentile10', 'Max', 'Skewness', 'Min', 'IntensityEnergy']",0.1782896826364753
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'Range']",0.17834650720298495
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'Min']",0.17835072814367392
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'Min']",0.17835306898069614
+1,"['Max', 'Range', 'PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.17856741220039013
+1,"['Max', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.1785701689480134
+1,"['Range', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.17857346010406586
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.17892945608571356
+1,"['Range', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.17904751025863966
+1,"['Range', 'Skewness', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.17913032493216735
+1,"['Max', 'Skewness', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.17913144192635355
+1,"['Max', 'Range', 'Skewness', 'ExcessKurtosis', 'IntensityEnergy']",0.17913251412650136
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'Skewness']",0.17922600751029372
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'Min']",0.17922969874443567
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'Min']",0.1792304430337487
+1,"['Max', 'Range', 'CoefficientOfVariation', 'IntensityEnergy']",0.1793143207909956
+1,"['Max', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.17931640335227256
+1,"['Range', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.17931801713603687
+1,"['Skewness', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.17934434470021177
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'IntensityEnergy']",0.17947513232835222
+1,"['Max', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.17967103368395881
+1,"['Range', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.17967107788296138
+1,"['Max', 'Range', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.17967193957561
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.179691790984135
+1,"['Percentile10', 'Max', 'IntensityEnergy']",0.17970616948413737
+1,"['Range', 'Skewness', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.17974763922191203
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'ExcessKurtosis', 'Min']",0.1798659437874819
+1,"['Max', 'Range', 'Skewness', 'Min', 'IntensityEnergy']",0.18004100504732434
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.18020762309492305
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.1803844156430966
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.18038496085948078
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'IntensityEnergy']",0.1806162596737636
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'Min', 'IntensityEnergy']",0.18062214740358704
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'Min', 'IntensityEnergy']",0.18062425732699683
+1,"['Max', 'Range', 'Min', 'IntensityEnergy']",0.18080146293666258
+1,"['Percentile10', 'Max', 'Skewness', 'ExcessKurtosis', 'IntensityEnergy']",0.18080957867174224
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'IntensityEnergy']",0.1812164275980083
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'Min', 'IntensityEnergy']",0.18122042662403362
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Min', 'IntensityEnergy']",0.18122080243135208
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.1813064472876563
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis']",0.18139095727642124
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min']",0.1813940842395996
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min']",0.1813955817276949
+1,"['Percentile10', 'Max', 'CoefficientOfVariation', 'IntensityEnergy']",0.18164989660977154
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'Min', 'IntensityEnergy']",0.18177288220606683
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'IntensityEnergy']",0.18177329606350728
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'Skewness', 'Min', 'IntensityEnergy']",0.1817736138845304
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.1818558790462097
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.18186775268435584
+1,"['Percentile10', 'Skewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.18190597855639784
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness']",0.18206089348469112
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'Min']",0.18206620489392772
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'Min']",0.18206834380466008
+1,"['Max', 'PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.18220169363052674
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'ExcessKurtosis', 'IntensityEnergy']",0.18222431972710687
+1,"['Max', 'Range', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.18232335557726642
+1,"['Max', 'PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.18232425519665768
+1,"['Range', 'PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.18232437665244478
+1,"['Max', 'Range', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.18238084343862032
+1,"['Range', 'Skewness', 'Min']",0.18240097517961612
+1,"['Max', 'Skewness', 'Min']",0.18240102250444706
+1,"['Max', 'Range', 'Skewness']",0.1824017714571715
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'IntensityEnergy']",0.1824020648503114
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'Min']",0.18251249548618917
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.18253918121919763
+1,"['Percentile10', 'Max', 'PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.18267051268222634
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'Min']",0.18275654833619573
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Min']",0.18275828854894122
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation']",0.18276082662296045
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'Min']",0.18319673168433515
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'Min', 'IntensityEnergy']",0.18339994118601075
+1,"['Range', 'Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.18342389176868928
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'ExcessKurtosis', 'IntensityEnergy']",0.1835146260583146
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'IntensityEnergy']",0.18359624537887542
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'IntensityEnergy']",0.18381430779033517
+1,"['Percentile10', 'Max', 'Range', 'CoefficientOfVariation', 'IntensityEnergy']",0.18387165845270537
+1,"['Percentile10', 'Max', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.18387415227937787
+1,"['Percentile10', 'Range', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.18387518572181213
+1,"['Percentile10', 'Max', 'Range', 'IntensityEnergy']",0.18388537621626905
+1,"['Percentile10', 'Max', 'Min', 'IntensityEnergy']",0.18388741872142006
+1,"['Percentile10', 'Range', 'Min', 'IntensityEnergy']",0.18388786936410598
+1,"['Percentile10', 'Range', 'Skewness', 'Min']",0.18409997718212423
+1,"['Percentile10', 'Max', 'Skewness', 'Min']",0.1841003175250825
+1,"['Percentile10', 'Max', 'Range', 'Skewness']",0.18410272720837853
+1,"['Max', 'Skewness', 'ExcessKurtosis', 'Min']",0.18415596742254706
+1,"['Range', 'Skewness', 'ExcessKurtosis', 'Min']",0.18415610212828695
+1,"['Max', 'Range', 'Skewness', 'ExcessKurtosis']",0.18415611378923946
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'Min', 'IntensityEnergy']",0.18421750425191188
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation', 'IntensityEnergy']",0.1842175606866486
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'Min', 'IntensityEnergy']",0.18421897678822766
+1,"['Percentile10', 'Max', 'Range', 'CoefficientOfVariation']",0.1843520310490792
+1,"['Percentile10', 'Max', 'Min', 'CoefficientOfVariation']",0.18435871086651304
+1,"['Percentile10', 'Range', 'Min', 'CoefficientOfVariation']",0.18436012954371112
+1,"['Max', 'Range', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.18464674745211027
+1,"['Percentile10', 'Max', 'Range']",0.18475575040225867
+1,"['Percentile10', 'Max', 'Min']",0.1847557556248259
+1,"['Percentile10', 'Range', 'Min']",0.18475617186416077
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'Range', 'ExcessKurtosis']",0.18501369275689217
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'Min']",0.18502002900204884
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'ExcessKurtosis', 'Min']",0.18502307542831323
+1,"['Percentile10', 'Max', 'Range', 'ExcessKurtosis', 'IntensityEnergy']",0.18506368716529684
+1,"['Percentile10', 'Max', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.1850671049778402
+1,"['Percentile10', 'Range', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.1850675578123568
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'IntensityEnergy']",0.18510604120302354
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.1851073517812573
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.18510852953168574
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'CoefficientOfVariation']",0.1852533924645075
+1,"['Percentile10', 'Max', 'Range', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.1853964058406169
+1,"['Percentile10', 'Max', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.18540184038737087
+1,"['Percentile10', 'Range', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.1854037154182544
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis', 'IntensityEnergy']",0.18540383496806795
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.18560128842868778
+1,"['Range', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.18563608781235535
+1,"['Max', 'Range', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.18563631755956675
+1,"['Max', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.1856363917561041
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'IntensityEnergy']",0.18563921906916292
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'Min']",0.18566600195156246
+1,"['Max', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.18601822626318676
+1,"['ExcessKurtosis', 'Min']",0.18603855634919575
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'IntensityEnergy']",0.18606238321228016
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'Min']",0.18621891258083706
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation', 'Skewness', 'IntensityEnergy']",0.18642909584802372
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'ExcessKurtosis', 'Min']",0.18654596263474407
+1,"['Percentile10', 'Skewness', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.18663047458167675
+1,"['Percentile10', 'Max', 'Range', 'ExcessKurtosis']",0.18674231473901903
+1,"['Percentile10', 'Max', 'ExcessKurtosis', 'Min']",0.1867461164972833
+1,"['Percentile10', 'Range', 'ExcessKurtosis', 'Min']",0.18674731921933596
+1,"['Skewness', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.18677334337394347
+1,"['Percentile10', 'Max', 'Range', 'Min', 'IntensityEnergy']",0.1867816414810922
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'Skewness', 'IntensityEnergy']",0.18691844133775115
+1,"['Percentile10', 'Max', 'Range', 'ExcessKurtosis', 'CoefficientOfVariation']",0.18700376453489193
+1,"['Percentile10', 'Max', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.18700861167500768
+1,"['Percentile10', 'Range', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.1870096742421969
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'ExcessKurtosis', 'IntensityEnergy']",0.1870977277274842
+1,"['Percentile10', 'Max', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.18724022147632458
+1,"['Percentile10', 'Max', 'ExcessKurtosis', 'IntensityEnergy']",0.18726337421467754
+1,"['Percentile10', 'Skewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.18727208259619887
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.18727978425796077
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'IntensityEnergy']",0.18728456733416046
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'IntensityEnergy']",0.18744282426907438
+1,"['Percentile10', 'Range', 'Skewness', 'IntensityEnergy']",0.18746454942393284
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'Min', 'IntensityEnergy']",0.18760513883864763
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.18766784590429808
+1,"['Skewness', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.18776738208053778
+1,"['Percentile10', 'Range', 'Skewness', 'ExcessKurtosis', 'IntensityEnergy']",0.18784607443711485
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis', 'Min']",0.18800328923527526
+1,"['Skewness', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.18817780856147454
+1,"['Max', 'Range', 'Skewness', 'Min']",0.18837876288453875
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation', 'Min', 'IntensityEnergy']",0.18844747749831325
+1,"['Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.18845081650220463
+1,"['Percentile10', 'Range', 'Skewness', 'ExcessKurtosis', 'Min']",0.18846435942140724
+1,"['Percentile10', 'Max', 'Skewness', 'ExcessKurtosis', 'Min']",0.18846456290865388
+1,"['Percentile10', 'Max', 'Range', 'Skewness', 'ExcessKurtosis']",0.18846644261905973
+1,"['Percentile10', 'Max', 'Range', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.18848263646879143
+1,"['Percentile10', 'Range', 'PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.18848366777990588
+1,"['Percentile10', 'Max', 'PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.1884838242910107
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'Min']",0.1885497568634234
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation', 'Skewness', 'Min']",0.18855074590681242
+1,"['Percentile10', 'Max', 'Range', 'RobustMeanAbsoluteDeviation', 'Skewness']",0.1885521082326095
+1,"['Percentile10', 'Skewness', 'CoefficientOfVariation']",0.18875502048289974
+1,"['Percentile10', 'Skewness', 'ExcessKurtosis', 'Min']",0.18892620120665932
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'Min', 'IntensityEnergy']",0.18899676348978076
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.18913053490854562
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.18913183766087693
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.18913200168040048
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness']",0.1892052376947399
+1,"['Max', 'Range', 'PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.18929430912930323
+1,"['Percentile10', 'Max', 'Range', 'Min', 'CoefficientOfVariation']",0.1892990106409037
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'Skewness', 'Min', 'IntensityEnergy']",0.18934336848497177
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.18949736107020249
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'Min']",0.1895961389944779
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'Skewness', 'Min']",0.1895969845906904
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation', 'Skewness']",0.18959830855726623
+1,"['Percentile10', 'Skewness']",0.1897434178620587
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness']",0.18974545472773766
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'IntensityEnergy']",0.18974643058224883
+1,"['Percentile10', 'Max', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.18974915041588078
+1,"['Percentile10', 'Skewness', 'ExcessKurtosis', 'IntensityEnergy']",0.18974999060587008
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis']",0.18980348145962608
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis', 'Min']",0.1898041413989079
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis', 'Min']",0.18980474852055457
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis']",0.18983433772133368
+1,"['ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.18986306190541913
+1,"['Percentile10', 'Max', 'Range', 'Skewness', 'Min']",0.1898967011020351
+1,"['Percentile10', 'Max', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.19019785535163558
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.1902769260039489
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'IntensityEnergy']",0.19030916015584912
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'Skewness', 'Min']",0.19038906709506512
+1,"['Percentile10', 'Skewness', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.1904980574308654
+1,"['Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.19066965767334906
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.19069227289413948
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'Min']",0.19069369559395136
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'Min', 'IntensityEnergy']",0.19071798905317405
+1,"['Percentile10', 'Skewness', 'ExcessKurtosis']",0.19074224914242668
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'Min']",0.19079366194119574
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness']",0.19086747004964774
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis', 'IntensityEnergy']",0.19088189447869247
+1,"['Max', 'Range', 'Skewness', 'ExcessKurtosis', 'Min']",0.19093986811295183
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness']",0.19105373519245406
+1,"['RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.19105852620263816
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'CoefficientOfVariation', 'IntensityEnergy']",0.1910835588774191
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'IntensityEnergy']",0.191130078990293
+1,"['Percentile10', 'Max', 'Range', 'Min']",0.19115377056640048
+1,"['Percentile10', 'Max', 'Range', 'RobustMeanAbsoluteDeviation']",0.1911766513481725
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'ExcessKurtosis']",0.19117724166165562
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation', 'Min']",0.191178544074672
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation', 'Min']",0.19117884463861676
+1,"['Skewness', 'Min', 'IntensityEnergy']",0.1914630788405254
+1,"['Skewness', 'ExcessKurtosis', 'Min']",0.1914759279267123
+1,"['Skewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.19155330203243376
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness']",0.19166103883325553
+1,"['ShiftedRootMeanSquaredIntensity', 'IntensityEnergy']",0.19188323966693144
+1,"['Min', 'CoefficientOfVariation']",0.19215270648554558
+1,"['Percentile10', 'Max', 'Range', 'RobustMeanAbsoluteDeviation', 'IntensityEnergy']",0.19219337993505606
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation', 'Min', 'IntensityEnergy']",0.19219436978342241
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation', 'Min', 'IntensityEnergy']",0.1921956519288533
+1,"['Percentile10', 'Skewness', 'Min']",0.19223151257182075
+1,"['RobustMeanAbsoluteDeviation', 'Min', 'IntensityEnergy']",0.19229398195345665
+1,"['Skewness', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.1923322797099516
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis', 'Min']",0.1923397649158645
+1,"['ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'IntensityEnergy']",0.192469526785797
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Min']",0.19269711741224496
+1,"['ShiftedRootMeanSquaredIntensity', 'Skewness', 'ExcessKurtosis']",0.19270307322403327
+1,"['Max', 'Range']",0.19272283203799656
+1,"['Max', 'Min']",0.19272567411883407
+1,"['Range', 'Min']",0.192726167850527
+1,"['RobustMeanAbsoluteDeviation', 'Min']",0.19281575417300983
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.19288284951021842
+1,"['Percentile10', 'Skewness', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.19291438210435846
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'ExcessKurtosis']",0.19291815926870115
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.19295241896921375
+1,"['Max', 'Range', 'ExcessKurtosis']",0.19300576899808705
+1,"['Max', 'ExcessKurtosis', 'Min']",0.19301143054705358
+1,"['Range', 'ExcessKurtosis', 'Min']",0.19301194924237142
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'IntensityEnergy']",0.1932046703205296
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis', 'Min']",0.19340317960170422
+1,"['Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.19343913204457464
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis']",0.19374552131750591
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Min', 'CoefficientOfVariation']",0.19393284269630304
+1,"['Max', 'Range', 'Min']",0.19400956540007175
+1,"['Skewness', 'CoefficientOfVariation']",0.19408130616413877
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness']",0.19420755549980223
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min']",0.19421189003748296
+1,"['Percentile10', 'Max', 'Range', 'ExcessKurtosis', 'Min']",0.1942412664879875
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'ExcessKurtosis', 'Min']",0.1942873444877905
+1,"['Percentile10', 'Range', 'IntensityEnergy']",0.1942890245700931
+1,"['Percentile10', 'Max', 'Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis']",0.1944099616138217
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min']",0.19441309680301966
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min']",0.19441376191456342
+1,"['Percentile10', 'ExcessKurtosis', 'Min']",0.19442844970852505
+1,"['Percentile10', 'Skewness', 'IntensityEnergy']",0.19456190975349122
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.1945640806397141
+1,"['Skewness', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.19456615402666644
+1,"['RobustMeanAbsoluteDeviation', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.1946678020280117
+1,"['RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min']",0.194679455154357
+1,"['Percentile10', 'Skewness', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.1947129024903534
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'IntensityEnergy']",0.19480697034930616
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis']",0.19482817606203695
+1,"['ExcessKurtosis', 'Min', 'IntensityEnergy']",0.19488933461236183
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.19504428571182778
+1,"['Percentile10', 'Range', 'Skewness', 'ExcessKurtosis']",0.1950501985976552
+1,"['Percentile10', 'Max', 'Skewness']",0.19507106324619528
+1,"['Min', 'IntensityEnergy']",0.1951070204259123
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Skewness']",0.1952356180224581
+1,"['Percentile10', 'Max', 'Range', 'RobustMeanAbsoluteDeviation', 'Min']",0.19531045633309838
+1,"['Percentile10', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.19549323376579444
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'Skewness']",0.19550616476962804
+1,"['Percentile10', 'Range', 'Skewness']",0.19550688133994332
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis']",0.19564038076089704
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.19568187977920884
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation', 'IntensityEnergy']",0.19570520651988044
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness']",0.19576865637226076
+1,"['ExcessKurtosis', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.1957999486729122
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Min']",0.19582484706127654
+1,"['Percentile10', 'Range', 'PearsonsMedianSkewness', 'Min']",0.19584987225901246
+1,"['Percentile10', 'Max', 'PearsonsMedianSkewness', 'Min']",0.19585004939624273
+1,"['Percentile10', 'Max', 'Range', 'PearsonsMedianSkewness']",0.1958512638843918
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis']",0.19585172153135677
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'Min']",0.19587087112147317
+1,"['RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.19591395346947993
+1,"['Max', 'Range', 'CoefficientOfVariation']",0.19606367977633596
+1,"['Max', 'Min', 'CoefficientOfVariation']",0.19606520637644348
+1,"['Range', 'Min', 'CoefficientOfVariation']",0.19606532948966945
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.19622059767651362
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation', 'IntensityEnergy']",0.1963199983758592
+1,"['Percentile10', 'Max', 'Skewness', 'ExcessKurtosis']",0.19632172107531018
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.1963238159427948
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.19632475318934817
+1,"['PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.19635309262873607
+1,"['Percentile10', 'Range', 'PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.19653342441316748
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min']",0.19655346963428183
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'IntensityEnergy']",0.19658634119828833
+1,"['Percentile10', 'Min']",0.1967212767565506
+1,"['PearsonsMedianSkewness', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.19679046415519694
+1,"['Percentile10', 'Skewness', 'Min', 'CoefficientOfVariation']",0.19681311003857127
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'Min']",0.19689964714256425
+1,"['Percentile10', 'Range', 'CoefficientOfVariation', 'IntensityEnergy']",0.19699035052031044
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.19707315543847084
+1,"['Max', 'Range', 'ExcessKurtosis', 'Min']",0.19709706417578932
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'Skewness']",0.1971313161675235
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'CoefficientOfVariation', 'IntensityEnergy']",0.19713554882535209
+1,"['RobustMeanAbsoluteDeviation', 'Min', 'CoefficientOfVariation']",0.1971716150567705
+1,"['ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.1972499745597631
+1,"['ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.19728956044405743
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.19737643945333969
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min']",0.19743278414373908
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.19751060579689173
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness']",0.1975130921604313
+1,"['ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.19753464894502507
+1,"['Max', 'Range', 'ExcessKurtosis', 'CoefficientOfVariation']",0.1975732846912091
+1,"['Max', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.1975772907137595
+1,"['Range', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.19757754074393927
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness', 'Min']",0.19767156569318012
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.19782061431581202
+1,"['Skewness', 'PearsonsMedianSkewness', 'Min']",0.19806132328437442
+1,"['Max', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.19807962820845898
+1,"['RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.19815223758070577
+1,"['RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.19816826513068564
+1,"['Percentile10', 'Skewness', 'Min', 'IntensityEnergy']",0.1982199635268388
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Min', 'IntensityEnergy']",0.19830170397265381
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'Min', 'IntensityEnergy']",0.19833123999115046
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Min', 'IntensityEnergy']",0.19836922297318133
+1,"['RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min']",0.1983911892107449
+1,"['RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.198399201450192
+1,"['Percentile10', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.1984852553479301
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Min', 'CoefficientOfVariation']",0.19854861021287976
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis']",0.198558800170105
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.19858865518814064
+1,"['ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'Min']",0.1985928694762839
+1,"['Percentile10', 'Range', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.1986176336384067
+1,"['Percentile10', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.19868098450404081
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min']",0.19871527470537595
+1,"['Percentile10', 'Max', 'Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness']",0.1987153716885233
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min']",0.198716160305478
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.198765257129324
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'Min', 'CoefficientOfVariation']",0.19881284699886934
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.19881285295795867
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.1988157856848754
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation', 'Min']",0.198881824104945
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.19896656905939614
+1,"['Percentile10', 'ExcessKurtosis', 'IntensityEnergy']",0.1990206958796357
+1,"['Max', 'Range', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.19912850621790718
+1,"['Max', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.1991299572154684
+1,"['Range', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.19913019331808718
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation', 'Skewness']",0.19917583444706263
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.19924263584422994
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis']",0.19929123588062547
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'ExcessKurtosis']",0.19931442767269691
+1,"['RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.1993247162124444
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min']",0.19935786254549653
+1,"['ShiftedRootMeanSquaredIntensity', 'Min']",0.19938564545789494
+1,"['ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.19943042252195914
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'IntensityEnergy']",0.1994503870257442
+1,"['Percentile10', 'Max', 'Range', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation']",0.19945578658799032
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation', 'Min', 'CoefficientOfVariation']",0.19946184292443156
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation', 'Min', 'CoefficientOfVariation']",0.1994635521826539
+1,"['Max', 'Range', 'PearsonsMedianSkewness']",0.19954515285198138
+1,"['Max', 'PearsonsMedianSkewness', 'Min']",0.19954589010317725
+1,"['Range', 'PearsonsMedianSkewness', 'Min']",0.19954612626530818
+1,"['Skewness', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.1996898800597185
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min']",0.19980002526529378
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.1998111169524472
+1,"['RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.1998542991793176
+1,"['Percentile10', 'Max', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.19988901340961374
+1,"['Percentile10', 'Range', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.19988902538864203
+1,"['Percentile10', 'Max', 'Range', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.1998891103534643
+1,"['PearsonsMedianSkewness', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.1998956465468368
+1,"['Percentile10', 'Range', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.19995663598749505
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'IntensityEnergy']",0.2000240844037501
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.2000673774309369
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation']",0.200082719922602
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'Min']",0.2000857122264494
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'Min']",0.20008684513712108
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness']",0.2000883990746002
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.2001177096585258
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.20018387762213796
+1,"['Range', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.20018836151221012
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'Skewness']",0.20023539141972768
+1,"['Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.20024952257065487
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.20027316451879487
+1,"['Range', 'PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.20031901356168583
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis']",0.20032789548578828
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min']",0.20033314597452076
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min']",0.20033354319473684
+1,"['ShiftedRootMeanSquaredIntensity', 'CoefficientOfVariation', 'IntensityEnergy']",0.20038897931635472
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'Skewness', 'ExcessKurtosis']",0.200438347837155
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.20043890457225325
+1,"['Percentile10', 'IntensityEnergy']",0.2004748606403928
+1,"['Percentile10', 'ExcessKurtosis']",0.20054750606576782
+1,"['Percentile10', 'Min', 'CoefficientOfVariation']",0.20059209239326553
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'IntensityEnergy']",0.2006866324334549
+1,"['ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.20072465424115551
+1,"['RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.20085604275116198
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'Skewness']",0.20086966337824885
+1,"['Skewness', 'Min']",0.20086999652945212
+1,"['Max', 'Range', 'Min', 'CoefficientOfVariation']",0.20095246512958426
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.2009757248805434
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.20097821611371394
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.2009796741295414
+1,"['ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.20103468670695004
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'IntensityEnergy']",0.20106230039703105
+1,"['Percentile10', 'Max', 'Range', 'PearsonsMedianSkewness', 'Min']",0.20109340720444155
+1,"['Percentile10', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.20113478284519207
+1,"['Percentile10', 'Min', 'IntensityEnergy']",0.20116733194139547
+1,"['Max', 'RobustMeanAbsoluteDeviation']",0.20126783817887817
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'IntensityEnergy']",0.20127118906696304
+1,"['ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.2012985770448843
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.20137821082524102
+1,"['Max', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.2014029874802035
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.20146526213931923
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation', 'Skewness']",0.20148987832093537
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation', 'IntensityEnergy']",0.2015021056471955
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.2015463929946493
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.20164914496090355
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.2016532077164121
+1,"['Percentile10', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.20174199182269983
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.2018178809201387
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'IntensityEnergy']",0.20183009449776287
+1,"['Percentile10', 'Range', 'ExcessKurtosis', 'IntensityEnergy']",0.20183605290423928
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'IntensityEnergy']",0.20184866211139335
+1,"['ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.20188872477924383
+1,"['Percentile10', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.20192010114068973
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'IntensityEnergy']",0.20193991411663154
+1,"['Max', 'Range', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.20195208561939543
+1,"['ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'Min']",0.20206165539676316
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min']",0.20209547555206686
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.20211827884909722
+1,"['ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.20228056157509125
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.20234236513341297
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.20245839869223822
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.20247045565288052
+1,"['PearsonsMedianSkewness', 'Min']",0.20248252214718498
+1,"['Percentile10', 'CoefficientOfVariation']",0.20255598996699045
+1,"['Percentile10', 'Max', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.20266711714347474
+1,"['PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.20270880626497215
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'Skewness']",0.20271494914996563
+1,"['RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.20275546008069012
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation', 'IntensityEnergy']",0.20276342825058805
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'Skewness', 'ExcessKurtosis']",0.20287139727297446
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.20302238959243166
+1,"['Percentile10', 'PearsonsMedianSkewness', 'Min']",0.20309316031754363
+1,"['ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.20310159318026513
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min']",0.20317609947752469
+1,"['PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.20323184141626263
+1,"['Range', 'Skewness', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.20324463798154704
+1,"['Skewness', 'Min', 'CoefficientOfVariation']",0.2033908572214917
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'CoefficientOfVariation', 'IntensityEnergy']",0.20344312031564116
+1,"['Percentile10', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.2034468526087438
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'IntensityEnergy']",0.20350169877391713
+1,"['RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.20353230889160118
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Min']",0.2036317395072028
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis']",0.20363627997058106
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.20366603731556845
+1,"['Range', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.203683058934694
+1,"['Percentile10', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.2037272699803208
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'Min']",0.20377611433711731
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.20378207630449954
+1,"['PearsonsMedianSkewness', 'CoefficientOfVariation']",0.20391031948456895
+1,"['ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.20396546692828885
+1,"['Percentile10', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.20402614797442434
+1,"['ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis']",0.20405108991346324
+1,"['Percentile10', 'CoefficientOfVariation', 'IntensityEnergy']",0.2041064035566179
+1,"['RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.2041787617236674
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.20423334786902378
+1,"['Range', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.20425549857427838
+1,"['ShiftedRootMeanSquaredIntensity', 'Min', 'CoefficientOfVariation']",0.20430017198872139
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'IntensityEnergy']",0.20438712635582645
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'CoefficientOfVariation', 'IntensityEnergy']",0.20442661724260353
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.20446159063856417
+1,"['Percentile10', 'ExcessKurtosis', 'CoefficientOfVariation']",0.2044898855952313
+1,"['Percentile10', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.2045610456660603
+1,"['ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.20456175352614211
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.20464799420162805
+1,"['ShiftedRootMeanSquaredIntensity', 'Min', 'IntensityEnergy']",0.20465019739517656
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.2046698540937735
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.20467995232451777
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness']",0.20478183566249702
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min']",0.2047827769098279
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min']",0.20478309856586957
+1,"['Percentile10', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.2048684719710717
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.204890235232808
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation', 'IntensityEnergy']",0.20496331994386705
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'IntensityEnergy']",0.20500543536516425
+1,"['Percentile10', 'Max', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.20501312088256612
+1,"['PearsonsMedianSkewness', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.20507583983003488
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation', 'IntensityEnergy']",0.2051005417944831
+1,"['ExcessKurtosis', 'CoefficientOfVariation']",0.20511927813760678
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.2051780251812096
+1,"['PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.2052454492627128
+1,"['Percentile10', 'Range', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.20526076688472825
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.2053348138429473
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.20534188625607064
+1,"['Max', 'Range', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min']",0.2053916081412447
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'IntensityEnergy']",0.20540862779892646
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis']",0.20542585618807988
+1,"['Percentile10', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.20553144689298206
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation', 'IntensityEnergy']",0.20570724754038966
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'ExcessKurtosis', 'IntensityEnergy']",0.20578457581784018
+1,"['Max', 'Range', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.20585030086774847
+1,"['Max', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.20585199326818124
+1,"['Range', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.2058526681397264
+1,"['ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.20591454210590615
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'IntensityEnergy']",0.20602951058504315
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'Min']",0.20604858992457337
+1,"['Max', 'Range', 'PearsonsMedianSkewness', 'Min']",0.20610398589908283
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.20611994320590346
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis']",0.20624764823917155
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'IntensityEnergy']",0.2062653123151064
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.20634484553572097
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis']",0.20635715737429694
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.20636495138664535
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'Min', 'IntensityEnergy']",0.20651144309938274
+1,"['Percentile10', 'PearsonsMedianSkewness']",0.2065439860106423
+1,"['PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.20662376684184766
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation', 'IntensityEnergy']",0.20663195398679163
+1,"['Max', 'Range', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.20685593768044094
+1,"['Max', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.20685690788740685
+1,"['Range', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.20685727876948343
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.20685842881498456
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'IntensityEnergy']",0.2068827806714254
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.20695416053132018
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation']",0.20697733859364686
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.2070393385843804
+1,"['Max', 'CoefficientOfVariation', 'IntensityEnergy']",0.2070526204138551
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.2070561039713881
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.20708397691017735
+1,"['ShiftedRootMeanSquaredIntensity', 'Range']",0.20713136041197658
+1,"['Percentile10', 'Range']",0.2071479337212633
+1,"['Percentile10', 'Max']",0.20728970103428318
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.20743891648719093
+1,"['ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.20749552460716017
+1,"['RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.20756149028308324
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation']",0.2075923501908981
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.20764736954862187
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity']",0.20768914291285187
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation']",0.20772062325532661
+1,"['Percentile10', 'Max', 'CoefficientOfVariation']",0.20784363092868777
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'Skewness', 'IntensityEnergy']",0.2078917245624338
+1,"['ShiftedRootMeanSquaredIntensity', 'CoefficientOfVariation']",0.2079725520573067
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.208084273578949
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.20810279987065433
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness']",0.2081950127677115
+1,"['Percentile10', 'Range', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.20827958020946935
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation']",0.20829443033460093
+1,"['Percentile10', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.20830494458970628
+1,"['Percentile10', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.20838845247930482
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.2084140940061202
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.2085704555544702
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis']",0.20859744904473124
+1,"['Percentile10', 'Range', 'ExcessKurtosis']",0.20860778973515925
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis']",0.20864662785992025
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'CoefficientOfVariation', 'IntensityEnergy']",0.20869490701381904
+1,"['Max', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.20875873395507985
+1,"['Range', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.20878793140797194
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Min', 'CoefficientOfVariation']",0.20880113053065766
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Min', 'IntensityEnergy']",0.2088810788034785
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness']",0.20889891586772136
+1,"['RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.2089243090918601
+1,"['Max', 'ShiftedRootMeanSquaredIntensity']",0.2090152263723803
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'IntensityEnergy']",0.20901946486421322
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity']",0.20905655967068237
+1,"['PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.20911571767941683
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.20913431623725176
+1,"['CoefficientOfVariation', 'IntensityEnergy']",0.20926870941733652
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.20928753155994104
+1,"['Max', 'CoefficientOfVariation']",0.2092986632582707
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation', 'IntensityEnergy']",0.20937618930760143
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'ExcessKurtosis']",0.20944293694000196
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.20945329866051898
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'CoefficientOfVariation']",0.20954474273149432
+1,"['Percentile10', 'PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.20955475568185325
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.20956373994702357
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'CoefficientOfVariation']",0.20956715881750265
+1,"['Percentile10', 'Range', 'CoefficientOfVariation']",0.20958736975889447
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis']",0.20960154716459473
+1,"['ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.20983002334494574
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'CoefficientOfVariation']",0.2100013576545737
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.21010372774153227
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.21018053077586168
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation']",0.2102432041216685
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation']",0.21025699285650784
+1,"['Max', 'Range', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.210359081581151
+1,"['Percentile10', 'Max', 'ExcessKurtosis']",0.21037003547555733
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'IntensityEnergy']",0.2103801252544954
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.21040802643810627
+1,"['ShiftedRootMeanSquaredIntensity', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.2104118168045539
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.21050421636268576
+1,"['ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'CoefficientOfVariation']",0.2106114512812507
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min']",0.2106315054593792
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.21081000255337146
+1,"['Percentile10', 'Range', 'PearsonsMedianSkewness']",0.21082255416875764
+1,"['Percentile10', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'CoefficientOfVariation']",0.21085521156536136
+1,"['Percentile10', 'Range', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.21086167353664434
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.21092467184355934
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.21093002779814296
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness']",0.21093891572227022
+1,"['ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.21099599410438274
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'Min', 'IntensityEnergy']",0.21104447232729398
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis']",0.21112775009476983
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'IntensityEnergy']",0.21126002176118103
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.21132595745682167
+1,"['RobustMeanAbsoluteDeviation', 'CoefficientOfVariation']",0.21140309995384335
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation', 'IntensityEnergy']",0.21147123594977785
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.21151407145006057
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.21151603233060567
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.21151617032528092
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis', 'IntensityEnergy']",0.21153965973271835
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation']",0.21165797643337492
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.2116703100575661
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'CoefficientOfVariation']",0.21167450588986847
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.21167887194968238
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'Min', 'CoefficientOfVariation']",0.21167977795131757
+1,"['Range', 'CoefficientOfVariation']",0.21183255007973845
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.21184263281157456
+1,"['Percentile10', 'PearsonsMedianSkewness', 'CoefficientOfVariation', 'IntensityEnergy']",0.2118487416010589
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'CoefficientOfVariation']",0.2120289046507043
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness']",0.21207158284744168
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.2120897370078927
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'CoefficientOfVariation']",0.21214201713202732
+1,"['ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.21214365056429652
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.21218890872380522
+1,"['Percentile10', 'Max', 'PearsonsMedianSkewness']",0.21225951362304285
+1,"['Percentile10', 'Range', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'CoefficientOfVariation']",0.2122811006967969
+1,"['PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.21231754961647292
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'IntensityEnergy']",0.21243932499855145
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'ExcessKurtosis', 'IntensityEnergy']",0.21247596984533523
+1,"['ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'CoefficientOfVariation']",0.21273004299329282
+1,"['Percentile10', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation']",0.212756842607042
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis']",0.21288948276927788
+1,"['ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness']",0.21292034826220316
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation']",0.21293063028563053
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation']",0.21293323879421006
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.21303023417130668
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness']",0.21308387583666735
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range']",0.2131574474067902
+1,"['Max', 'ExcessKurtosis', 'CoefficientOfVariation']",0.2132228890880138
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.21330636569189185
+1,"['RobustMeanAbsoluteDeviation', 'CoefficientOfVariation', 'IntensityEnergy']",0.21338438880969188
+1,"['Percentile10', 'Max', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.21339213021405554
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'CoefficientOfVariation']",0.21345872068279004
+1,"['Percentile10', 'Max', 'ExcessKurtosis', 'CoefficientOfVariation']",0.2134666808124728
+1,"['Range', 'CoefficientOfVariation', 'IntensityEnergy']",0.21368735446420709
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis']",0.21370777584475098
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness']",0.2137599189942521
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'ExcessKurtosis', 'CoefficientOfVariation']",0.21391538971206808
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.2140154144266327
+1,"['Percentile10', 'Range', 'ExcessKurtosis', 'CoefficientOfVariation']",0.2140318980839765
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.2140527501087458
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation']",0.21407166233103064
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation']",0.2141904072439384
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness']",0.214336110184479
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation']",0.21440656895129317
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation']",0.21449986095104265
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'Min', 'CoefficientOfVariation']",0.21450273438140166
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'Min', 'CoefficientOfVariation']",0.21450309237223902
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis']",0.21459469925341526
+1,"['ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.21478958822169736
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.21479003012152936
+1,"['RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'CoefficientOfVariation']",0.21482451135978728
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness']",0.215007236344611
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'CoefficientOfVariation']",0.21524612197104545
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.21572730700956003
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness']",0.21573536401478804
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation']",0.21578213194702628
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.21585559867191745
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness']",0.2158667691479978
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis']",0.21595982569622135
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis']",0.21603160920956782
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'ExcessKurtosis']",0.2161266078068542
+1,"['Max', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'CoefficientOfVariation']",0.2162661654569262
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'CoefficientOfVariation']",0.21642131601959358
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation']",0.21647271616646993
+1,"['Percentile10', 'PearsonsMedianSkewness', 'Min', 'CoefficientOfVariation', 'IntensityEnergy']",0.21647890798220892
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness']",0.2165714834416226
+1,"['Range', 'ExcessKurtosis', 'CoefficientOfVariation']",0.21657407277887916
+1,"['Max', 'Range', 'RobustMeanAbsoluteDeviation', 'Min', 'CoefficientOfVariation']",0.21673379791848252
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation']",0.2168239007856373
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'CoefficientOfVariation']",0.2169683471579078
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation', 'IntensityEnergy']",0.21743153243348784
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis']",0.21749438139445326
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation']",0.21776466180175266
+1,"['RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.21800488010585972
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation']",0.21843936120025015
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'ExcessKurtosis', 'CoefficientOfVariation']",0.21854091415493457
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.2188606119447924
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation']",0.2188800705220097
+1,"['Range', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.21897470552633772
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation', 'IntensityEnergy']",0.21915634126717387
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis', 'IntensityEnergy']",0.21930590892572116
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'PearsonsMedianSkewness']",0.21950697370637007
+1,"['Percentile10', 'Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'CoefficientOfVariation']",0.22020990833883902
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'CoefficientOfVariation']",0.22040042072563595
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation']",0.22071919393500647
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'IntensityEnergy']",0.22088768589263186
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'ExcessKurtosis', 'CoefficientOfVariation']",0.22168228097584952
+1,"['Percentile10', 'Max', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'CoefficientOfVariation']",0.22187200712134963
+1,"['RobustMeanAbsoluteDeviation', 'IntensityEnergy']",0.22213714238444437
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness']",0.22223768124437418
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.22242516084138408
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness']",0.2226748257545833
+1,"['RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'IntensityEnergy']",0.22309354568834053
+1,"['Percentile10', 'Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'CoefficientOfVariation']",0.22359766256388428
+1,"['Max', 'ShiftedRootMeanSquaredIntensity', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'CoefficientOfVariation']",0.22364984121337525
+1,"['Range', 'Skewness', 'IntensityEnergy']",0.22367133420075053
+1,"['ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'CoefficientOfVariation']",0.224261971913501
+1,"['Percentile10', 'ShiftedRootMeanSquaredIntensity', 'Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness']",0.22499712085176599
+1,"['Max', 'ExcessKurtosis']",0.2251713411530882
+1,"['Range', 'IntensityEnergy']",0.22584351456474472
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'CoefficientOfVariation', 'IntensityEnergy']",0.22588801902447703
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis', 'IntensityEnergy']",0.22611642205559354
+1,"['RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.22629490302908803
+1,"['RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.22670264804969031
+1,"['Range', 'Skewness', 'ExcessKurtosis', 'IntensityEnergy']",0.226749293716374
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'IntensityEnergy']",0.22690462857109037
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'IntensityEnergy']",0.2282130800377028
+1,"['ExcessKurtosis', 'IntensityEnergy']",0.2299941848661926
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis', 'IntensityEnergy']",0.23034120615561904
+1,"['Range', 'ExcessKurtosis', 'IntensityEnergy']",0.23098867172717885
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.23229897453414086
+1,"['Range', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.23300800695544155
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.2334475395684223
+1,"['Range', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.23807928956691743
+1,"['Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.23814989333616182
+1,"['Max', 'ExcessKurtosis', 'IntensityEnergy']",0.2393985702564838
+1,"['Max', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.24162165780386533
+1,"['Max', 'Skewness', 'ExcessKurtosis']",0.24343364494010158
+1,"['Max', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.24447247600659702
+1,"['PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.24469696486046605
+1,"['Skewness', 'ExcessKurtosis', 'IntensityEnergy']",0.24476068813182014
+1,"['Range', 'RobustMeanAbsoluteDeviation']",0.24537775917923657
+1,"['Max', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.24737547745735722
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'ExcessKurtosis']",0.25162725233834987
+1,"['Max', 'PearsonsMedianSkewness', 'ExcessKurtosis', 'IntensityEnergy']",0.2523580473168035
+1,"['Max', 'Skewness', 'ExcessKurtosis', 'IntensityEnergy']",0.25306665586357385
+1,"['Max', 'PearsonsMedianSkewness']",0.253253412612059
+1,"['Skewness', 'IntensityEnergy']",0.25423241133549934
+1,"['Max', 'Skewness']",0.25442099508595944
+1,"['RobustMeanAbsoluteDeviation', 'Skewness']",0.25462042072927377
+1,"['RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness']",0.2546295041335855
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness']",0.25515984250172213
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'Skewness']",0.25523492718104446
+1,"['Max', 'IntensityEnergy']",0.2562430607822323
+1,"['PearsonsMedianSkewness', 'IntensityEnergy']",0.2565140543261635
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis']",0.25928799330336383
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.2596917509067342
+1,"['Skewness', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.2602518663429134
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness']",0.26098199482711826
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'ExcessKurtosis']",0.26362018079354865
+1,"['Range', 'Skewness']",0.2637062330034381
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness']",0.26390677959516806
+1,"['Skewness', 'ExcessKurtosis']",0.26461144876476655
+1,"['Max', 'Skewness', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.26472627383634084
+1,"['Range', 'PearsonsMedianSkewness']",0.2656887136474988
+1,"['Range', 'RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.2660226716391802
+1,"['Max', 'Skewness', 'IntensityEnergy']",0.2685277365264308
+1,"['PearsonsMedianSkewness', 'ExcessKurtosis']",0.26867192750740504
+1,"['RobustMeanAbsoluteDeviation', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.26888699972403873
+1,"['Max', 'PearsonsMedianSkewness', 'IntensityEnergy']",0.26889927244460154
+1,"['Max', 'Skewness', 'PearsonsMedianSkewness']",0.2702718961719356
+1,"['Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.27149250793897334
+1,"['Range', 'Skewness', 'ExcessKurtosis']",0.27208989808013767
+1,"['RobustMeanAbsoluteDeviation', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.27290527712848334
+1,"['Range', 'Skewness', 'PearsonsMedianSkewness']",0.27498096101748043
+1,"['Range', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.27681301580317963
+1,"['Range', 'ExcessKurtosis']",0.2786045390592944
+1,"['Skewness', 'PearsonsMedianSkewness']",0.2798734477975487
+1,"['RobustMeanAbsoluteDeviation', 'ExcessKurtosis']",0.2822456458353422
+1,"['Range', 'Skewness', 'PearsonsMedianSkewness', 'ExcessKurtosis']",0.2826041898249813

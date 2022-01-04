@@ -285,7 +285,7 @@ def GetSUVArray(patient):
         for x_idx in range(xLen):
             for y_idx in range(yLen):
                 x = ipp[0] + x_idx*pixelSpacing[0]
-                y = ipp[0] + y_idx*pixelSpacing[1]
+                y = ipp[1] + y_idx*pixelSpacing[1]
                 array[2,idx,x_idx,y_idx] = x
                 array[3,idx,x_idx,y_idx] = y
         print("    " + str(idx+1) + "/" + str(len(imagesandSlices)) + " DICOM files")         
