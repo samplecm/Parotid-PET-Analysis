@@ -17,7 +17,86 @@ import csv
 import scipy.stats
 from Data_Analyzing import Get_t_value, SpearmansRankCorrelation, GetListRank, PearsonsRankCorrelation, CloneList, DicomSaver
 
+
+
 parentDirectory = os.getcwd()
+
+def GetAvgAge():
+    path = os.path.join(parentDirectory, "SG_PETRT")
+    patients = os.listdir(path)
+    ages = []
+    for patient in patients:
+        patient_path = os.path.join(path, patient)
+        folders = os.listdir(patient_path)
+        for folder in folders:
+            if "PET_" in folder:
+                pet_path = os.path.join(patient_path, folder)
+                pet_files = os.listdir(pet_path)
+                pet_file = os.path.join(pet_path, pet_files[0])
+                metadata = pydicom.dcmread(pet_file)
+                age = metadata[0x0010, 0x1010].value
+                ages.append(int(age[0:3]))
+
+                break
+    avg_age = statistics.mean(ages)
+    min_age = min([i for i in ages if i != 0])
+    max_age = max(ages)
+    deviation = max(avg_age-min_age, max_age-avg_age)
+    print("Average age for the cohort of " + str(len(ages)) + " patients is " + str(avg_age) + " +/- " + str(deviation)   )  
+
+def GetAvgWeight():
+    path = os.path.join(parentDirectory, "SG_PETRT")
+    patients = os.listdir(path)
+    weights = []
+    for patient in patients:
+        patient_path = os.path.join(path, patient)
+        folders = os.listdir(patient_path)
+        for folder in folders:
+            if "PET_" in folder:
+                pet_path = os.path.join(patient_path, folder)
+                pet_files = os.listdir(pet_path)
+                pet_file = os.path.join(pet_path, pet_files[0])
+                metadata = pydicom.dcmread(pet_file)
+                weight = metadata[0x0010, 0x1030].value
+                weights.append(int(weight))
+
+
+                break
+    avg_weight = statistics.mean(weights)
+    min_weight = min(weights)
+    max_weight = max(weights)
+    deviation = max(avg_weight-min_weight, max_weight-avg_weight)
+    print("Average weight for the cohort of " + str(len(weights)) + " patients is " + str(avg_weight) + " +/- " + str(deviation)  )  
+
+def GetSexes():
+    path = os.path.join(parentDirectory, "SG_PETRT")
+    patients = os.listdir(path)
+    M = 0
+    F = 0
+    for patient in patients:
+        patient_path = os.path.join(path, patient)
+        folders = os.listdir(patient_path)
+        for folder in folders:
+            if "PET_" in folder:
+                pet_path = os.path.join(patient_path, folder)
+                pet_files = os.listdir(pet_path)
+                pet_file = os.path.join(pet_path, pet_files[0])
+                metadata = pydicom.dcmread(pet_file)
+                sex = metadata[0x0010, 0x0040].value
+                if sex == 'M':
+                    M += 1
+                elif sex == 'F':
+                    F += 1
+                else:
+                    print("")    
+
+
+
+                break
+    print("sexes for the cohort: " + str(M) + "M / " + str(F) + "F"    )        
+
+
+
 def RemoveIslands(contours):
     contours = sorted(contours, key=lambda x: x[0][2])
     indices_to_remove = []
@@ -723,7 +802,8 @@ def ImageUpsizer(array, newDimensions):
 if __name__ == '__main__':
     #GetContours("/home/calebsample/Documents/UBC/PET PSMA/PSMA Analysis/SG_PETRT/1")
     #GetSUVArray("/home/calebsample/Documents/UBC/PET PSMA/PSMA Analysis/SG_PETRT/1")
-    SpearmansRankCorrelation([0.751310670731707,  0.526618902439024,   0.386310975609756,
-            1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
-            0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
-            0.272984146341463,   0.0484897103658537,  0.035493902439024])
+    # SpearmansRankCorrelation([0.751310670731707,  0.526618902439024,   0.386310975609756,
+    #         1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
+    #         0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
+    #         0.272984146341463,   0.0484897103658537,  0.035493902439024]) 
+    GetAvgAge()

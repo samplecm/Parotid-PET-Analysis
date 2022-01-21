@@ -30,7 +30,9 @@ import matplotlib.pyplot as plt
 import itertools
 parentDirectory = os.getcwd()
 
-def Model_Selection(radiomics_data, labels):
+
+
+def Model_Selection_crossval(radiomics_data, labels):
     #Now need to test all combinations of 2,3,4,5, features for creating a model with a degree of 1,2,3,4,5
     #keep track of kfold loss and sort, and save in spreadsheet.
     degrees = np.linspace(1, 5, 5, dtype=int)
@@ -39,12 +41,21 @@ def Model_Selection(radiomics_data, labels):
     radiomics_data = np.round(radiomics_data, 4)
     y = []
     params_list = []
+    degree_scores = []
+    features_scores = []
+    for i in range(len(degrees)):
+        degree_scores.append([])   
     for num_predictors in range(2, 6):
-        feature_combos = itertools.combinations(features, num_predictors)
-        for degree in degrees:
+        features_scores.append([])
+        for deg in degrees:
+            feature_combos = itertools.combinations(features, num_predictors)
             for feature_indices in feature_combos:
-                score = KFold_Validation(radiomics_data, feature_indices, k=9, degree=degree)
-                params = [degree, [labels[int(feature_idx)] for feature_idx in feature_indices], score]
+                score = KFold_Validation(radiomics_data, feature_indices, k=9, degree=deg)
+                if num_predictors == 2:
+                    degree_scores[deg-1].append(score)
+                if deg == 2:    
+                    features_scores[-1].append(score)
+                params = [deg, [labels[int(feature_idx)] for feature_idx in feature_indices], score]
                 params_list.append(params)
                 y.append(score)
     params_list = sorted(params_list, key=lambda x: x[2])
@@ -52,6 +63,82 @@ def Model_Selection(radiomics_data, labels):
         csv_writer = csv.writer(csv_file)
         csv_writer.writerow(["Degree", "Features", "9-fold Loss"])
         csv_writer.writerows(params_list)
+    #get scores vs degree and num features
+    for i in range(len(degrees)):
+        avg_score = np.mean(degree_scores[i])
+        degree_scores[i] = avg_score
+
+    for i in range(4): 
+        avg_score = np.mean(features_scores[i])
+        features_scores[i] = avg_score
+
+    plt.subplot(1,2,1)    
+    plt.plot(degrees, degree_scores, color='green')
+    plt.xlabel("Polynomial Degree")
+    plt.ylabel("Mean Absolute Error")
+    plt.subplot(1,2,2)
+    plt.plot(range(2, 6), features_scores, color='b')
+    plt.xlabel("Number of Input Features")
+    plt.ylabel("Mean Absolute Error")
+    plt.subplots_adjust(wspace=0.5, hspace=1)
+    plt.show()
+
+
+def Model_Selection_aic(radiomics_data, labels):
+    #Now need to test all combinations of 2,3,4,5, features for creating a model with a degree of 1,2,3,4,5
+    #keep track of aic and sort, and save in spreadsheet.
+    #aic = N ln (SSerror/N) + 2K, N = #points, K = #params + 1
+    degrees = np.linspace(1, 5, 5, dtype=int)
+    num_features = len(labels)
+    features = np.linspace(0, num_features-1, num_features)
+    radiomics_data = np.round(radiomics_data, 4)
+    y = []
+    params_list = []
+    degree_scores = []
+    features_scores = []
+    for i in range(len(degrees)):
+        degree_scores.append([])   
+    for num_predictors in range(2, 6):
+        features_scores.append([])
+        for deg in degrees:
+            feature_combos = itertools.combinations(features, num_predictors)
+            for feature_indices in feature_combos:
+                score = Model_SSerror(radiomics_data, feature_indices, degree=deg)
+                score = 36 * np.log(score / 36) + 2 *(num_predictors+1)
+                if num_predictors == 2:
+                    degree_scores[deg-1].append(score)
+                if deg == 2:    
+                    features_scores[-1].append(score)
+                params = [deg, [labels[int(feature_idx)] for feature_idx in feature_indices], score]
+                params_list.append(params)
+                y.append(score)
+    params_list = sorted(params_list, key=lambda x: x[2])
+    with open(os.path.join(parentDirectory, "model_selection_aic.csv"), 'w') as csv_file:
+        csv_writer = csv.writer(csv_file)
+        csv_writer.writerow(["Degree", "Features", "aic"])
+        csv_writer.writerows(params_list)
+    #get scores vs degree and num features
+    for i in range(len(degrees)):
+        avg_score = np.mean(degree_scores[i])
+        degree_scores[i] = avg_score
+
+    for i in range(4): 
+        avg_score = np.mean(features_scores[i])
+        features_scores[i] = avg_score
+
+    plt.subplot(1,2,1)    
+    plt.plot(degrees, degree_scores, color='green')
+    plt.xlabel("Polynomial Degree")
+    plt.ylabel("AIC")
+    plt.subplot(1,2,2)
+    plt.plot(range(2, 6), features_scores, color='b')
+    plt.xlabel("Number of Input Features")
+    plt.ylabel("AIC")
+    plt.subplots_adjust(wspace=0.5, hspace=1)
+    plt.show()
+
+
+
 
 
 class Model:
@@ -91,7 +178,41 @@ class Model:
 
 
     #testSubseg = model.predict(poly.fit_transform(np.array(points[15]).reshape(1,-1)))
+def Model_SSerror(radiomics_data, feature_indices, degree):
+    importanceVals = [0.751310670731707,  0.526618902439024,   0.386310975609756,
+                    1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
+                    0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
+                    0.272984146341463,   0.0484897103658537,  0.035493902439024]
+    y = importanceVals * 2             
+    radiomics_data = np.reshape(radiomics_data, (36, 11))
+    data_dict = {}
+    data_cols = []
+    data_dict['y'] = y
+    for i, feature_i in enumerate(feature_indices):
+        if np.isnan(np.min(radiomics_data[:, int(feature_i)])):
+            print("Error, found nan in array for feature " + str(feature_i))
+            return 1000
+        data_dict[str('x' + str(i))] = radiomics_data[:, int(feature_i)]
+        data_cols.append(str('x' + str(i)))
+    
+    data_frame = pd.DataFrame(data_dict)
+    # x = data_frame[['x1', 'x2', 'x3', 'x4']]
 
+    x = data_frame[data_cols]
+    y = data_frame['y']
+    poly = PolynomialFeatures(degree)     
+    #transform the data for fitting  
+    points_transformed = poly.fit_transform(x)
+    cv = KFold(n_splits=9, random_state=1, shuffle=True)
+    model = LinearRegression()
+    model.fit(points_transformed, y)
+    prediction = model.predict(points_transformed) 
+    prediction = [ (val-min(prediction))/(max(prediction)-min(prediction)) for val in prediction]
+    square_errors = np.square(np.array(y) - np.array(prediction))
+    sum_square_errors = np.sum(square_errors)
+
+    print("")
+    return sum_square_errors
 
 def KFold_Validation(radiomics_data, feature_indices, k=9, degree=2):
     #takes population radiomics data and performs a k-fold cross validation   

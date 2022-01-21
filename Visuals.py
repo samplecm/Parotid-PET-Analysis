@@ -1,8 +1,12 @@
 
 import matplotlib.pyplot as plt
+import mpl_toolkits.mplot3d as a3
+import matplotlib.colors as colors
+import pylab as pl
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np 
 import math
+from Contours import Contours
 from Data_Analyzing import CloneList
 from numpy.lib.type_check import imag
 import GetImageData
@@ -13,6 +17,9 @@ from PIL import Image
 import copy
 from Data_Analyzing import GetListRank, KFold_Validation
 import NormalizeImportance
+import plotly.graph_objects as go
+import Contour_Operations
+
 def ModelScore_vs_Degree_Plot(radiomics_data):
     x = np.linspace(1, 5, 5, dtype=int)
     y = []
@@ -43,8 +50,181 @@ def ClusterPlot(array, labels):
     
     print("Created cluster plot.")
 
+def set_axes_equal(ax: plt.Axes):
+    """Set 3D plot axes to equal scale.
 
-def plotStructure(structure):
+    Make axes of 3D plot have equal scale so that spheres appear as
+    spheres and cubes as cubes.  Required since `ax.axis('equal')`
+    and `ax.set_aspect('equal')` don't work on 3D.
+    """
+    limits = np.array([
+        ax.get_xlim3d(),
+        ax.get_ylim3d(),
+        ax.get_zlim3d(),
+    ])
+    origin = np.mean(limits, axis=1)
+    radius = 0.5 * np.max(np.abs(limits[:, 1] - limits[:, 0]))
+    _set_axes_radius(ax, origin, radius)
+
+def _set_axes_radius(ax, origin, radius):
+    x, y, z = origin
+    ax.set_xlim3d([x - radius, x + radius])
+    ax.set_ylim3d([y - radius, y + radius])
+    ax.set_zlim3d([z - radius, z + radius])
+
+def plotSubsegments(structure):
+    print("In PlotStructure")
+    fig = plt.figure()
+    ax : plt.Axes = Axes3D(fig, auto_add_to_figure=False)
+    fig.add_axes(ax)
+
+
+    ax.set_xlabel('x')
+    ax.set_ylabel('y')
+    ax.set_zlabel('z')
+    
+    minX = 1000
+    minY = 1000
+    minZ = 1000
+    maxX = -1000
+    maxY = -1000
+    maxZ = -1000
+
+    colour_idx = 0
+    colours = ['r', 'b', 'g', 'y', 'm', 'c', 'k']
+    importanceVals = [0.751310670731707,  0.526618902439024,   0.386310975609756,
+            1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
+            0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
+            0.272984146341463,   0.0484897103658537,  0.035493902439024]
+    suv_values = [10.62, 8.7, 7.68, 8.83, 11.2, 10.4, 10.5, 12.7, 11.2, 8.9, 11, 9.8, 11.06, 13.64, 12.4, 11.7, 14.2, 12.8] 
+    suv_values = [i- min(suv_values) for i in suv_values]  
+    suv_values = [i / max(suv_values) for i in suv_values] 
+
+    for i in range(len(structure)):
+        substructure = structure[i]
+        # colour = colours[colour_idx]
+        # colour_idx = (colour_idx + 1) % 7
+        importance = importanceVals[i]
+        colour = Get_Colormap_RGB(importance)
+        for c, contour in enumerate(substructure):   
+              
+            if len(contour) == 0:
+                continue    
+            # if c % 2 != 0:
+            #     continue
+            x = []
+            y = []
+            z = []
+            for point in contour:
+                if point[0] > maxX:
+                    maxX = point[0]
+                elif point[0] < minX:
+                    minX = point[0]
+                if point[1] > maxY:
+                    maxY = point[1]
+                if point[1] < minY:
+                    minY = point[1]
+                if point[2] > maxZ:
+                    maxZ = point[2]
+                if point[2] < minZ:
+                    minZ = point[2]                     
+                x.append(point[0])
+                y.append(point[1])
+                z.append(point[2])
+
+            #ax.plot(x,y,z, colour)  
+            points = [list(zip(x,y,z))]
+            poly = a3.art3d.Poly3DCollection(points)  
+            poly.set_color(colour)
+            poly.set_edgecolor('k')
+            ax.add_collection3d(poly)
+    #now add with suv mapping
+    for i in range(len(structure)):
+        substructure = structure[i]
+        # colour = colours[colour_idx]
+        # colour_idx = (colour_idx + 1) % 7
+        importance = suv_values[i]
+        colour = Get_Colormap_RGB(importance)
+        for c, contour in enumerate(substructure):   
+                
+            if len(contour) == 0:
+                continue    
+            # if c % 2 != 0:
+            #     continue
+            x = []
+            y = []
+            z = []
+            for point in contour:
+                if point[0] > maxX:
+                    maxX = point[0]
+                elif point[0] < minX:
+                    minX = point[0]
+                if point[1] > maxY:
+                    maxY = point[1]
+                if point[1] < minY:
+                    minY = point[1]
+                if point[2] > maxZ:
+                    maxZ = point[2]
+                if point[2] < minZ:
+                    minZ = point[2]                     
+                x.append(point[0]+50)
+                y.append(point[1])
+                z.append(point[2])
+
+            #ax.plot(x,y,z, colour)  
+            points = [list(zip(x,y,z))]
+            poly = a3.art3d.Poly3DCollection(points)  
+            poly.set_color(colour)
+            poly.set_edgecolor('k')
+            ax.add_collection3d(poly)
+
+    ax.set_xlim((minX-5, maxX+5))    
+    ax.set_ylim((minY-5, maxY+5))    
+    ax.set_zlim((minZ-5, maxZ+5))    
+
+    set_axes_equal(ax)
+    ax.grid(False) 
+    ax.set_xticks([])
+    ax.set_yticks([])
+    ax.set_zticks([]) 
+    plt.axis('off')
+    plt.show()
+    print("")
+
+def Get_Colormap_RGB(val):
+    
+    # val_blue = min(0.5,val)
+    # blue = (1-2*val_blue)
+
+    # val_green = abs(val-0.5)
+    # green = (1-2*val_green)
+
+    # val_red = 1 - max(0.5,val)
+    # red = (1-2*val_red)
+    # i reveresed the order by accident... so reverse val
+    val = 1 - val
+
+    if val < 0.25:
+        red = 1
+        blue = 0.1
+        green = 0.9*(val/0.25) + 0.1
+    elif val < 0.5:
+        red = -0.9*((val-0.25)/0.25) + 1
+        green = 1
+        blue = 0.1
+    elif val < 0.75:
+        red = 0.1
+        green = 1    
+        blue = 0.9*((val-0.5)/0.25) + 0.1
+    else:
+        red = 0.1
+        blue = 1
+        green = -0.9*((val-0.75)/0.25) + 1
+
+
+    return (red, green, blue, 1)
+    
+def plotStructure_unfilled(structure):
     print("In PlotStructure")
     fig = plt.figure()
     ax  = fig.add_subplot(111, projection = '3d')
@@ -61,7 +241,7 @@ def plotStructure(structure):
 
     colour_idx = 0
     colours = ['r', 'b', 'g', 'y', 'm', 'c', 'k']
-    for i in range(2,3):#len(structure)):
+    for i in range(len(structure)):
         substructure = structure[i]
         colour = colours[colour_idx]
         colour_idx = (colour_idx + 1) % 7
@@ -85,7 +265,6 @@ def plotStructure(structure):
                 x.append(point[0])
                 y.append(point[1])
                 z.append(point[2])
-                print(point)
             ax.plot(x,y,z, colour)    
     ax.set_xlim((minX-5, maxX+5))    
     ax.set_ylim((minY-5, maxY+5))    
@@ -238,8 +417,8 @@ def CorrelationPlot(organ, stat="mean"):
             1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
             0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
             0.272984146341463,   0.0484897103658537,  0.035493902439024]
-        leftSUVs = [10809, 13002, 12140, 13943, 16767, 16564, 16469, 18995, 17250, 13983, 16645, 15153, 17303, 20449, 18917, 18020, 21214, 19283]
-        rightSUVs = [11820, 13593, 12279, 14884, 17103, 16998, 16550, 18245, 16755, 13209, 15898, 15443, 16076, 19399, 18955, 16905, 20393, 19244] 
+        leftSUVs = [6.83, 8.7, 7.68, 8.83, 11.2, 10.4, 10.5, 12.7, 11.2, 8.9, 11, 9.8, 11.06, 13.64, 12.4, 11.7, 14.2, 12.8] 
+        rightSUVs = [7.49, 8.99, 7.83, 9.45, 11.3, 10.75, 10.64, 12.17, 10.84, 8.34, 10.44, 10.05, 10.18, 12.86, 12.34, 10.96, 13.55, 12.7] 
     elif organ == "submandibular":
         importanceVals = NormalizeImportance.SubImportance()
         leftSUVs = [10.76,10.63,12.38,11.28,11.28,12.25,10.68,13.07,11.36]
@@ -257,26 +436,57 @@ def CorrelationPlot(organ, stat="mean"):
     for idx in range(len(leftSUVs)):
         suvs_left.append(leftSUVs[idx][0])
         suvs_right.append(rightSUVs[idx][0])
-      
+    importanceVals = np.array(importanceVals)
+    suvs_left = np.array(suvs_left)
+    suvs_right = np.array(suvs_right)  
+    #get line of best fits.
+    m_l, b_l = np.polyfit(importanceVals, suvs_left, 1)  
+    m_r, b_r = np.polyfit(importanceVals, suvs_right, 1)  
+
+
     fig = plt.figure()
     axLeft = fig.add_subplot(211)
-    axLeft.scatter(importanceVals, suvs_left)
-    axLeft.set_xlabel('Subsegment Importance')
-    axLeft.set_ylabel('Subsegment Average SUV')
+    axLeft.scatter(importanceVals, suvs_left, color='darkorange')
+    axLeft.plot(importanceVals, importanceVals*m_l + b_l, color='k')
+    axLeft.set_xlabel('Relative Importance')
+    axLeft.set_ylabel('Mean SUVbw')
     if organ == "parotid":
-        axLeft.set_title("Left Parotid: \n Spearman's Rank: -0.56 (p < 0.008) \n Pearson's Rank: -0.52 (p < 0.014)")
+        axLeft.set_title("Left Parotid: \n Spearman's Rank: -0.56 (p < 0.007)")
     else:
         axLeft.set_title("Left Sub: \n Spearman's Rank: -0.31 (p < 0.22) \n Pearson's Rank: -0.29 (p < 0.24)")    
     axRight = fig.add_subplot(212)
-    axRight.scatter(importanceVals, suvs_right)
-    axRight.set_xlabel('Subsegment Importance')
-    axRight.set_ylabel('Subsegment Average SUV')
+    axRight.scatter(importanceVals, suvs_right, color='r')
+    axRight.plot(importanceVals, importanceVals*m_r + b_r, color='k')
+    axRight.set_xlabel('Relative Importance')
+    axRight.set_ylabel('Mean SUVbw')
     if organ == "parotid":
-        axRight.set_title("Right Parotid: \n Spearman's Rank: -0.512 (p < 0.015) \n Pearson's Rank: -0.477 (p < 0.023)")
+        axRight.set_title("Right Parotid: \n Spearman's Rank: -0.54 (p < 0.01)")
     else:  
         axRight.set_title("Right Sub: \n Spearman's Rank: -0.24 (p < 0.28) \n Pearson's Rank: -0.29 (p < 0.24)")   
     plt.subplots_adjust(hspace=0.9)  
     plt.show()    
+
+def MeshPlot(contour : Contours):
+    #This creates a plot showing parotid subsegments with colour scheme according to importance
+    importanceVals = [0.751310670731707,  0.526618902439024,   0.386310975609756,
+                1,   0.937500000000000,   0.169969512195122,   0.538871951219512 ,  0.318064024390244,   0.167751524390244,
+                0.348320884146341,   0.00611608231707317, 0.0636128048780488,  0.764222560975610,   0.0481192835365854,  0.166463414634146,
+                0.272984146341463,   0.0484897103658537,  0.035493902439024]
+    subsegs = contour.segmentedContours18
+    parotid = contour.wholeROI
+    parotid = Contour_Operations.AddInterpolatedPoints(copy.deepcopy(parotid))
+    x_parotid = []
+    y_parotid = []
+    z_parotid = []
+    for s, slice in enumerate(parotid):
+        for p, point in enumerate(slice):
+            x_parotid.append(point[0])
+            y_parotid.append(point[1])
+            z_parotid.append(point[2])
+    fig = go.Figure(data=go.Mesh3d(
+        x=x_parotid, y=y_parotid, z=z_parotid, color='green', alphahull=0.1, opacity = 1))
+    fig.show()
+    print()            
 
 
 

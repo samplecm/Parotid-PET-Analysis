@@ -12,6 +12,7 @@ import Data_Analyzing
 from Data_Analyzing import DicomSaver
 import Radiomics
 
+
 parentDirectory = os.getcwd()
 
 def GetPatient(patientPath, patientNum, cleanProcess=False, save=True):
@@ -81,6 +82,7 @@ def GetPatient(patientPath, patientNum, cleanProcess=False, save=True):
    patient.RightParotid = rp_contours
    patient.LeftSubmandibular = ls_contours
    patient.RightSubmandibular = rs_contours
+   Visuals.plotSubsegments(patient.LeftParotid.segmentedContours18)
    with open(os.path.join(patientPath, "PatientData.txt"), "wb") as fp:
          pickle.dump(patient, fp)
    if save==True:      
@@ -95,18 +97,10 @@ def GetPatient(patientPath, patientNum, cleanProcess=False, save=True):
 
 
 
-# for i in range(1,2):
-#    patient_idx = "{:02d}".format(i)
-#    print("Loading Patient: " + patient_idx)
-#    patientPath = os.path.join(parentDirectory, "SG_PETRT" , patient_idx)
-
-#    patient = GetPatient(patientPath, patient_idx, cleanProcess=False, save=False)
-#    patient.path = patientPath
-#    with open(os.path.join(patientPath, "PatientData.txt"), "wb") as fp:
-#       pickle.dump(patient, fp)
-#    patient.path = patientPath
+#
+   #Visuals.MeshPlot(patient.LeftParotid)
    # Visuals.PlotSUVs(patient)
-   # Visuals.plotStructure(patient.LeftParotid.segmentedContours18)
+   #Visuals.plotSubsegments(patient.LeftParotid.segmentedContours18)
    # Visuals.PlotPETwithParotids(patient)
    # SubmandibularSUVAnalysis(patient)
    # ParotidSUVAnalysis(patient, stat="95")
@@ -117,16 +111,23 @@ def GetPatient(patientPath, patientNum, cleanProcess=False, save=True):
    #Visuals.PlotPETwithParotids(patient, plotSubSegs=True)
    #Visuals.plotStructure(patient.LeftParotid.segmentedContours18)
    
-labels_filtered = Radiomics.FeatureSelection("parotid")
-population_radiomics_stats = Radiomics.Get_Subseg_Features(labels_filtered, "parotid")
-Data_Analyzing.Model_Selection(population_radiomics_stats, labels_filtered)
+# labels_filtered = Radiomics.FeatureSelection("parotid")
+# population_radiomics_stats = Radiomics.Get_Subseg_Features(labels_filtered, "parotid")
+# Data_Analyzing.Model_Selection_aic(population_radiomics_stats, labels_filtered)
+
 # importanceModel = Data_Analyzing.Model(population_radiomics_stats, degree=2)
 # KFold_Validation(population_radiomics_stats, degree=10)
 # Visuals.ModelScore_vs_Degree_Plot(population_radiomics_stats)
 # prediction = importanceModel.predict(population_radiomics_stats[1,3,:])
-print("finished")
+
+# GetImageData.GetAvgAge()
+# GetImageData.GetAvgWeight()
+# GetImageData.GetSexes()
+
 #Data_Analyzing.Population_Metrics_SM()   
 #Data_Analyzing.Population_Metrics_Parotid(stat="mean")  
 #Data_Analyzing.Population_Metrics_Parotid(stat="95")
 #Data_Analyzing.Population_Metrics_Parotid(stat="5")
-#Visuals.CorrelationPlot("parotid")
+Visuals.CorrelationPlot("parotid")
+
+print("finished")
